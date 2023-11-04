@@ -52,6 +52,7 @@ class SendSmsCodeAction
 
     public function handle($mobile_number)
     {
+        dd(10);
 
         $sms_config  = SmsConfig::query()->where('status','enable')->first();
 
