@@ -41,7 +41,7 @@ class AuthController extends ApiBaseController
         if ($saveCode) {
             return $this->successResponse('', 'code has been successfully sent');
         } else {
-            return $this->successResponse('', 'please try again', 404);
+            return $this->errorResponse( 'please try again', 404);
         }
     }
 
@@ -62,7 +62,7 @@ class AuthController extends ApiBaseController
                 return $this->errorResponse('The code is either expired or used.', 422);
             }
         }else{
-            return $this->errorResponse( 'Code not found', 404);
+            return $this->errorResponse( 'Code not found');
         }
 
         return $this->successResponse($token, 'User authenticated successfully');
@@ -123,7 +123,7 @@ class AuthController extends ApiBaseController
         if ($saveCode) {
             return $this->successResponse('', 'verification code has been successfully sent');
         } else {
-            return $this->successResponse('', 'please try again', 404);
+            return $this->errorResponse( 'please try again', 404);
         }
 
 
