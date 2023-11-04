@@ -46,6 +46,14 @@ class User extends Authenticatable
         'password'          => 'hashed',
     ];
 
+
+
+    public function activationCode():HasMany
+    {
+        return $this->hasMany(ActivationCode::class);
+    }
+
+
     public function notices(): HasMany
     {
         return $this->hasMany(Notice::class);
