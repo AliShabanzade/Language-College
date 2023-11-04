@@ -11,7 +11,7 @@ class SmsToken extends Model
 {
 
     use HasFactory , HasUser ;
-    const EXPIRATION_TIME = 100; // minutes
+    const EXPIRATION_TIME = 2; // minutes
     protected $fillable = ['user_id', 'code', 'used','secret_code'];
 
     public function isValid()
