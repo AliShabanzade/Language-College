@@ -19,8 +19,13 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'mobile_number',
+        'father_name',
+         'national_code',
+        'Language_level',
         'password',
+
+
     ];
 
     /**
@@ -42,4 +47,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    function createAccessToken(): string
+    {
+        return $this->createToken("API TOKEN", [null], Carbon::now()->addHours(5))->plainTextToken;
+    }
+
+    public function smsTokens():HasMany
+    {
+        return $this->hasMany(SmsToken::class);
+    }
+
 }
