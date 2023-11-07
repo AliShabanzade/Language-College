@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->boolean('block')->default(true);
+            $table->boolean('block')->default(false);
             $table->string('mobile_number')->unique()->comment('شماره تلفن');
             $table->string('password')->nullable();
-            $table->string('email')->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });
