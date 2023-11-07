@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('mobile_number')->unique()->comment('شماره تلفن');
             $table->string('password')->nullable();
             $table->string('email')->unique()->nullable();
+            $table->timestamp('mobile_verify_at')->nullable();
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
