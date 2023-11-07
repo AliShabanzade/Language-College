@@ -4,13 +4,10 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Actions\User\DeleteUserAction;
 use App\Actions\User\UpdateUserAction;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use App\Repositories\BaseRepository;
 use App\Repositories\User\UserRepositoryInterface;
-use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 
 class UserController extends ApiBaseController
@@ -30,10 +27,10 @@ class UserController extends ApiBaseController
 
         if ($request->input('limit') === -1) {
             $user = $repository->get($request->all());
-        } else {
+        }
             $user = $repository->paginate($request->input('limit', '5'), $request->all());
             return $this->successResponse(UserResource::collection($user));
-        }
+
 
     }
 
@@ -72,5 +69,42 @@ class UserController extends ApiBaseController
     {
         $repository->toggle($user);
         return $this->successResponse($user , 'user update successful');
+    }
+    public function addPermission(Request $request, User $user)
+    {
+
+        //  $this->authorize('addRole', User::class);
+        ($user->syncPermissions($request->permission)) ;
+        return $this->successResponse(
+            UserResource::make($user),
+            //"کاربر دارای نقش شد"
+         'succesfully'
+        );
+    }
+    public function addRole(Request $request, User $user)
+    {
+
+        //  $this->authorize('addRole', User::class);
+        ($user->assignRole($request->role)) ;
+        return $this->successResponse(
+            UserResource::make($user),
+            //"کاربر دارای نقش شد"
+            __('ApiMassage.addRole')
+        );
+    }
+
+    public function removeRole( Request $request, UserRepositoryInterface $repository,User $user,Role $role)
+    {
+
+        //  $this->authorize('removeRole', User::class);
+        $user = $repository->find($user->id);
+
+        $model=$user->removeRole($role);
+        // $user->removeRole($role);
+        return $this->successResponse(
+            UserResource::make($model),
+            //"نقش با موفقیت حذف شد"
+            __('ApiMassage.removeRole')
+        );
     }
 }

@@ -7,6 +7,7 @@ use App\Actions\User\SendSmsCodeAction;
 use App\Actions\User\StoreUserAction;
 use App\Actions\User\UpdateUserAction;
 use App\Actions\User\UpdateCodeAction;
+use App\Enums\PermissionEnums;
 use App\Http\Requests\AuthRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
@@ -17,12 +18,13 @@ use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class AuthController extends ApiBaseController
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->only('setPassword' , 'logout');
+        $this->middleware('auth:sanctum')->only('setPassword', 'logout');
     }
 
     public function register(RegisterRequest $request)
@@ -40,9 +42,9 @@ class AuthController extends ApiBaseController
     }
 
     public function setCode(
-        Request $request,
+        Request                           $request,
         ActivationCodeRepositoryInterface $repository,
-        UserRepositoryInterface $userRepository,
+        UserRepositoryInterface           $userRepository,
     )
 
     {
@@ -54,7 +56,7 @@ class AuthController extends ApiBaseController
 
 
         if ($otpUser) {
-            if ( $otpUser->notUsed()) {
+            if ($otpUser->notUsed()) {
 
                 UpdateCodeAction::run($otpUser);
                 $token = $otpUser->user->createToken('token')->plainTextToken;
@@ -95,24 +97,26 @@ class AuthController extends ApiBaseController
     //---------------------------- login -----------------------------
 
 
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request, UserRepositoryInterface $userRepository)
     {
-
         $credentials = $request->only('mobile_number', 'password');
-        $user=User::where(['mobile_number'=>$credentials['mobile_number']])->first();
+        $user = $userRepository->findByMobile($credentials['mobile_number'])->first();
 
-        if (auth()->attempt($credentials)){
-            $user=auth()->user();
+        if ($user->hasPermissionTo(PermissionEnums::LOGIN_TO_THE_PANEL)) {
 
-            $token= $user->createToken('token')->plainTextToken;
-            return $this->successResponse($token , 'user  authorized');
 
+            if (auth()->attempt($credentials)) {
+                $user = auth()->user();
+                $token = $user->createToken('token')->plainTextToken;
+                return $this->successResponse($token, 'user  authorized');
+
+            }
+        }
+        else {
+            return $this->successResponse('', 'go to panel sms');
         }
 
 
-
-
-        return $this->successResponse('' , 'User was not Unauthorized' , 401);
 
 
     }
