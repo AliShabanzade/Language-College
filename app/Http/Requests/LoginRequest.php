@@ -22,7 +22,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'mobile_number' => 'required|size:11',
+            'mobile' => 'required|size:11',
             'password'      => 'required',
         ];
     }

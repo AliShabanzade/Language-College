@@ -2,8 +2,10 @@
 
 namespace App\Actions\User;
 
+use App\Enums\PermissionEnum;
 use App\Models\User;
 use App\Repositories\User\UserRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class UpdateUserAction
@@ -16,13 +18,18 @@ class UpdateUserAction
 
 
     /**
-     * @param $eloquent
-     * @param array{name:string,mobile_number:string,email:string} $payload
+     * @param User                                          $user
+     * @param array{name:string,mobile:string,email:string} $payload
      * @return User
      */
-    public function handle($eloquent, array $payload): User
+    public function handle(User $user, array $payload): User
     {
-        $this->repository->update($eloquent, $payload);
-        return $eloquent;
+        return DB::transaction(function () use ($user, $payload) {
+            $user->update($payload);
+            if (auth()->user()?->hasPermissionTo(PermissionEnum::ADMIN->value)) {
+                $user->syncRoles($payload['roles']);
+            }
+            return $user;
+        });
     }
 }

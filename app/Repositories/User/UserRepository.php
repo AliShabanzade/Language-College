@@ -17,13 +17,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         parent::__construct($model);
     }
 
-    public function findByMobile(int $mobile): User
-    {
-        return $this->query()->where('mobile_number', $mobile)->first();
-
-    }
-
-    public function toggle($model):User
+    public function toggle($model, string $field = 'published'):User
     {
         $model->block = !$model->block;
         $model->save();
@@ -35,5 +29,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $user->mobile_verify_at = now();
         $user->save();
         return $user;
+    }
+
+    public function generateToken(User $user): string
+    {
+        return $user->createToken('token')->plainTextToken;
     }
 }

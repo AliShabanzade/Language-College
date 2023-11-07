@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
     {
         $admin = User::create([
             'name'          => 'admin',
-            'mobile_number' => '09151111111',
+            'mobile' => '09151111111',
             'mobile_verify_at'     => now()
         ]);
 

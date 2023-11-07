@@ -13,17 +13,12 @@ class StoreUserAction
 
     public function __construct(public UserRepositoryInterface $repository)
     {
-
     }
 
     public function handle(array $payload): User
     {
-
         return DB::transaction(function () use ($payload) {
-
             return $this->repository->store($payload);
-
-
-        });//end of transaction
+        });
     }
 }

@@ -4,13 +4,10 @@ namespace App\Repositories\User;
 
 use App\Models\User;
 use App\Repositories\BaseReposirotyInterface;
+use App\Repositories\BaseRepositoryInterface;
 
-interface UserRepositoryInterface extends BaseReposirotyInterface
+interface UserRepositoryInterface extends BaseRepositoryInterface
 {
-    public function toggle($model);
-
-    public function findByMobile(int $mobile): User;
-
     public function verifyUser(User $user);
-
+    public function generateToken(User $user): string;
 }

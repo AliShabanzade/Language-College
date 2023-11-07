@@ -6,13 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -22,7 +15,7 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'mobile_number' => 'required|unique:users,mobile_number|size:11'
+            'mobile' => 'required|unique:users,mobile|digits:11|regex:/09[0-9]{8}/'
         ];
     }
 }

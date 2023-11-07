@@ -18,11 +18,9 @@ class AuthRequest extends FormRequest
             'name'=>'required|string|max:255',
             'password' => [
                 'required',
-//                'min:6',
-//                'regex:/[a-z]/',      // must contain at least one lowercase letter
-//                'regex:/[A-Z]/',      // must contain at least one uppercase letter
-//                'regex:/[0-9]/',
-
+                'confirmed',
+                'min:6',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
             ]
         ];
     }

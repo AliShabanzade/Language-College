@@ -14,8 +14,9 @@ class ActivationCode extends Model
     use HasFactory , HasUser ;
 //    const EXPIRATION_TIME = 100; // minutes
     protected $fillable = ['user_id', 'code', 'used', 'expire_at'];
+
     public function scopeActive(Builder $query): Builder
     {
-        return $query->where('used',false);
+        return $query->where('used',false)->where('expire_at', '>', Carbon::now());
     }
 }
