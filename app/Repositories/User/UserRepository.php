@@ -25,7 +25,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function verifyUser(User $user): User
     {
         $user->mobile_verify_at = now();
-        $user->save();
         return $user;
     }
 
