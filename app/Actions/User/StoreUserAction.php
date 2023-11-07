@@ -21,8 +21,8 @@ class StoreUserAction
 
         return DB::transaction(function () use ($payload) {
 
-            $model = $this->repository->store($payload);
-            return $model;
+            return $this->repository->store($payload);
+
 
         });//end of transaction
     }

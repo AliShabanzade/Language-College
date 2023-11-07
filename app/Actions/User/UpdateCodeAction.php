@@ -7,7 +7,7 @@ use App\Repositories\ActivationCode\ActivationCodeRepository;
 use App\Traits\HasUser;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class VerifyCodeAction
+class UpdateCodeAction
 {
     use AsAction;
     use  HasUser;
@@ -21,15 +21,11 @@ class VerifyCodeAction
 
     public function handle($otpUser): ActivationCode
     {
-//        $optUser->user()->update([
-//            'mobile_verify_at' => carbon::now()
-//        ]);
+
          $this->repository->update($otpUser,[
              'used' => true
          ]);
-//        $optUser->update([
-//            'used' => true
-//        ]);
+
 
         return $otpUser;
 

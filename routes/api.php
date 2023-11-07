@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,11 +21,16 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/test',function (){
 //   echo 'test';
 //});
-Route::post('registerPhone',[\App\Http\Controllers\Api\V1\AuthController::class,'registerPhone']);
-Route::post('setCode',[\App\Http\Controllers\Api\V1\AuthController::class,'setCode']);
-Route::post('setPassword',[\App\Http\Controllers\Api\V1\AuthController::class,'setPassword']);
-Route::post('login',[\App\Http\Controllers\Api\V1\AuthController::class,'login']);
-Route::post('forgetPassword',[\App\Http\Controllers\Api\V1\AuthController::class,'forgetPassword']);
-Route::post('logout',[\App\Http\Controllers\Api\V1\AuthController::class,'logout']);
 
+//Route::get('/test' , function (){
+//   echo 'salam';
+//});
+Route::post('register', [AuthController::class, 'register']);
+Route::post('setCode', [AuthController::class, 'setCode']);
+Route::post('setPassword', [AuthController::class, 'setPassword']);
+Route::post('login', [AuthController::class, 'login']);
+Route::post('forgetPassword', [AuthController::class, 'forgetPassword']);
+Route::post('logout', [AuthController::class, 'logout']);
+Route::apiResource('user', UserController::class);
+Route::get('User/toggle/{user}', [UserController::class , 'toggle']);
 

@@ -14,14 +14,11 @@ class ActivationCode extends Model
 //    const EXPIRATION_TIME = 100; // minutes
     protected $fillable = ['user_id', 'code', 'used', 'verify_at'];
 
-    public function isValid()
-    {
-        return ! $this->isUsed() ;
-    }
 
-    public function isUsed()
+
+    public function notUsed()
     {
-        return $this->used;
+        return ! $this->used;
     }
 
 //    public function isExpired()
