@@ -15,27 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-//Route::get('/test',function (){
-//   echo 'test';
-//});
-
-//Route::get('/test' , function (){
-//   echo 'salam';
-//});
 Route::post('register', [AuthController::class, 'register']);
-Route::post('setCode', [AuthController::class, 'confirm']);
-Route::post('setPassword', [AuthController::class, 'setPassword']);
+Route::post('confirm', [AuthController::class, 'confirm']);
 Route::post('login', [AuthController::class, 'login']);
-Route::post('forgetPassword', [AuthController::class, 'forgetPassword']);
+Route::post('forget-password', [AuthController::class, 'forgetPassword']);
 Route::post('logout', [AuthController::class, 'logout']);
+Route::group(['prefix' => 'user','as'=>'user.'], function () {
+    Route::get('{user}/toggle', [UserController::class, 'toggle']);
+});
+
+
 Route::apiResource('user', UserController::class);
-
-Route::post('user/{user}/add/role',[\App\Http\Controllers\Api\V1\UserController::class,'addRole']);
-Route::delete('user/{user}/remove/{role}/role',[\App\Http\Controllers\Api\V1\UserController::class,
-                                                'removeRole']);
-//addPermission
-Route::post('user/{user}/add/Permission',[\App\Http\Controllers\Api\V1\UserController::class,'addPermission']);
-
