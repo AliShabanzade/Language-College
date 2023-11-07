@@ -10,13 +10,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-/**
- * @property mixed $mobile_verify_at
- */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
-
     use HasApiTokens, HasFactory, Notifiable , SoftDeletes;
     use HasRoles;
     /**
@@ -45,12 +40,11 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password'          => 'hashed',
+        'password' => 'hashed',
     ];
 
 
-
-    public function activationCode():HasMany
+    public function activationCodes(): HasMany
     {
         return $this->hasMany(ActivationCode::class);
     }
