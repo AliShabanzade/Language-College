@@ -41,7 +41,7 @@ class AuthController extends ApiBaseController
         }
         return $this->errorResponse('please try again');
     }
-//--------------------------confirm password----------------
+//--------------------------confirm code----------------
     public function confirm(
         Request                           $request,
         ActivationCodeRepositoryInterface $repository,
@@ -50,13 +50,15 @@ class AuthController extends ApiBaseController
     {
         /** @var User $user */
         $user = $userRepository->findByMobile($request->input('mobile_number'));
-//        dd($user);
+
         if (!$user) {
             return $this->errorResponse('User Not Found');
         }
         $otpUser = $repository->otpUser($request['code'], $user);
 
         if ($otpUser) {
+
+         
             UpdateCodeAction::run($otpUser);
             if (is_null($user->mobile_verify_at)) {
                 $userRepository->verifyUser($user);
@@ -90,7 +92,9 @@ class AuthController extends ApiBaseController
     public function login(LoginRequest $request, UserRepositoryInterface $userRepository)
     {
         $credentials = $request->only('mobile_number', 'password');
+
         $user = $userRepository->findByMobile($credentials['mobile_number']);
+//        dd($user);
         if (!$user) {
             return $this->errorResponse('please go to register page');
         }

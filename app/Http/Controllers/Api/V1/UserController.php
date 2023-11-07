@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Actions\User\DeleteUserAction;
+use App\Actions\User\StoreUserAction;
 use App\Actions\User\UpdateUserAction;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Repositories\User\UserRepositoryInterface;
@@ -13,11 +15,11 @@ use Illuminate\Http\Request;
 class UserController extends ApiBaseController
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum');
-        $this->authorizeResource(User::class);
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('auth:sanctum');
+//        $this->authorizeResource(User::class);
+//    }
 
     /**
      * Display a listing of the resource.
@@ -40,10 +42,18 @@ class UserController extends ApiBaseController
         return $this->successResponse(UserResource::make($user), 'نمایش یوزر ');
     }
 
+
+    public function store(UserRequest $request  )
+    {
+
+        $model = StoreUserAction::run($request->validated());
+        return $this->successResponse($model , 'user successfully created');
+    }
+
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
         $data = UpdateUserAction::run($user, $request->all());
         return $this->successResponse(UserResource::make($data));

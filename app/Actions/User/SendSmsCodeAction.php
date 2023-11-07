@@ -59,7 +59,7 @@ class SendSmsCodeAction
             // Send information to the SMS panel
             // $sms = (new Sms())->send($data);
             // Update the user's code only if the mobile number belongs to the user
-            $user = $this->userRepository->findByMobile($mobile_number)->first();
+            $user = $this->userRepository->findByMobile($mobile_number);
             $dataActivation = [
                 "code" => $code,
                 "user_id" => $user->id,

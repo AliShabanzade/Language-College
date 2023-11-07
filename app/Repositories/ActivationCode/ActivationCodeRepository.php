@@ -17,17 +17,18 @@ class ActivationCodeRepository extends BaseRepository implements ActivationCodeR
 
     public function otpUser($code, $user)
     {
-        dd(  $this->query()
-        ->where('code', $code)
-        ->active()
-        ->where('user_id', $user->id)
-        ->where('expire_at', '>', Carbon::now())
-        ->first());
-//        return $this->query()
-//            ->where('code', $code)
-//            ->active()
-//            ->where('user_id', $user->id)
-//            ->where('expire_at', '>', Carbon::now())
-//            ->first();
+//        dd($code);
+//        dd(  $this->query()
+//        ->where('code', $code)
+////        ->active()
+//        ->where('user_id', $user->id)
+//        ->where('expire_at', '>', Carbon::now())
+//        ->first());
+        return $this->query()
+            ->where('code', $code)
+            ->active()
+            ->where('user_id', $user->id)
+            ->where('expire_at', '>', Carbon::now())
+            ->first();
     }
 }
