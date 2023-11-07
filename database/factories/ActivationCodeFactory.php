@@ -16,7 +16,7 @@ class ActivationCodeFactory extends Factory
             'user_id'=> User::factory(),
             'code' => fake()->randomNumber(4),
             'used' => fake()->boolean,
-            'verify_at' =>  now()->addMinutes(2),
+            'expire_at' =>  now()->addMinutes(2),
 
         ];
     }

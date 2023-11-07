@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Enums\RoleEnum;
+use App\Enums\StatusEnum;
 use App\Models\SmsConfig;
-use Database\Factories\SmsConfigFactory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class SmsConfigSeeder extends Seeder
 {
@@ -14,6 +15,13 @@ class SmsConfigSeeder extends Seeder
      */
     public function run(): void
     {
-       SmsConfig::factory(1)->create();
+        foreach (StatusEnum::cases() as  $case){
+            SmsConfig::firstOrCreate([
+                'status' => $case->value,
+                'name' => 'ali',
+                'password'=>'123456',
+                'username' => '2586458'
+            ]);
+        }
     }
 }

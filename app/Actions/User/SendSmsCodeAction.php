@@ -63,9 +63,10 @@ class SendSmsCodeAction
             $dataActivation = [
                 "code" => $code,
                 "user_id" => $user->id,
-                "verify_at" => Carbon::now()->addMinute(5),
+                "expire_at" => Carbon::now()->addMinute(5),
             ];
             $this->activationCodeRepository->store($dataActivation);
+            //todo send sms
             return true;
         }
         return false;
