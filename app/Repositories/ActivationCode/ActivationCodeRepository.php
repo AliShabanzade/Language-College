@@ -9,15 +9,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class ActivationCodeRepository extends BaseRepository implements ActivationCodeRepositoryInterface
 {
-public function __construct(ActivationCode $model)
-{
-    parent::__construct($model);
+    public function __construct(ActivationCode $model)
+    {
+        parent::__construct($model);
 
-}
+    }
 
-    public function otpUser ($payload ,$user){
-       return $this->query()->where('code', $payload)
-           ->where('user_id',$user->id)
-           ->where('verify_at','>',Carbon::now());
-}
+    public function otpUser($code, $user)
+    {
+        dd(  $this->query()
+        ->where('code', $code)
+        ->active()
+        ->where('user_id', $user->id)
+        ->where('expire_at', '>', Carbon::now())
+        ->first());
+//        return $this->query()
+//            ->where('code', $code)
+//            ->active()
+//            ->where('user_id', $user->id)
+//            ->where('expire_at', '>', Carbon::now())
+//            ->first();
+    }
 }

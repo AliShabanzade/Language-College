@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 //   echo 'salam';
 //});
 Route::post('register', [AuthController::class, 'register']);
-Route::post('setCode', [AuthController::class, 'setCode']);
+Route::post('setCode', [AuthController::class, 'confirm']);
 Route::post('setPassword', [AuthController::class, 'setPassword']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('forgetPassword', [AuthController::class, 'forgetPassword']);

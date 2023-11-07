@@ -10,15 +10,19 @@ class UpdateUserAction
 {
     use AsAction;
 
-    public function __construct(public  UserRepositoryInterface $repository)
+    public function __construct(private readonly UserRepositoryInterface $repository)
     {
-
     }
 
-    public function handle($eloquent, array $payload):User
-    {
 
-        $this->repository->update($eloquent,$payload);
+    /**
+     * @param $eloquent
+     * @param array{name:string,mobile_number:string,email:string} $payload
+     * @return User
+     */
+    public function handle($eloquent, array $payload): User
+    {
+        $this->repository->update($eloquent, $payload);
         return $eloquent;
     }
 }

@@ -17,17 +17,22 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         parent::__construct($model);
     }
 
-    public function findByMobile(int $payload): Builder
+    public function findByMobile(int $mobile): User
     {
-        return $this->query()->where('mobile_number', $payload);
+        return $this->query()->where('mobile_number', $mobile)->first();
 
     }
 
-    public function toggle($model)
+    public function toggle($model):User
     {
         $model->block = !$model->block;
         $model->save();
         return $model;
     }
 
+    public function verifyUser(User $user): User
+    {
+        $user->mobile_verify_at = now();
+        return $user;
+    }
 }

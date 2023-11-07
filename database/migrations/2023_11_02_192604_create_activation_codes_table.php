@@ -16,8 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('code' , 4);
             $table->boolean('used')->default(false)->comment('true=used , false=not used');
-            $table->timestamp('verify_at')->nullable();
-
+            $table->timestamp('expire_at');
             $table->timestamps();
         });
     }

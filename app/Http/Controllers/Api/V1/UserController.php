@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Actions\User\DeleteUserAction;
 use App\Actions\User\UpdateUserAction;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Repositories\User\UserRepositoryInterface;
@@ -24,35 +24,28 @@ class UserController extends ApiBaseController
      */
     public function index(Request $request, UserRepositoryInterface $repository)
     {
-
         if ($request->input('limit') === -1) {
-            $user = $repository->get($request->all());
+            $users = $repository->get($request->all());
+        } else {
+            $users = $repository->paginate($request->input('limit', '5'), $request->all());
         }
-            $user = $repository->paginate($request->input('limit', '5'), $request->all());
-            return $this->successResponse(UserResource::collection($user));
-
-
+        return $this->successResponse(UserResource::collection($users));
     }
-
 
     /**
      * Display the specified resource.
      */
-    public function show(User $user , UserRepositoryInterface $repository)
+    public function show(User $user, UserRepositoryInterface $repository)
     {
-        $data= $repository->find($user->id );
-        return $this->successResponse(UserResource::make($data),'نمایش یوزر ','201');
+        return $this->successResponse(UserResource::make($user), 'نمایش یوزر ');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(User $user , UserRequest $request)
+    public function update(UpdateUserRequest $request, User $user)
     {
-//        dd(10);
-
-        $data= UpdateUserAction::run($user , $request->all());
-
+        $data = UpdateUserAction::run($user, $request->all());
         return $this->successResponse(UserResource::make($data));
     }
 
@@ -61,31 +54,31 @@ class UserController extends ApiBaseController
      */
     public function destroy(User $user)
     {
-       DeleteUserAction::run($user);
-       return $this->successResponse('' , 'user has been deleted successfully');
+        DeleteUserAction::run($user);
+        return $this->successResponse('', 'user has been deleted successfully');
     }
 
     public function toggle(User $user, UserRepositoryInterface $repository)
     {
-        $repository->toggle($user);
-        return $this->successResponse($user , 'user update successful');
+        $user = $repository->toggle($user);
+        return $this->successResponse($user, 'user update successful');
     }
+
     public function addPermission(Request $request, User $user)
     {
-
         //  $this->authorize('addRole', User::class);
-        ($user->syncPermissions($request->permission)) ;
+        ($user->syncPermissions($request->permission));
         return $this->successResponse(
             UserResource::make($user),
             //"کاربر دارای نقش شد"
-         'succesfully'
+            'succesfully'
         );
     }
+
     public function addRole(Request $request, User $user)
     {
-
         //  $this->authorize('addRole', User::class);
-        ($user->assignRole($request->role)) ;
+        ($user->assignRole($request->role));
         return $this->successResponse(
             UserResource::make($user),
             //"کاربر دارای نقش شد"
@@ -93,13 +86,13 @@ class UserController extends ApiBaseController
         );
     }
 
-    public function removeRole( Request $request, UserRepositoryInterface $repository,User $user,Role $role)
+    public function removeRole(Request $request, UserRepositoryInterface $repository, User $user, Role $role)
     {
 
         //  $this->authorize('removeRole', User::class);
         $user = $repository->find($user->id);
 
-        $model=$user->removeRole($role);
+        $model = $user->removeRole($role);
         // $user->removeRole($role);
         return $this->successResponse(
             UserResource::make($model),

@@ -5,11 +5,10 @@ namespace App\Enums;
 
 
 
-enum PermissionEnums: string
+enum PermissionEnum: string
 {
 
     case ADMIN = "admin";
-    case LOGIN_TO_THE_PANEL= "login to the panel";
 
     case USER_ALL = "user.all";
     case USER_INDEX = "user.index";
@@ -19,10 +18,6 @@ enum PermissionEnums: string
     case USER_TOGGLE = "user.toggle";
     case USER_DELETE = "user.delete";
     case USER_RESTORE = "user.restore";
-
-
-
-
 
 
     case PRODUCT_MAKE_ALL = "product_make.all";

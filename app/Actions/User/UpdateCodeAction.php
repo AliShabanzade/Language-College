@@ -12,24 +12,15 @@ class UpdateCodeAction
     use AsAction;
     use  HasUser;
 
-
     public function __construct(public ActivationCodeRepository $repository)
     {
-
     }
-
 
     public function handle($otpUser): ActivationCode
     {
-
-         $this->repository->update($otpUser,[
-             'used' => true
-         ]);
-
-
+        $this->repository->update($otpUser, [
+            'used' => true
+        ]);
         return $otpUser;
-
     }
-
-
 }
