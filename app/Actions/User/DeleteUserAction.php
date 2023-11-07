@@ -2,9 +2,7 @@
 
 namespace App\Actions\User;
 
-use App\Models\User;
 use App\Repositories\User\UserRepositoryInterface;
-use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class DeleteUserAction
@@ -15,10 +13,8 @@ class DeleteUserAction
     {
     }
 
-    public function handle(User $user): bool
+    public function handle($user):bool
     {
-        return DB::transaction(function () use ($user) {
-            return $this->repository->delete($user);
-        });
+       return $this->repository->delete($user);
     }
 }
