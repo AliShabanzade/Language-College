@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->boolean('block')->default(false);
-            $table->string('mobile_number')->unique()->comment('شماره تلفن');
+            $table->string('mobile')->unique();
             $table->string('password')->nullable();
             $table->string('email')->unique()->nullable();
             $table->timestamp('mobile_verify_at')->nullable();
