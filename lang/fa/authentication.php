@@ -5,4 +5,5 @@ return [
     'user_authenticated_successfully'=>'کاربر با موفقیت وارد شد',
     'code_not_found_or_expired'=>'کد یافت نشد یا منقضی شده است',
     'your_activation_code_send'=>'کد تایید شما :code میباشد',
+    
 ];

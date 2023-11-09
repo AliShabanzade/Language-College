@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Actions\User\DeleteUserAction;
 use App\Actions\User\StoreUserAction;
 use App\Actions\User\UpdateUserAction;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Repositories\User\UserRepositoryInterface;
@@ -38,7 +38,7 @@ class UserController extends ApiBaseController
     }
 
 
-    public function store(UserRequest $request): JsonResponse
+    public function store(UpdateUserRequest $request): JsonResponse
     {
         $model = StoreUserAction::run($request->validated());
         return $this->successResponse($model, 'user successfully created');
@@ -47,7 +47,7 @@ class UserController extends ApiBaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $request, User $user): JsonResponse
+    public function update(UpdateUserRequest $request, User $user): JsonResponse
     {
         $data = UpdateUserAction::run($user, $request->all());
         return $this->successResponse(UserResource::make($data));

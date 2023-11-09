@@ -6,7 +6,6 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\QueryBuilder\QueryBuilder;
 
 class BaseRepository implements BaseRepositoryInterface
 {
@@ -15,11 +14,15 @@ class BaseRepository implements BaseRepositoryInterface
     {
     }
 
-    public function query(array $payload = []): Builder|QueryBuilder
+    public function query(array $payload = []): Builder
     {
         return $this->model->query();
     }
 
+    public function get(array $payload = []): Collection|array
+    {
+        return $this->query($payload)->get();
+    }
     public function paginate($limit = null, array $payload = []): LengthAwarePaginator
     {
         if (empty($limit)) {
@@ -29,11 +32,6 @@ class BaseRepository implements BaseRepositoryInterface
             return $this->get($payload);
         }
         return $this->query($payload)->paginate($limit);
-    }
-
-    public function get(array $payload = []): Collection|array
-    {
-        return $this->query($payload)->get();
     }
 
     public function store(array $payload)
@@ -52,7 +50,7 @@ class BaseRepository implements BaseRepositoryInterface
         return $eloquent->delete();
     }
 
-    public function find(mixed $value, string $field = 'id', array $selected = ['*'], bool $firstOrFail = false, array $with = [])
+    public function find(mixed $value, string $field = 'id', array $selected = ['*'], bool $firstOrFail = false, array $with = []): Model|Builder|null
     {
         $model = $this->getModel()->with($with)->select($selected)->where($field, $value);
 

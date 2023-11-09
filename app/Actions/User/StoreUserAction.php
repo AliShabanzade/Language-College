@@ -7,7 +7,7 @@ use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class StoreUserAction
+class   StoreUserAction
 {
     use AsAction;
 
