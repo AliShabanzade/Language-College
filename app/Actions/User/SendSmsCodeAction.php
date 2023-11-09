@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class SendSmsCodeAction
 {
@@ -41,7 +42,7 @@ class SendSmsCodeAction
     public function handle(User $user): ActivationCode
     {
         if (!$this->smsConfigRepository->getActive()) {
-            abort(Response::HTTP_NOT_FOUND,trans('smsConfig.sms_panel_not_active'));
+            abort(ResponseAlias::HTTP_NOT_FOUND,trans('smsConfig.sms_panel_not_active'));
         }
         $code = $this->generateCode();
         $user = $this->userRepository->find(value: $user->mobile, field: 'mobile', firstOrFail: true);

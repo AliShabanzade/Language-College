@@ -24,7 +24,7 @@ class UpdateUserAction
      */
     public function handle(User $user, array $payload): User
     {
-        return DB::transaction(function () use ($user, $payload) {
+        return DB::transaction(static function () use ($user, $payload) {
             $user->update($payload);
             return $user;
         });
