@@ -1,0 +1,16 @@
+<?php
+
+use App\Actions\{{model}}\Delete{{model}}Action;
+use App\Http\Livewire\{{model}}\Create{{model}};
+use App\Http\Livewire\{{model}}\Edit{{model}};
+use App\Http\Livewire\{{model}}\Index{{model}};
+use App\Http\Livewire\{{model}}\Show{{model}};
+use Illuminate\Support\Facades\Route;
+
+Route::group(['prefix' => '{{kmodel}}', 'as' => 'admin.{{kmodel}}.'], function () {
+    Route::get('/', Index{{model}}::class)->name('index');
+    Route::get('/create', Create{{model}}::class)->name('create');
+    Route::get('/{{{cmodel}}}/edit', Edit{{model}}::class)->name('edit');
+    Route::get('/{{{cmodel}}}', Show{{model}}::class)->name('show');
+    Route::delete('/{{{cmodel}}}', Delete{{model}}Action::class)->name('destroy');
+});
