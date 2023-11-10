@@ -3,8 +3,13 @@
 use App\Http\Controllers\Api\V1\{{model}}Controller;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => '{{kmodel}}', 'as' => 'api.{{kmodel}}.'], function () {
+Route::group(['prefix' => '{{kmodel}}', 'as' => 'api'], function () {
 
+    Route::group(['as' => '{{kmodel}}.'], function () {
+
+    });
+
+    Route::apiResource('{{kmodel}}', {{model}}Controller::class);
 });
-Route::apiResource('{{kmodel}}', {{model}}Controller::class);
+
 
