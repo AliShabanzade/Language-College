@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Str;
 
-class Bot extends Command
+class BotCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -37,17 +37,16 @@ class Bot extends Command
         Artisan::call('make:model ' . $model . ' -m');
         $this->info('Make ' . $model . ' model and migration Successfully.');
 
-        Artisan::call('make:action ' . $model . '/Store' . $model . 'Action');
-        Artisan::call('make:action ' . $model . '/Update' . $model . 'Action');
-        Artisan::call('make:action ' . $model . '/Delete' . $model . 'Action');
-
+        Artisan::call('app:action ' . $model . ' --type=Store');
+        Artisan::call('app:action ' . $model . ' --type=Update');
+        Artisan::call('app:action ' . $model . ' --type=Delete');
 
         if ($this->option('toggle')) {
-            Artisan::call('make:action ' . $model . '/Toggle' . $model . 'Action');
+            Artisan::call('app:action ' . $model . ' --type=Toggle');
         }
 
         if ($this->option('data')) {
-            Artisan::call('make:action ' . $model . '/Data' . $model . 'Action');
+            Artisan::call('app:action ' . $model . ' --type=Data');
         }
 
         Artisan::call('make:policy ' . $model . 'Policy --model=' . $model);
@@ -64,7 +63,11 @@ class Bot extends Command
 
         Artisan::call('make:provider RepositoryServiceProvider');
 
+        Artisan::call('app:repository ' . $model);
 
+        Artisan::call('app:lang ' . $model);
+
+        Artisan::call('app:route ' . $model);
 
         dd($model);
     }

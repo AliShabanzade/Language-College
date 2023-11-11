@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class MakeService extends Command
+class MakeServiceCommand extends Command
 {
     /**
      * The name and signature of the console command.
