@@ -4,7 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+
 use JetBrains\PhpStorm\NoReturn;
+
 use Str;
 
 class BotCommand extends Command
@@ -16,7 +18,11 @@ class BotCommand extends Command
      */
     protected $signature = 'app:bot
                 {model : Namespace action}
+
                 {--except= : Except action - (i=index,s=store,S=seeder,u=update,d=delete,f=factory,r=resource,R=request,c=controller.php.stub,p=policy,y=Repository) - sample = isSu}
+
+                {--except= : Except action - (i=index,s=store,S=seeder,u=update,d=delete,f=factory,r=resource,R=request,c=controller,p=policy,y=Repository) - sample = isSu}
+
                 {--t|toggle : Add toggle action}
                 {--d|data : Add data needed}';
 
@@ -34,6 +40,8 @@ class BotCommand extends Command
     {
         $model = $this->argument('model');
         $model = Str::studly($model);
+
+
 
 
         Artisan::call('make:model ' . $model . ' -m');
@@ -71,7 +79,9 @@ class BotCommand extends Command
 
         Artisan::call('app:route ' . $model);
 
+
         Artisan::call('app:controller ' . $model);
+
 
         dd($model);
     }
