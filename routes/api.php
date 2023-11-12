@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\V1\AuthController;
-use App\Http\Controllers\Api\V1\UserController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,14 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('register', [AuthController::class, 'register']);
-Route::post('confirm', [AuthController::class, 'confirm']);
-Route::post('login', [AuthController::class, 'login']);
-Route::post('forget-password', [AuthController::class, 'forgetPassword']);
-Route::post('logout', [AuthController::class, 'logout']);
-Route::group(['prefix' => 'user','as'=>'user.'], function () {
-    Route::get('{user}/toggle', [UserController::class, 'toggle']);
-});
 
+$path = __DIR__ . '\api';
+$files = scandir($path, SCANDIR_SORT_NONE);
+$files = array_diff($files, ['.', '..']);
+foreach ($files as $file) {
+    require_once "api/{$file}";
+}
 
-Route::apiResource('user', UserController::class);

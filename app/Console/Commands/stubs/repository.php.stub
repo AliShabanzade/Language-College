@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Repositories\{{model}};
+
+use App\Models\{{model}};
+use App\Repositories\BaseRepository;
+use Illuminate\Database\Eloquent\Model;
+
+class {{model}}Repository extends BaseRepository implements {{model}}RepositoryInterface
+{
+    public function __construct({{model}} $model)
+    {
+        parent::__construct($model);
+    }
+
+   public function getModel(): {{model}}
+   {
+       return parent::getModel();
+   }
+}

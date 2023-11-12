@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Illuminate\Support\Str;
 use PHPUnit\Framework\TestCase;
 
 class ExampleTest extends TestCase
@@ -11,6 +12,7 @@ class ExampleTest extends TestCase
      */
     public function test_that_true_is_true(): void
     {
-        $this->assertTrue(true);
+        $str = "SajadEs";
+        dd(Str::kebab($str));
     }
 }

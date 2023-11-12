@@ -26,9 +26,6 @@ class UpdateUserAction
     {
         return DB::transaction(function () use ($user, $payload) {
             $user->update($payload);
-            if (auth()->user()?->hasPermissionTo(PermissionEnum::ADMIN->value)) {
-                $user->syncRoles($payload['roles']);
-            }
             return $user;
         });
     }
