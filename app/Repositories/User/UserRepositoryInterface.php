@@ -3,7 +3,6 @@
 namespace App\Repositories\User;
 
 use App\Models\User;
-use App\Repositories\BaseReposirotyInterface;
 use App\Repositories\BaseRepositoryInterface;
 
 interface UserRepositoryInterface extends BaseRepositoryInterface

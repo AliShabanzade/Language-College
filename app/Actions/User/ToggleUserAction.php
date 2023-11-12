@@ -7,7 +7,7 @@ use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class StoreUserAction
+class ToggleUserAction
 {
     use AsAction;
 
@@ -15,10 +15,10 @@ class StoreUserAction
     {
     }
 
-    public function handle(array $payload): User
+    public function handle(User $user): User
     {
-        return DB::transaction(function () use ($payload) {
-            return $this->repository->store($payload);
+        return DB::transaction(function () use ($user) {
+            return $this->repository->toggle($user);
         });
     }
 }
