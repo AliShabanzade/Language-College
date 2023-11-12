@@ -35,6 +35,7 @@ class AuthController extends ApiBaseController
 
     public function confirm(ConfirmRequest $request, ActivationCodeRepositoryInterface $repository, UserRepositoryInterface $userRepository): JsonResponse
     {
+
         /** @var User $user */
         $user = $userRepository->find(value: $request->input('mobile'), field: 'mobile', firstOrFail: true);
         $activationCode = $repository->checkCode($user, $request->input('code'));
