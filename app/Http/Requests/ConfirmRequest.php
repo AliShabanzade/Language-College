@@ -14,6 +14,7 @@ class ConfirmRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
             'mobile' => 'required|digits:11|regex:/09[0-9]{8}/',
             'code' => 'required|digits:4',
