@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
+$path = __DIR__ . '\api';
+$files = scandir($path, SCANDIR_SORT_NONE);
+$files = array_diff($files, ['.', '..']);
+foreach ($files as $file) {
+    require_once "api/{$file}";
+}
+
