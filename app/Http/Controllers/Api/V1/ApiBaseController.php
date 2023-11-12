@@ -22,4 +22,6 @@ class ApiBaseController extends BaseController
 
         return response()->json(compact('message'), $statusCode);
     }
+
+    //
 }
