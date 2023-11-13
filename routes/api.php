@@ -22,3 +22,5 @@ foreach ($files as $file) {
     require_once "api/{$file}";
 }
 
+require_once 'api/user.php';
+require_once 'api/test.php';
