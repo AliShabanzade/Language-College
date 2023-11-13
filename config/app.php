@@ -164,7 +164,7 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\RepositoryProvider::class,
+        App\Providers\RepositoryServiceProvider::class,
 
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
