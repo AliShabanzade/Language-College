@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use JetBrains\PhpStorm\NoReturn;
 use Str;
 
 class BotCommand extends Command
@@ -15,7 +16,7 @@ class BotCommand extends Command
      */
     protected $signature = 'app:bot
                 {model : Namespace action}
-                {--except= : Except action - (i=index,s=store,S=seeder,u=update,d=delete,f=factory,r=resource,R=request,c=controller,p=policy,y=Repository) - sample = isSu}
+                {--except= : Except action - (i=index,s=store,S=seeder,u=update,d=delete,f=factory,r=resource,R=request,c=controller.php.stub,p=policy,y=Repository) - sample = isSu}
                 {--t|toggle : Add toggle action}
                 {--d|data : Add data needed}';
 
@@ -29,10 +30,11 @@ class BotCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+     public function handle()
     {
         $model = $this->argument('model');
         $model = Str::studly($model);
+
 
         Artisan::call('make:model ' . $model . ' -m');
         $this->info('Make ' . $model . ' model and migration Successfully.');
@@ -57,7 +59,7 @@ class BotCommand extends Command
 
         Artisan::call('make:request ' . 'Update' . $model . 'Request');
 
-        Artisan::call('make:controller Api/V1/' . $model . 'Controller --api --model=' . $model);
+//        Artisan::call('make:controller.php.stub Api/V1/' . $model . 'Controller --api --model=' . $model);
 
         Artisan::call('make:factory ' . $model . 'Factory');
 
@@ -68,6 +70,8 @@ class BotCommand extends Command
         Artisan::call('app:lang ' . $model);
 
         Artisan::call('app:route ' . $model);
+
+        Artisan::call('app:controller ' . $model);
 
         dd($model);
     }
