@@ -1,0 +1,65 @@
+<?php
+
+namespace App\Http\Controllers\Api\V1;
+
+use App\Models\{{model}};
+use Illuminate\Http\JsonResponse;
+use App\Http\Requests\Update{{model}}Request;
+use App\Http\Requests\Store{{model}}Request;
+use App\Http\Resources\{{model}}Resource;
+use App\Actions\{{model}}\Store{{model}}Action;
+use App\Actions\{{model}}\Delete{{model}}Action;
+use App\Actions\{{model}}\Update{{model}}Action;
+use App\Repositories\{{model}}\{{model}}RepositoryInterface;
+
+
+class {{model}}Controller extends ApiBaseController
+{
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+        $this->authorizeResource({{model}}::class);
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index({{model}}RepositoryInterface $repository): JsonResponse
+    {
+        return $this->successResponse({{model}}Resource::collection($repository->paginate()));
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show({{model}} ${{kmodel}}): JsonResponse
+    {
+        return $this->successResponse({{model}}Resource::make(${{kmodel}}));
+    }
+
+
+    public function store(Store{{model}}Request $request): JsonResponse
+    {
+        $model = Store{{model}}Action::run($request->validated());
+        return $this->successResponse($model, '{{kmodel}} successfully created');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Update{{model}}Request $request, {{model}} ${{kmodel}}): JsonResponse
+    {
+        $data = Update{{model}}Action::run(${{kmodel}}, $request->all());
+        return $this->successResponse({{model}}Resource::make($data));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy({{model}} ${{kmodel}}): JsonResponse
+    {
+        Delete{{model}}Action::run(${{kmodel}});
+        return $this->successResponse('', '{{kmodel}} has been deleted successfully');
+    }
+}
