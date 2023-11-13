@@ -5,6 +5,7 @@ namespace App\Repositories;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\QueryBuilder;
 
 interface BaseRepositoryInterface
@@ -24,7 +25,7 @@ interface BaseRepositoryInterface
 
     public function find(mixed $value, string $field = 'id', array $selected = ['*'], bool $firstOrFail = false, array $with = []);
 
-    public function getModel();
+    public function getModel():Model;
 
     public function toggle($model, string $field = "published");
 

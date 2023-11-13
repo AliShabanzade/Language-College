@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Actions\User\DeleteUserAction;
-use App\Actions\User\StoreUserAction;
-use App\Actions\User\UpdateUserAction;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
-use App\Models\User;
+use App\Actions\User\StoreUserAction;
+use App\Actions\User\DeleteUserAction;
+use App\Actions\User\UpdateUserAction;
 use App\Repositories\User\UserRepositoryInterface;
-use Illuminate\Http\JsonResponse;
+
 
 class UserController extends ApiBaseController
 {
