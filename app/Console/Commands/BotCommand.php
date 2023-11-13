@@ -4,10 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-<<<<<<< HEAD
 use JetBrains\PhpStorm\NoReturn;
-=======
->>>>>>> 10855a1 (fix project files)
 use Str;
 
 class BotCommand extends Command
@@ -19,11 +16,7 @@ class BotCommand extends Command
      */
     protected $signature = 'app:bot
                 {model : Namespace action}
-<<<<<<< HEAD
                 {--except= : Except action - (i=index,s=store,S=seeder,u=update,d=delete,f=factory,r=resource,R=request,c=controller.php.stub,p=policy,y=Repository) - sample = isSu}
-=======
-                {--except= : Except action - (i=index,s=store,S=seeder,u=update,d=delete,f=factory,r=resource,R=request,c=controller,p=policy,y=Repository) - sample = isSu}
->>>>>>> 10855a1 (fix project files)
                 {--t|toggle : Add toggle action}
                 {--d|data : Add data needed}';
 
@@ -42,10 +35,7 @@ class BotCommand extends Command
         $model = $this->argument('model');
         $model = Str::studly($model);
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 10855a1 (fix project files)
         Artisan::call('make:model ' . $model . ' -m');
         $this->info('Make ' . $model . ' model and migration Successfully.');
 
@@ -81,11 +71,8 @@ class BotCommand extends Command
 
         Artisan::call('app:route ' . $model);
 
-<<<<<<< HEAD
         Artisan::call('app:controller ' . $model);
 
-=======
->>>>>>> 10855a1 (fix project files)
         dd($model);
     }
 }
