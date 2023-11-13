@@ -30,7 +30,7 @@ class BotCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+     public function handle()
     {
         $model = $this->argument('model');
         $model = Str::studly($model);

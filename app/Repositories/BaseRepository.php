@@ -20,20 +20,20 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->model->query();
     }
 
+    public function get(array $payload = []): Collection|array
+    {
+        return $this->query($payload)->get();
+    }
+
     public function paginate($limit = null, array $payload = []): LengthAwarePaginator
     {
         if (empty($limit)) {
             $limit = request('limit', 15);
         }
         if ($limit === -1) {
-            return $this->get($payload);
+            return $this->model->get($payload); // Assuming $this->model->get() returns a LengthAwarePaginator
         }
         return $this->query($payload)->paginate($limit);
-    }
-
-    public function get(array $payload = []): Collection|array
-    {
-        return $this->query($payload)->get();
     }
 
     public function store(array $payload)
@@ -52,7 +52,7 @@ class BaseRepository implements BaseRepositoryInterface
         return $eloquent->delete();
     }
 
-    public function find(mixed $value, string $field = 'id', array $selected = ['*'], bool $firstOrFail = false, array $with = [])
+    public function find(mixed $value, string $field = 'id', array $selected = ['*'], bool $firstOrFail = false, array $with = []): Model|Builder|null
     {
         $model = $this->getModel()->with($with)->select($selected)->where($field, $value);
 
@@ -77,7 +77,7 @@ class BaseRepository implements BaseRepositoryInterface
 
     public function updateOrCreate(array $data, array $conditions = [])
     {
-        return $this->model->updateOrCreate($conditions, $data);
+        return $this->model->updateOrcreate($conditions, $data);
     }
 
     public function data(array $payload = []): array
