@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\SmsConfig;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,12 +12,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-      $this->call([
-          RoleSeeder::class,
-          PermissionSeeder::class,
-          SmsConfigSeeder::class,
-          UserSeeder::class,
-      ]);
+        $this->call([
+            PermissionSeeder::class,
+            RoleSeeder::class,
+            SmsConfigSeeder::class,
+            UserSeeder::class,
+        ]);
     }
 }

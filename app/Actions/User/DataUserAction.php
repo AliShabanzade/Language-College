@@ -10,6 +10,7 @@ class DataUserAction
 
     public function handle(array $payload): array
     {
+
         return [];
     }
 }

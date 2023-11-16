@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Actions\User\DeleteUserAction;
-use App\Actions\User\StoreUserAction;
-use App\Actions\User\UpdateUserAction;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
-use App\Models\User;
+use App\Actions\User\StoreUserAction;
+use App\Actions\User\DeleteUserAction;
+use App\Actions\User\UpdateUserAction;
 use App\Repositories\User\UserRepositoryInterface;
-use Illuminate\Http\JsonResponse;
+
 
 class UserController extends ApiBaseController
 {
 
     public function __construct()
     {
-        $this->middleware('auth:sanctum');
+        $this->middleware('auth:api');
         $this->authorizeResource(User::class);
     }
 
@@ -38,34 +41,33 @@ class UserController extends ApiBaseController
     }
 
 
-    public function store(UserRequest $request): JsonResponse
+    public function store(StoreUserRequest $request): JsonResponse
     {
         $model = StoreUserAction::run($request->validated());
-        return $this->successResponse($model, 'user successfully created');
+        return $this->successResponse($model, trans('general.model_has_stored_successfully', ['model' => trans('user.model')]));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $request, User $user): JsonResponse
+    public function update(UpdateUserRequest $request, User $user): JsonResponse
     {
         $data = UpdateUserAction::run($user, $request->all());
-        return $this->successResponse(UserResource::make($data));
+        return $this->successResponse(UserResource::make($data),trans('general.model_has_updated_successfully', ['model' => trans('user.model')]));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    //todo lang
     public function destroy(User $user): JsonResponse
     {
         DeleteUserAction::run($user);
-        return $this->successResponse('', 'user has been deleted successfully');
+        return $this->successResponse('', trans('general.model_has_deleted_successfully', ['model' => trans('user.model')]));
     }
 
     public function toggle(User $user, UserRepositoryInterface $repository): JsonResponse
     {
         $user = $repository->toggle($user, 'block');
-        return $this->successResponse($user, 'user update successful');
+        return $this->successResponse($user, trans('general.model_has_toggled_successfully', ['model' => trans('user.model')]));
     }
 }
