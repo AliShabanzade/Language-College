@@ -18,7 +18,7 @@ class TestController extends ApiBaseController
 
     public function __construct()
     {
-        $this->middleware('auth:sanctum');
+        $this->middleware('auth:api');
         $this->authorizeResource(Test::class);
     }
 

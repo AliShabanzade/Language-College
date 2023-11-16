@@ -22,7 +22,7 @@ class AuthController extends ApiBaseController
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->only( 'logout');
+        $this->middleware('auth:api')->only( 'logout');
     }
 
     public function register(RegisterRequest $request): JsonResponse
@@ -62,14 +62,14 @@ class AuthController extends ApiBaseController
     {
         $credentials = $request->only('mobile', 'password');
         $user = $userRepository->find(value: $request->input('mobile'), field: 'mobile', firstOrFail: true);
-        if (auth()->attempt($credentials)) {
+        if (Auth::guard('web')->attempt($credentials)) {
             $token = $userRepository->generateToken($user);
             return $this->successResponse([
                 'token' => $token,
                 'user' => UserResource::make($user)
             ], 'User authenticated successfully');
         }
-        return $this->errorResponse('Unauthorized', 401);
+        return $this->errorResponse('mobile and password not match', 404);
     }
 
     public function forgetPassword(ForgetPasswordRequest $request, UserRepositoryInterface $repository): ?JsonResponse
