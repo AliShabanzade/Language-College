@@ -52,7 +52,9 @@ class BaseRepository implements BaseRepositoryInterface
         return $eloquent->delete();
     }
 
-    public function find(mixed $value, string $field = 'id', array $selected = ['*'], bool $firstOrFail = false, array $with = [])
+    public function find(mixed $value, string $field = 'id',
+                         array $selected = ['*'],
+                         bool $firstOrFail = false, array $with = [])
     {
         $model = $this->getModel()->with($with)->select($selected)->where($field, $value);
 
