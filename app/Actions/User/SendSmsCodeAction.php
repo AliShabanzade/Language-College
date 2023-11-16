@@ -8,7 +8,6 @@ use App\Repositories\ActivationCode\ActivationCodeRepositoryInterface;
 use App\Repositories\SmsConfig\SmsConfigRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
 use Exception;
-use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;

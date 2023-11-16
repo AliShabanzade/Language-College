@@ -23,7 +23,7 @@ class AuthController extends ApiBaseController
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->only('logout','setPassword');
+        $this->middleware('auth:sanctum')->only('logout', 'setPassword');
     }
 
     public function register(RegisterRequest $request): JsonResponse
@@ -38,32 +38,31 @@ class AuthController extends ApiBaseController
         $user = $userRepository->find($request->input('mobile'), 'mobile', firstOrFail: true);
         $activationCode = $repository->checkCode($user, $request->input('code'));
 
-        if ($activationCode) {
-            $repository->useCode($activationCode);
-            if (is_null($user->mobile_verify_at)) {
-                $userRepository->verifyUser($user);
-            }
+        if (!$activationCode) {
+            return $this->errorResponse("");
         }
+        $repository->useCode($activationCode);
+        if (is_null($user->mobile_verify_at)) {
+            $userRepository->verifyUser($user);
+        }
+
         $token = $userRepository->generateToken($user);
         return $this->successResponse([
-        'token' => $token,
-        'user'  => UserResource::make($user),
+            'token' => $token,
+            'user'  => UserResource::make($user),
         ]);
     }
 
-    public function setPassword(SetpasswordRequest $request, UserRepositoryInterface $repository):JsonResponse
+    public function setPassword(SetpasswordRequest $request, UserRepositoryInterface $repository): JsonResponse
     {
         $user = auth()->user();
-        $data = $request->validated();
-        $data['password'] = Hash::make($request->input('password'));
-        $user = UpdateUserAction::run($user, $data);
         if (!$user) {
             return $this->errorResponse('Failed to update user');
         }
+        $data = $request->validated();
+        $data['password'] = Hash::make($request->input('password'));
+        $user = UpdateUserAction::run($user, $data);
         $token = $repository->generateToken($user);
-        if (!$token) {
-            return $this->errorResponse('Failed to generate token');
-        }
         return $this->successResponse([
             'token' => $token,
             'user'  => UserResource::make($user)
