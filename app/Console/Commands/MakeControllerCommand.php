@@ -34,12 +34,10 @@ class MakeControllerCommand extends Command
         $model = Str::studly($model);
 
         $content_controller = file_get_contents(__DIR__ . '/stubs/controller.php.stub');
-        $content_controller = str_replace(array('{{model}}', '{{kmodel}}'), array($model, Str::kebab($model)), $content_controller);
+        $content_controller = str_replace(array('{{model}}', '{{cmodel}}'), array($model, Str::camel($model)), $content_controller);
 
         $path = base_path('app/Http/Controllers/Api/V1/' );
-//        if (!is_dir($path) && !mkdir($path, 0775) && !is_dir($path)) {
-//            throw new RuntimeException(sprintf('Directory "%s" was not created', $path));
-//        }
+
 
         if ( ! file_exists($path . '/' . $model . 'Controller.php')) {
             File::put($path . '/' . $model . 'Controller.php', $content_controller);
