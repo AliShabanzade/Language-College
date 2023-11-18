@@ -30,11 +30,10 @@ class BotCommand extends Command
     /**
      * Execute the console command.
      */
-     public function handle()
+    public function handle()
     {
         $model = $this->argument('model');
         $model = Str::studly($model);
-
 
         Artisan::call('make:model ' . $model . ' -m');
         $this->info('Make ' . $model . ' model and migration Successfully.');
@@ -73,6 +72,5 @@ class BotCommand extends Command
 
         Artisan::call('app:controller ' . $model);
 
-        dd($model);
     }
 }
