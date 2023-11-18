@@ -19,7 +19,8 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'name'          => 'admin',
             'mobile' => '09151111111',
-            'mobile_verify_at'     => now()
+            'mobile_verify_at'     => now(),
+            'password' => 'password',
         ]);
 
         $admin->syncRoles(RoleEnum::ADMIN->value);

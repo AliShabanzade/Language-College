@@ -2,49 +2,64 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
 use App\Models\Test;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Requests\UpdateTestRequest;
+use App\Http\Requests\StoreTestRequest;
+use App\Http\Resources\TestResource;
+use App\Actions\Test\StoreTestAction;
+use App\Actions\Test\DeleteTestAction;
+use App\Actions\Test\UpdateTestAction;
+use App\Repositories\Test\TestRepositoryInterface;
 
-class TestController extends Controller
+
+class TestController extends ApiBaseController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function __construct()
     {
-        //
+        $this->middleware('auth:api');
+        $this->authorizeResource(Test::class);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Display a listing of the resource.
      */
-    public function store(Request $request)
+    public function index(TestRepositoryInterface $repository): JsonResponse
     {
-        //
+        return $this->successResponse(TestResource::collection($repository->paginate()));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Test $test)
+    public function show(Test $test): JsonResponse
     {
-        //
+        return $this->successResponse(TestResource::make($test));
+    }
+
+
+    public function store(StoreTestRequest $request): JsonResponse
+    {
+        $model = StoreTestAction::run($request->validated());
+        return $this->successResponse($model, trans('general.model_has_stored_successfully',['model'=>trans('test.model')]));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Test $test)
+    public function update(UpdateTestRequest $request, Test $test): JsonResponse
     {
-        //
+        $data = UpdateTestAction::run($test, $request->all());
+        return $this->successResponse(TestResource::make($data),trans('general.model_has_updated_successfully',['model'=>trans('test.model')]));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Test $test)
+    public function destroy(Test $test): JsonResponse
     {
-        //
+        DeleteTestAction::run($test);
+        return $this->successResponse('', trans('general.model_has_deleted_successfully',['model'=>trans('test.model')]));
     }
 }

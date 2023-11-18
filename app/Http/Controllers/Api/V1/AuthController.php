@@ -10,6 +10,7 @@ use App\Http\Requests\ConfirmRequest;
 use App\Http\Requests\ForgetPasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\SetpasswordRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Repositories\ActivationCode\ActivationCodeRepositoryInterface;
@@ -22,54 +23,65 @@ class AuthController extends ApiBaseController
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->only( 'logout');
+        $this->middleware('auth:sanctum')->only( 'logout','setPassword');
     }
 
     public function register(RegisterRequest $request): JsonResponse
     {
         $user = StoreUserAction::run($request->validated());
         SendSmsCodeAction::run($user);
-        return $this->successResponse('',
-            'code has been successfully sent');
+        return $this->successResponse($user);
     }
 
     public function confirm(ConfirmRequest $request, ActivationCodeRepositoryInterface $repository, UserRepositoryInterface $userRepository): JsonResponse
     {
-        /** @var User $user */
-        $user = $userRepository->find(value: $request->input('mobile'), field: 'mobile', firstOrFail: true);
+        $user = $userRepository->find($request->input('mobile'), 'mobile', firstOrFail: true);
         $activationCode = $repository->checkCode($user, $request->input('code'));
-        if ($activationCode) {
-            $repository->useCode($activationCode);
-            if (is_null($user->mobile_verify_at)) {
-                $userRepository->verifyUser($user);
-            }
-            $data = $request->validated();
-            $data['password'] = Hash::make($request->input('password'));
-            $user = UpdateUserAction::run($user, $data);
-            $token = $userRepository->generateToken($user);
-        } else {
-            return $this->errorResponse('Code not found or expired');
+
+        if (!$activationCode) {
+            return $this->errorResponse("");
+        }
+        $repository->useCode($activationCode);
+        if (is_null($user->mobile_verify_at)) {
+            $userRepository->verifyUser($user);
         }
 
+        $token = $userRepository->generateToken($user);
         return $this->successResponse([
             'token' => $token,
-            'user' => UserResource::make($user)
-        ], 'User authenticated successfully');
-
+            'user'  => UserResource::make($user),
+        ]);
     }
+
+    public function setPassword(SetpasswordRequest $request, UserRepositoryInterface $repository): JsonResponse
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return $this->errorResponse('Failed to update user');
+        }
+        $data = $request->validated();
+        $data['password'] = Hash::make($request->input('password'));
+        $user = UpdateUserAction::run($user, $data);
+        $token = $repository->generateToken($user);
+        return $this->successResponse([
+            'token' => $token,
+            'user'  => UserResource::make($user)
+        ], 'User authenticated successfully');
+    }
+
 
     public function login(LoginRequest $request, UserRepositoryInterface $userRepository): JsonResponse
     {
         $credentials = $request->only('mobile', 'password');
         $user = $userRepository->find(value: $request->input('mobile'), field: 'mobile', firstOrFail: true);
-        if (auth()->attempt($credentials)) {
+        if (Auth::guard('web')->attempt($credentials)) {
             $token = $userRepository->generateToken($user);
             return $this->successResponse([
                 'token' => $token,
                 'user' => UserResource::make($user)
             ], 'User authenticated successfully');
         }
-        return $this->errorResponse('Unauthorized', 401);
+        return $this->errorResponse('mobile and password not match', 404);
     }
 
     public function forgetPassword(ForgetPasswordRequest $request, UserRepositoryInterface $repository): ?JsonResponse

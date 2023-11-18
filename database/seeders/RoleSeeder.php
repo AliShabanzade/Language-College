@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Enums\RoleEnum;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
@@ -19,5 +20,8 @@ class RoleSeeder extends Seeder
                 'name' => $case->value,
             ]);
         }
+
+        $role = Role::where('name',RoleEnum::ADMIN->value)->first();
+        $role->syncPermissions(Permission::all());
     }
 }

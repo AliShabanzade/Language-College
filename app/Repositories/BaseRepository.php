@@ -31,7 +31,7 @@ class BaseRepository implements BaseRepositoryInterface
             $limit = request('limit', 15);
         }
         if ($limit === -1) {
-            return $this->model->get($payload); // Assuming $this->model->get() returns a LengthAwarePaginator
+            return $this->get($payload);
         }
         return $this->query($payload)->paginate($limit);
     }
@@ -77,7 +77,7 @@ class BaseRepository implements BaseRepositoryInterface
 
     public function updateOrCreate(array $data, array $conditions = [])
     {
-        return $this->model->updateOrcreate($conditions, $data);
+        return $this->model->updateOrCreate($conditions, $data);
     }
 
     public function data(array $payload = []): array

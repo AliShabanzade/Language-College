@@ -15,13 +15,11 @@ class SmsConfigSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (StatusEnum::cases() as  $case){
-            SmsConfig::firstOrCreate([
-                'status' => $case->value,
-                'name' => 'ali',
-                'password'=>'123456',
-                'username' => '2586458'
-            ]);
-        }
+        SmsConfig::firstOrCreate([
+            'status' => StatusEnum::ACTIVE,
+            'name' => 'ali',
+            'password'=>'123456',
+            'username' => '2586458'
+        ]);
     }
 }

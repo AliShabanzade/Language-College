@@ -18,7 +18,7 @@ class {{model}}Controller extends ApiBaseController
 
     public function __construct()
     {
-        $this->middleware('auth:sanctum');
+        $this->middleware('auth:api');
         $this->authorizeResource({{model}}::class);
     }
 
@@ -33,33 +33,33 @@ class {{model}}Controller extends ApiBaseController
     /**
      * Display the specified resource.
      */
-    public function show({{model}} ${{kmodel}}): JsonResponse
+    public function show({{model}} ${{cmodel}}): JsonResponse
     {
-        return $this->successResponse({{model}}Resource::make(${{kmodel}}));
+        return $this->successResponse({{model}}Resource::make(${{cmodel}}));
     }
 
 
     public function store(Store{{model}}Request $request): JsonResponse
     {
         $model = Store{{model}}Action::run($request->validated());
-        return $this->successResponse($model, '{{kmodel}} successfully created');
+        return $this->successResponse($model, trans('general.model_has_stored_successfully',['model'=>trans('{{cmodel}}.model')]));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Update{{model}}Request $request, {{model}} ${{kmodel}}): JsonResponse
+    public function update(Update{{model}}Request $request, {{model}} ${{cmodel}}): JsonResponse
     {
-        $data = Update{{model}}Action::run(${{kmodel}}, $request->all());
-        return $this->successResponse({{model}}Resource::make($data));
+        $data = Update{{model}}Action::run(${{cmodel}}, $request->all());
+        return $this->successResponse({{model}}Resource::make($data),trans('general.model_has_updated_successfully',['model'=>trans('{{cmodel}}.model')]));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy({{model}} ${{kmodel}}): JsonResponse
+    public function destroy({{model}} ${{cmodel}}): JsonResponse
     {
-        Delete{{model}}Action::run(${{kmodel}});
-        return $this->successResponse('', '{{kmodel}} has been deleted successfully');
+        Delete{{model}}Action::run(${{cmodel}});
+        return $this->successResponse('', trans('general.model_has_deleted_successfully',['model'=>trans('{{cmodel}}.model')]));
     }
 }
