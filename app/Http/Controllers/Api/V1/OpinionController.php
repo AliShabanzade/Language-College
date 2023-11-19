@@ -19,7 +19,7 @@ class OpinionController extends ApiBaseController
     public function __construct()
     {
         $this->middleware('auth:api');
-        $this->authorizeResource(Opinion::class);
+//        $this->authorizeResource(Opinion::class);
     }
 
     /**
