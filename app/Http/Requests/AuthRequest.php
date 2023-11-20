@@ -21,7 +21,7 @@ class AuthRequest extends FormRequest
                 'required',
                 'confirmed',
                 'min:6',
-                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+                //'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
             ]
         ];
     }

@@ -2,6 +2,7 @@
 
 namespace App\Actions\Book;
 
+use App\Enums\CategoryEnum;
 use App\Enums\PermissionEnum;
 use App\Models\Book;
 use App\Repositories\Book\BookRepositoryInterface;
@@ -21,12 +22,18 @@ class UpdateBookAction
      * @param Book                                          $book
      * @param array{name:string,mobile:string,email:string} $payload
      * @return Book
+     *
      */
     public function handle(Book $book, array $payload): Book
     {
         return DB::transaction(function () use ($book, $payload) {
-            $book->update($payload);
-            return $book;
+            $category= $this->categoryRepository->find($payload['category_id']);
+            if($category->type==CategoryEnum::BOOK->value){
+                $payload['user_id']=auth()->user()->id;
+                $book->update($payload);
+                return $book;
+            }
+
         });
     }
 }
