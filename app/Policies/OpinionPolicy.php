@@ -13,7 +13,7 @@ class OpinionPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN,PermissionEnum::OPINION_ALL->value, PermissionEnum::OPINION_INDEX->value);
+        return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::OPINION_INDEX->value);
 
     }
 
@@ -31,7 +31,7 @@ class OpinionPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::OPINION_ALL->value, PermissionEnum::OPINION_STORE->value);
+        return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::OPINION_STORE->value);
 
     }
 
