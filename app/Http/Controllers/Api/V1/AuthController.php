@@ -62,9 +62,8 @@ class AuthController extends ApiBaseController
         $data = $request->validated();
         $data['password'] = Hash::make($request->input('password'));
         $user = UpdateUserAction::run($user, $data);
-        $token = $repository->generateToken($user);
+
         return $this->successResponse([
-            'token' => $token,
             'user'  => UserResource::make($user)
         ], 'User authenticated successfully');
     }

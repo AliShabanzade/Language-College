@@ -9,7 +9,6 @@ enum PermissionEnum: string
 {
 
     case ADMIN = "admin";
-
     case USER_ALL = "user.all";
     case USER_INDEX = "user.index";
     case USER_SHOW = "user.show";
@@ -18,20 +17,25 @@ enum PermissionEnum: string
     case USER_TOGGLE = "user.toggle";
     case USER_DELETE = "user.delete";
     case USER_RESTORE = "user.restore";
+//_________________category________________
+    case CATEGORY_ALL = "category.all";
+    case CATEGORY_INDEX = "category.index";
+    case CATEGORY_SHOW = "category.show";
+    case CATEGORY_STORE = "category.store";
+    case CATEGORY_UPDATE = "category.update";
+    case CATEGORY_TOGGLE = "category.toggle";
+    case CATEGORY_DELETE = "category.delete";
+    case CATEGORY_RESTORE = "category.restore";
 
-
-    case PRODUCT_MAKE_ALL = "product_make.all";
-    case PRODUCT_MAKE_INDEX = "product_make.index";
-    case PRODUCT_MAKE_SHOW = "product_make.show";
-    case PRODUCT_MAKE_STORE = "product_make.store";
-    case PRODUCT_MAKE_UPDATE = "product_make.update";
-    case PRODUCT_MAKE_TOGGLE = "product_make.toggle";
-    case PRODUCT_MAKE_DELETE = "product_make.delete";
-    case PRODUCT_MAKE_RESTORE = "product_make.restore";
-
-
-
-
+  //____________book___________________________
+    case BOOK_ALL = "book.all";
+    case BOOK_INDEX = "book.index";
+    case BOOK_SHOW = "book.show";
+    case BOOK_STORE = "book.store";
+    case BOOK_UPDATE = "book.update";
+    case BOOK_TOGGLE = "book.toggle";
+    case BOOK_DELETE = "book.delete";
+    case BOOK_RESTORE = "book.restore";
 
 
 
