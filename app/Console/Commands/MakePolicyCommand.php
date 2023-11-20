@@ -34,7 +34,7 @@ class MakePolicyCommand extends Command
         $model = Str::studly($model);
 
         $content_policy = file_get_contents(__DIR__ . '/stubs/policy.php.stub');
-        $content_policy = str_replace(array('{{model}}', '{{cmodel}}'), array($model, Str::camel($model)), $content_policy);
+        $content_policy = str_replace(array('{{model}}', '{{cmodel}}','{{umodel}}'), array($model, Str::camel($model),Str::upper($model)), $content_policy);
 
         $path = base_path('app/Policies' );
 

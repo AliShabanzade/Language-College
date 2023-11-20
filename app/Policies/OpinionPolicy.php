@@ -13,7 +13,7 @@ class OpinionPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::USER_INDEX->value);
+        return $user->hasAnyPermission(PermissionEnum::ADMIN,PermissionEnum::OPINION_ALL->value, PermissionEnum::OPINION_INDEX->value);
 
     }
 
@@ -22,7 +22,7 @@ class OpinionPolicy
      */
     public function view(User $user, Opinion $opinion): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::USER_SHOW->value);
+        return $user->hasAnyPermission(PermissionEnum::OPINION_ALL->value, PermissionEnum::OPINION_SHOW->value);
 
     }
 
@@ -31,7 +31,7 @@ class OpinionPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::USER_STORE->value);
+        return $user->hasAnyPermission(PermissionEnum::OPINION_ALL->value, PermissionEnum::OPINION_STORE->value);
 
     }
 
@@ -40,7 +40,7 @@ class OpinionPolicy
      */
     public function update(User $user, Opinion $opinion): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::USER_UPDATE->value) || $user->id === $opinion->id;
+        return $user->hasAnyPermission(PermissionEnum::OPINION_ALL->value, PermissionEnum::OPINION_UPDATE->value) || $user->id === $opinion->id;
 
     }
 
@@ -49,7 +49,7 @@ class OpinionPolicy
      */
     public function delete(User $user, Opinion $opinion): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::USER_DELETE->value);
+        return $user->hasAnyPermission(PermissionEnum::OPINION_ALL->value, PermissionEnum::OPINION_DELETE->value);
 
     }
 
@@ -58,7 +58,7 @@ class OpinionPolicy
      */
     public function restore(User $user, Opinion $opinion): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::USER_RESTORE->value, PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionEnum::OPINION_RESTORE->value, PermissionEnum::ADMIN->value);
 
     }
 
@@ -67,7 +67,7 @@ class OpinionPolicy
      */
     public function forceDelete(User $user, Opinion $opinion): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionEnum::ADMIN->value);
 
     }
 }

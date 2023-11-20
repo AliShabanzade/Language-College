@@ -19,15 +19,16 @@ enum PermissionEnum: string
     case USER_DELETE = "user.delete";
     case USER_RESTORE = "user.restore";
 
+    case OPINION_ALL = "opinion.all";
+    case OPINION_INDEX = "opinion.index";
+    case OPINION_SHOW = "opinion.show";
+    case OPINION_STORE = "opinion.store";
+    case OPINION_UPDATE = "opinion.update";
+    case OPINION_TOGGLE = "opinion.toggle";
+    case OPINION_DELETE = "opinion.delete";
+    case OPINION_RESTORE = "opinion.restore";
 
-    case PRODUCT_MAKE_ALL = "product_make.all";
-    case PRODUCT_MAKE_INDEX = "product_make.index";
-    case PRODUCT_MAKE_SHOW = "product_make.show";
-    case PRODUCT_MAKE_STORE = "product_make.store";
-    case PRODUCT_MAKE_UPDATE = "product_make.update";
-    case PRODUCT_MAKE_TOGGLE = "product_make.toggle";
-    case PRODUCT_MAKE_DELETE = "product_make.delete";
-    case PRODUCT_MAKE_RESTORE = "product_make.restore";
+
 
 
 
