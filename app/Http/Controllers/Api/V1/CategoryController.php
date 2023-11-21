@@ -49,7 +49,6 @@ class CategoryController extends ApiBaseController
     {
         return $this->successResponse(CategoryResource::make($category));
     }
-    // TranslationAction::run($model,$payload['translation']);
 
 
     public function store(StoreCategoryRequest $request): JsonResponse

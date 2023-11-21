@@ -2,6 +2,7 @@
 
 namespace App\Actions\Category;
 
+use App\Actions\Translation\TranslationAction;
 use App\Models\Category;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -23,8 +24,11 @@ class StoreCategoryAction
 
         return DB::transaction(function () use ($payload) {
             $model = $this->repository->store($payload);
-            $this->category->setAttribute($payload['translation']['key'], $payload['translation']);
+        TranslationAction::run($model,$payload['translation']);
+
+        //$this->category->setAttribute($payload['translation']['key'],$payload['translation']);
             return $model;
         });
+
     }
 }
