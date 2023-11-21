@@ -23,7 +23,7 @@ class StoreCategoryAction
 
         return DB::transaction(function () use ($payload) {
             $model = $this->repository->store($payload);
-            $this->category->setAttribute('translation', $payload['translation']);
+            $this->category->setAttribute($payload['translation']['key'], $payload['translation']);
             return $model;
         });
     }
