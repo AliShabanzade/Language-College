@@ -19,7 +19,7 @@ class CategoryController extends ApiBaseController
 
     public function __construct()
     {
-        $this->middleware('auth:api')->except('index','show');
+        //$this->middleware('auth:api')->except('index','show');
         //$this->authorizeResource(Category::class);
     }
 
@@ -49,14 +49,17 @@ class CategoryController extends ApiBaseController
     {
         return $this->successResponse(CategoryResource::make($category));
     }
+    // TranslationAction::run($model,$payload['translation']);
 
 
     public function store(StoreCategoryRequest $request): JsonResponse
     {
-        $this->authorize('create', Category::class);
+       // $this->authorize('create', Category::class);
         $model = StoreCategoryAction::run($request->validated());
-        return $this->successResponse($model,
+
+        return $this->successResponse(CategoryResource::make($model),
             trans('general.model_has_stored_successfully',['model'=>trans('category.model')]));
+
     }
 
     /**
@@ -65,7 +68,7 @@ class CategoryController extends ApiBaseController
     public function update(UpdateCategoryRequest $request, Category $category): JsonResponse
     {
         $this->authorize('update', $category);
-        $data = UpdateCategoryAction::run($category, $request->all());
+        $data = UpdateCategoryAction::run($category, $request->validated());
         return $this->successResponse(CategoryResource::make($data),
             trans('general.model_has_updated_successfully',['model'=>trans('category.model')]));
     }
