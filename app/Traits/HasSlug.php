@@ -4,12 +4,12 @@ namespace App\Traits;
 
 use Illuminate\Support\Str;
 
-trait HasUuid
+trait HasSlug
 {
-    protected static function bootHasUuid(): void
+    protected static function bootHasSlug(): void
     {
         static::creating(function ($model) {
-            $model->uuid = Str::uuid();
+            $model->slug = Str::random();
         });
     }
 }

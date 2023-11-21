@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('boks', function (Blueprint $table) {
+        Schema::create('sms_tokens', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->string('code' , 4);
+            $table->string('secret_code');
+            $table->boolean('used')->default(false)->comment('true=used , false=not used');
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('boks');
+        Schema::dropIfExists('sms_tokens');
     }
 };

@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Actions\Translation\TranslationAction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonResource
+class TranslationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,12 +14,6 @@ class CategoryResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-
-            'title'=>$this->resource->getAttribute('title'),
-            'published'=>$this->published,
-            'type'=>$this->type,
-
-        ];
+        return parent::toArray($request);
     }
 }
