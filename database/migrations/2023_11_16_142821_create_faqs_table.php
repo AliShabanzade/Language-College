@@ -12,6 +12,10 @@ return new class extends Migration {
     {
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
+//            $table->foreignId('category_id')->nullable()->constrained();
+            $table->longText('question')->nullable();
+            $table->longText('answer')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
