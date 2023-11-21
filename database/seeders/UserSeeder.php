@@ -26,11 +26,7 @@ class UserSeeder extends Seeder
             'password' => 'password',
         ]);
 
-        foreach (CategoryEnum::cases() as $case){
-            Category::firstOrCreate([
-                'type' => $case->value
-            ]);
-        }
+
         $admin->syncRoles(RoleEnum::ADMIN->value);
         User::factory(5)->create()->each(function (User $user) {
             ActivationCode::factory(3)->create([

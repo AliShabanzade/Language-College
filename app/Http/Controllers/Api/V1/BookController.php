@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Book;
-use App\Models\Category;
-use http\Env\Request;
-use Illuminate\Http\JsonResponse;
-use App\Http\Requests\UpdateBookRequest;
-use App\Http\Requests\StoreBookRequest;
-use App\Http\Resources\BookResource;
-use App\Actions\Book\StoreBookAction;
 use App\Actions\Book\DeleteBookAction;
+use App\Actions\Book\StoreBookAction;
 use App\Actions\Book\UpdateBookAction;
+use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\UpdateBookRequest;
+use App\Http\Resources\BookResource;
+use App\Models\Book;
 use App\Repositories\Book\BookRepositoryInterface;
+use Illuminate\Http\JsonResponse;
 
 
 class BookController extends ApiBaseController
@@ -20,8 +18,8 @@ class BookController extends ApiBaseController
 
     public function __construct()
     {
-//        $this->middleware('auth:api');
-//        $this->authorizeResource(Book::class);
+        $this->middleware('auth:api');
+        $this->authorizeResource(Book::class);
     }
 
     /**
@@ -69,10 +67,10 @@ class BookController extends ApiBaseController
         return $this->successResponse('', trans('general.model_has_deleted_successfully',['model'=>trans('book.model')]));
     }
 
-    public function toggle(Category $category, CategoryRepositoryInterface $repository): JsonResponse
+    public function toggle(Book $book, BookRepositoryInterface $repository): JsonResponse
     {
-        $category = $repository->toggle($category, 'block');
-        return $this->successResponse($category, trans('general.model_has_toggled_successfully',
-            ['model' => trans('category.model')]));
+        $book = $repository->toggle($book, 'published');
+        return $this->successResponse($book, trans('general.model_has_toggled_successfully',
+            ['model' => trans('book.model')]));
     }
 }

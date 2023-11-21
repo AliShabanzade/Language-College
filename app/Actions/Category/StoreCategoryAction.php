@@ -11,14 +11,20 @@ class StoreCategoryAction
 {
     use AsAction;
 
-    public function __construct(private readonly CategoryRepositoryInterface $repository)
+    private readonly Category $category;
+
+    public function __construct(private readonly CategoryRepositoryInterface $repository, Category $category)
     {
+        $this->category = $category;
     }
 
     public function handle(array $payload): Category
     {
+
         return DB::transaction(function () use ($payload) {
-            return $this->repository->store($payload);
+            $model = $this->repository->store($payload);
+            $this->category->setAttribute('translation', $payload['translation']);
+            return $model;
         });
     }
 }

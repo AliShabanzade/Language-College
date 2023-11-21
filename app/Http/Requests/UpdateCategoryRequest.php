@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\CategoryEnum;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateCategoryRequest extends FormRequest
 {
@@ -13,7 +11,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'parent_id' => ['nullable', 'exists:categories'],
-            'type' => ['required', Rule::in(array_column(CategoryEnum::cases(),'value'))],
+            'type' => ['required', 'string','max:255'],
             'published' => ['required'],
         ];
     }

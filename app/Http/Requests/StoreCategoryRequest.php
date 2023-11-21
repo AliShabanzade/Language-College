@@ -2,9 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\CategoryEnum;
+
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class StoreCategoryRequest extends FormRequest
 {
@@ -13,8 +12,14 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'parent_id' => ['nullable', 'exists:categories'],
-            'type' => ['required', Rule::in(array_column(CategoryEnum::cases(),'value'))],
+            'type' => ['required', 'string','max:255'],
             'published' => ['required'],
+            'slug'=>'sometimes|string',
+            'translation' =>'array',
+//            'translation.key'=>'string|required',
+//            'translation.fa.value'=>'string|required',
+//            'translation.en.value'=>'string|required',
+
         ];
     }
 }
