@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             SmsConfigSeeder::class,
             UserSeeder::class,
+            FaqSeeder::class,
         ]);
     }
 }

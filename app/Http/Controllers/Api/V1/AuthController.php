@@ -55,6 +55,7 @@ class AuthController extends ApiBaseController
 
     public function setPassword(SetpasswordRequest $request, UserRepositoryInterface $repository): JsonResponse
     {
+
         $user = auth()->user();
         if (!$user) {
             return $this->errorResponse('Failed to update user');
