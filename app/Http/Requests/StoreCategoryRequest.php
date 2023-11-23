@@ -16,10 +16,10 @@ class StoreCategoryRequest extends FormRequest
             'published' => ['required'],
             'slug'=>'sometimes|string',
             'translation' =>'array',
-            'translation.fa.key'=>'string|required',
-            'translation.fa.value'=>'string|required',
-            'translation.en.key'=>'string',
-            'translation.en.value'=>'string',
+            'translation.fa.*.key'=>'string|required',
+            'translation.fa.*.value'=>'string|required',
+            'translation.en.*.key'=>'string',
+            'translation.en.*.value'=>'string',
 
         ];
     }
