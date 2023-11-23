@@ -10,6 +10,8 @@ use App\Repositories\Notice\NoticeRepository;
 use App\Repositories\Notice\NoticeRepositoryInterface;
 use App\Repositories\Opinion\OpinionRepository;
 use App\Repositories\Opinion\OpinionRepositoryInterface;
+use App\Repositories\Notice\NoticeRepository;
+use App\Repositories\Notice\NoticeRepositoryInterface;
 use App\Repositories\SmsConfig\SmsConfigRepository;
 use App\Repositories\SmsConfig\SmsConfigRepositoryInterface;
 use App\Repositories\User\UserRepository;
@@ -29,6 +31,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(OpinionRepositoryInterface::class,OpinionRepository::class);
         $this->app->bind(CommentRepositoryInterface::class,CommentRepository::class);
         $this->app->bind(NoticeRepositoryInterface::class,NoticeRepository::class);
+        $this->app->bind(NoticeRepositoryInterface::class , NoticeRepository::class);
     }
 
     /**
