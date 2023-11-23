@@ -18,8 +18,8 @@ class BookController extends ApiBaseController
 
     public function __construct()
     {
-//        $this->middleware('auth:api');
-//        $this->authorizeResource(Book::class);
+        $this->middleware('auth:api');
+        $this->authorizeResource(Book::class);
     }
 
     /**
