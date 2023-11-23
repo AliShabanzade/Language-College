@@ -18,8 +18,8 @@ class BookController extends ApiBaseController
 
     public function __construct()
     {
-        $this->middleware('auth:api');
-        $this->authorizeResource(Book::class);
+//        $this->middleware('auth:api');
+//        $this->authorizeResource(Book::class);
     }
 
     /**
@@ -45,7 +45,7 @@ class BookController extends ApiBaseController
     {
 
         $model = StoreBookAction::run($request->validated());
-        return $this->successResponse($model, trans('general.model_has_stored_successfully',['model'=>trans('book.model')]));
+        return $this->successResponse(BookResource::make($model), trans('general.model_has_stored_successfully',['model'=>trans('book.model')]));
     }
 
     /**

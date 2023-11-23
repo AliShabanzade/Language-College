@@ -17,7 +17,7 @@ class CategoryResource extends JsonResource
     {
         return [
 
-            'title'=>$this->resource->getAttribute('title'),
+            'title'=>$this->title,
             'published'=>$this->published,
             'type'=>$this->type,
 

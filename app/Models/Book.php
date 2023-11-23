@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+
 use App\Traits\HasSlug;
+use App\Traits\HasTranslationAuto;
 use App\Traits\HasUser;
-use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,9 +14,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Book extends Model
 {
-    use HasFactory,SoftDeletes,HasSlug,HasUser;
-    protected $fillable= ['name', 'publication', 'user_id', 'category_id', 'inventory', 'published',
-        'price', 'pages', 'sales', 'writer'];
+    use HasFactory,SoftDeletes,HasSlug,HasUser,HasTranslationAuto;
+    protected $fillable= ['slug',  'user_id', 'category_id', 'inventory', 'published', 'price', 'pages', 'sales'];
 
 //    public function sluggable()
 //    {
@@ -25,9 +25,7 @@ class Book extends Model
 //            ]
 //        ];
 //    }
-    public function category():BelongsTo
-    {
-        return $this->belongsTo(Category::class);
-    }
+    private array $translatable = ['name','publication','writer'];
+
 
 }
