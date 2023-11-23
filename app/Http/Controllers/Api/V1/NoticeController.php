@@ -35,14 +35,15 @@ class NoticeController extends ApiBaseController
      */
     public function show(Notice $notice): JsonResponse
     {
-        return $this->successResponse(NoticeResource::make($notice));
+        return $this->successResponse(NoticeResource::make($notice->load('user')));
     }
 
 
     public function store(StoreNoticeRequest $request): JsonResponse
     {
         $model = StoreNoticeAction::run($request->validated());
-        return $this->successResponse($model, trans('general.model_has_stored_successfully',['model'=>trans('notice.model')]));
+        return $this->successResponse($model, trans(
+            'general.model_has_stored_successfully',['model'=>trans('notice.model')]));
     }
 
     /**
@@ -50,8 +51,9 @@ class NoticeController extends ApiBaseController
      */
     public function update(UpdateNoticeRequest $request, Notice $notice): JsonResponse
     {
-        $data = UpdateNoticeAction::run($notice, $request->all());
-        return $this->successResponse(NoticeResource::make($data),trans('general.model_has_updated_successfully',['model'=>trans('notice.model')]));
+        $data = UpdateNoticeAction::run($notice, $request->validated());
+        return $this->successResponse(NoticeResource::make($data),trans(
+            'general.model_has_updated_successfully',['model'=>trans('notice.model')]));
     }
 
     /**
@@ -60,6 +62,7 @@ class NoticeController extends ApiBaseController
     public function destroy(Notice $notice): JsonResponse
     {
         DeleteNoticeAction::run($notice);
-        return $this->successResponse('', trans('general.model_has_deleted_successfully',['model'=>trans('notice.model')]));
+        return $this->successResponse('', trans(
+            'general.model_has_deleted_successfully',['model'=>trans('notice.model')]));
     }
 }

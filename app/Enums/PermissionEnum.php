@@ -20,14 +20,14 @@ enum PermissionEnum: string
     case USER_RESTORE = "user.restore";
 
 
-    case PRODUCT_MAKE_ALL = "product_make.all";
-    case PRODUCT_MAKE_INDEX = "product_make.index";
-    case PRODUCT_MAKE_SHOW = "product_make.show";
-    case PRODUCT_MAKE_STORE = "product_make.store";
-    case PRODUCT_MAKE_UPDATE = "product_make.update";
-    case PRODUCT_MAKE_TOGGLE = "product_make.toggle";
-    case PRODUCT_MAKE_DELETE = "product_make.delete";
-    case PRODUCT_MAKE_RESTORE = "product_make.restore";
+    case NOTICE_ALL = "notice.all";
+    case NOTICE_INDEX = "notice.index";
+    case NOTICE_SHOW = "notice.show";
+    case NOTICE_STORE = "notice.store";
+    case NOTICE_UPDATE = "notice.update";
+    case NOTICE_TOGGLE = "notice.toggle";
+    case NOTICE_DELETE = "notice.delete";
+    case NOTICE_RESTORE = "notice.restore";
 
 
 

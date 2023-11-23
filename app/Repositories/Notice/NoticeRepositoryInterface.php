@@ -2,8 +2,8 @@
 
 namespace App\Repositories\Notice;
 
-use App\Repositories\BaseRepositoryInterface;
 use App\Models\Notice;
+use App\Repositories\BaseRepositoryInterface;
 
 interface NoticeRepositoryInterface extends BaseRepositoryInterface
 {
