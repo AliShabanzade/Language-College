@@ -12,7 +12,6 @@ use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @property mixed $mobile_verify_at
- * @property mixed $id
  */
 class User extends Authenticatable
 {
@@ -46,6 +45,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password'          => 'hashed',
     ];
+
+    public function notices(): HasMany
+    {
+        return $this->hasMany(Notice::class);
+    }
 
 
     public function opinion():HasMany

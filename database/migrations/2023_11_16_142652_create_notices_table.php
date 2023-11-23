@@ -12,6 +12,12 @@ return new class extends Migration {
     {
         Schema::create('notices', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->constrained();
+//            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+            $table->string('title');
+            $table->text('description');
+            $table->boolean('published')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use App\Enums\RoleEnum;
 use App\Models\ActivationCode;
 use App\Models\Opinion;
+use App\Models\Comment;
+use App\Models\Like;
+use App\Models\Notice;
 use App\Models\User;
 use Database\Factories\OpinionFactory;
 use Illuminate\Database\Seeder;
@@ -13,7 +16,6 @@ use Spatie\Permission\Traits\HasRoles;
 class UserSeeder extends Seeder
 {
     use HasRoles;
-
     /**
      * Run the database seeds.
      */
