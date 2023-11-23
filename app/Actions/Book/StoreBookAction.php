@@ -25,7 +25,7 @@ class StoreBookAction
             $category = $this->categoryRepository->find($payload['category_id']);
 
             if ($category->type == Book::class) {
-               // $payload['user_id'] = auth()->user()->id;
+                $payload['user_id'] = auth()->user()->id;
 
                 $model = $this->repository->store($payload);
                 TranslationAction::run($model,$payload['translation']);

@@ -32,7 +32,7 @@ class UpdateBookAction
             $category= $this->categoryRepository->find($payload['category_id']);
 
             if($category->type == Book::class){
-                //$payload['user_id']=auth()->user()->id;
+                $payload['user_id']=auth()->user()->id;
                 $book->update($payload);
                 TranslationAction::run($book,$payload['translation']);
                 return $book;
