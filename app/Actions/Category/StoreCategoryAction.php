@@ -16,6 +16,7 @@ class StoreCategoryAction
 
     public function __construct(private readonly CategoryRepositoryInterface $repository, Category $category)
     {
+
         $this->category = $category;
     }
 

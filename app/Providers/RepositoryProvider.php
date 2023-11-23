@@ -25,6 +25,7 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind(CategoryRepositoryInterface::class,CategoryRepository::class);
         $this->app->bind(ActivationCodeRepositoryInterface::class,ActivationCodeRepository::class);
         $this->app->bind(BookRepositoryInterface::class,BookRepository::class);
+        $this->app->bind(CategoryRepositoryInterface::class , CategoryRepository::class);
 
 
 

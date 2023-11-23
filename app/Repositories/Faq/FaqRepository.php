@@ -16,14 +16,14 @@ class FaqRepository extends BaseRepository implements FaqRepositoryInterface
 
     public function query(array $payload = []): Builder
     {
-        return parent::query()->when(!empty($payload['search']) , function (Builder $q) use ($payload){
-            $q->where('question' , 'like' , '%' . $payload['search'] . '%')
+        return parent::query()->when(!empty($payload['search']), function (Builder $q) use ($payload) {
+            $q->where('question', 'like', '%' . $payload['search'] . '%')
               ->orWhere('answer', 'like', '%' . $payload['search'] . '%');
         });
     }
 
-   public function getModel(): Faq
-   {
-       return parent::getModel();
-   }
+    public function getModel(): Faq
+    {
+        return parent::getModel();
+    }
 }

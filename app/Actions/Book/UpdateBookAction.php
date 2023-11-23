@@ -31,9 +31,9 @@ class UpdateBookAction
             if($category->type==CategoryEnum::BOOK->value){
                 $payload['user_id']=auth()->user()->id;
                 $book->update($payload);
-                return $book;
-            }
 
+            }
+            return $book;
         });
     }
 }

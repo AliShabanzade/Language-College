@@ -11,8 +11,12 @@ class UpdateFaqRequest extends FormRequest
     {
 
         return [
-            'question' => ['required'],
-            'answer'   => ['required'],
+            'question'    => ['required'],
+            'answer'      => ['required'],
+            'type'        => ['required'],
+            'slug'        => ['required|string'],
+            'category_id' => ['required'],
+
         ];
     }
 }

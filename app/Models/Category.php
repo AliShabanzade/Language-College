@@ -7,6 +7,7 @@ use App\Traits\HasGetAttribute;
 use App\Traits\HasTranslationAuto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
@@ -42,6 +43,12 @@ class Category extends Model
         }
         $this->attributes[$key] = $value;
 
+    }
+
+
+    public function faqs(): HasMany
+    {
+        return $this->hasMany(Faq::class);
     }
 
 

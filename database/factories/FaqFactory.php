@@ -19,8 +19,11 @@ class FaqFactory extends Factory
     {
         return [
 //           'category_id' => Category::factory(),
-           'question' => fake()->text,
-           'answer' => fake()->text,
+'question'    => fake()->text,
+'answer'      => fake()->text,
+'category_id' => Category::factory(),
+'published'   => fake()->boolean,
+
         ];
     }
 }

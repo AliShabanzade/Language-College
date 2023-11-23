@@ -21,9 +21,10 @@ class CategoryFactory extends Factory
     {
 
         return [
-           // 'name'=>fake()->name,
-            'published'=>fake()->boolean(),
-            'type'=>fake()->randomElement([Book::class ,  Faq::class]),
+            // 'name'=>fake()->name,
+            'published' => fake()->boolean(),
+            'type'      => fake()->randomElement([Book::class, Faq::class]),
+
         ];
     }
 }
