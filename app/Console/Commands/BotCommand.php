@@ -74,5 +74,7 @@ class BotCommand extends Command
 
         Artisan::call('app:policy ' . $model);
 
+
+
     }
 }
