@@ -12,17 +12,17 @@ return new class extends Migration {
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            //$table->string('name');
+            // $table->string('publication')->comment("انتشارات");
+            // $table->string('writer')->comment('نویسنده ');
             $table->string('slug')->unique();
-            $table->string('publication')->comment("انتشارات");
-            $table->foreignId('user_id')->nullable()->comment('is writer')->constrained()->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->comment('is creator')->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->foreignId('category_id')->nullable()->constrained()->cacadeOndelete();
             $table->unsignedBigInteger('inventory')->default(0)->comment('موجودی');
             $table->boolean('published')->default(0);
             $table->decimal('price');
             $table->integer('pages')->comment('تعداد صفحات');
             $table->integer('sales')->comment('تعداد خرید ');
-            $table->string('writer')->comment('نویسنده ');
             $table->softDeletes();
             $table->timestamps();
         });

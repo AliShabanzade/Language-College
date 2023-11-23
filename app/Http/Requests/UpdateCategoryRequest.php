@@ -14,9 +14,10 @@ class UpdateCategoryRequest extends FormRequest
             'type' => ['required', 'string','max:255'],
             'published' => ['required'],
             'translation' =>'array',
-            'translation.key'=>'string|required',
-            'translation.values.fa.value'=>'string|required',
-            'translation.values.en.value'=>'string|required',
+            'translation.fa.*.key'=>'string|required',
+            'translation.fa.*.value'=>'string|required',
+            'translation.en.*.key'=>'string',
+            'translation.en.*.value'=>'string',
         ];
     }
 }

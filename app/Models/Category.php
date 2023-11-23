@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Actions\Translation\TranslationAction;
-use App\Traits\HasGetAttribute;
+
 use App\Traits\HasTranslationAuto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

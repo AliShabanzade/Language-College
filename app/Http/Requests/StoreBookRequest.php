@@ -11,16 +11,19 @@ class StoreBookRequest extends FormRequest
     {
 
         return [
-            'name' => ['required','string'],
-            'publication' => ['required','string'],
-            'user_id' => ['nullable', 'integer'],
-            'category_id' => ['required', 'exists:categories,id'],
+
+            'user_id' => ['nullable', 'integer', 'exists::users,id'],
+            'category_id' => ['nullable', 'exists:categories,id'],
             'inventory' => ['required', 'integer'],
             'published' => ['required'],
             'price' => ['required', 'numeric'],
             'pages' => ['required', 'integer'],
             'sales' => ['required', 'integer'],
-            'writer' => ['required','string'],
+            'translation' => 'array',
+            'translation.*.fa.key' => 'required|string',
+            'translation.*.fa.value' => 'required|string',
+            'translation.*.en.key' => 'required|string',
+            'translation.*.en.value' => 'required|string',
         ];
     }
 }

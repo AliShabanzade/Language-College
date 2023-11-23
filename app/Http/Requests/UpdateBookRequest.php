@@ -11,17 +11,18 @@ class UpdateBookRequest extends FormRequest
     {
 
         return [
-            'name' => ['required'],
-            'slug' => ['required','string'],
-            'publication' => ['required'],
-            'user_id' => ['nullable', 'integer','exists:users,id'],
+
+
+            'user_id' => ['nullable', 'integer', 'exists:users,id'],
             'category_id' => ['nullable', 'exists:categories,id'],
             'inventory' => ['required', 'integer'],
             'published' => ['required'],
             'price' => ['required', 'numeric'],
             'pages' => ['required', 'integer'],
             'sales' => ['required', 'integer'],
-            'writer' => ['required'],
+            'translation' => 'array',
+            'translation.fa.*.key' => 'required|string',
+            'translation.fa.*.value' => 'required|string',
         ];
     }
 }
