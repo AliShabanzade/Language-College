@@ -6,5 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'faq', 'as' => 'api.faq.'], function () {
 
 });
-Route::apiResource('faq', FaqController::class);
+Route::apiResource('faq', FaqController::class)->parameter('faq' , 'faq:slug');
+
+
 

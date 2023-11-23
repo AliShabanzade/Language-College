@@ -32,7 +32,7 @@ class FaqPolicy
     {
 
         return $user->hasAnyPermission(PermissionEnum::FAQ_ALL->value,
-            PermissionEnum::FAQ_STORE->value,PermissionEnum::ADMIN->value);
+            PermissionEnum::FAQ_STORE->value, PermissionEnum::ADMIN->value);
     }
 
     /**
@@ -41,7 +41,7 @@ class FaqPolicy
     public function update(User $user, Faq $faq): bool
     {
         return $user->hasAnyPermission(PermissionEnum::FAQ_ALL->value, PermissionEnum::FAQ_UPDATE->value,
-        PermissionEnum::ADMIN->value);
+            PermissionEnum::ADMIN->value);
     }
 
     /**
@@ -50,7 +50,7 @@ class FaqPolicy
     public function delete(User $user, Faq $faq): bool
     {
         return $user->hasAnyPermission(PermissionEnum::FAQ_ALL->value, PermissionEnum::FAQ_DELETE->value,
-        PermissionEnum::ADMIN->value);
+            PermissionEnum::ADMIN->value);
     }
 
     /**

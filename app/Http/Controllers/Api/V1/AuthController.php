@@ -72,6 +72,7 @@ class AuthController extends ApiBaseController
 
     public function login(LoginRequest $request, UserRepositoryInterface $userRepository): JsonResponse
     {
+
         $credentials = $request->only('mobile', 'password');
         $user = $userRepository->find(value: $request->input('mobile'), field: 'mobile', firstOrFail: true);
         if (!empty($user->password) && Auth::guard('web')->attempt($credentials)) {
