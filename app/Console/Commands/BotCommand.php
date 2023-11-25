@@ -58,8 +58,6 @@ class BotCommand extends Command
 
         Artisan::call('make:request ' . 'Update' . $model . 'Request');
 
-//        Artisan::call('make:controller.php.stub Api/V1/' . $model . 'Controller --api --model=' . $model);
-
         Artisan::call('make:factory ' . $model . 'Factory');
 
         Artisan::call('make:provider RepositoryServiceProvider');
