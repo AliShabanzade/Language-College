@@ -37,6 +37,9 @@ class CategoryController extends ApiBaseController
         }else{
             $model= $repository->paginate($request->input('limit',5),$request->all());
         }
+
+         // $model= $repository->get($request->all());
+
         return $this->successResponse(CategoryResource::collection($model));
 
     }
@@ -46,7 +49,7 @@ class CategoryController extends ApiBaseController
      */
     public function show(Category $category): JsonResponse
     {
-        return $this->successResponse(CategoryResource::make($category));
+        return $this->successResponse(CategoryResource::make($category->load(['parent'])));
     }
 
 

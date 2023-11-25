@@ -38,7 +38,6 @@ class TranslationAction
 
     public static function get($model, $key): string
     {
-
         return $model->translations()->where('key', $key)->first()->value ?? '';
     }
 }
