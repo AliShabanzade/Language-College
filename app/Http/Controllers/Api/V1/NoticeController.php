@@ -43,7 +43,7 @@ class NoticeController extends ApiBaseController
     {
         $model = StoreNoticeAction::run($request->validated());
         return $this->successResponse($model, trans(
-            'general.model_has_stored_successfully',['model'=>trans('notice.model')]));
+            'general.model_has_stored_successfully', ['model' => trans('notice.model')]));
     }
 
     /**
@@ -52,8 +52,8 @@ class NoticeController extends ApiBaseController
     public function update(UpdateNoticeRequest $request, Notice $notice): JsonResponse
     {
         $data = UpdateNoticeAction::run($notice, $request->validated());
-        return $this->successResponse(NoticeResource::make($data),trans(
-            'general.model_has_updated_successfully',['model'=>trans('notice.model')]));
+        return $this->successResponse(NoticeResource::make($data), trans(
+            'general.model_has_updated_successfully', ['model' => trans('notice.model')]));
     }
 
     /**
@@ -63,6 +63,29 @@ class NoticeController extends ApiBaseController
     {
         DeleteNoticeAction::run($notice);
         return $this->successResponse('', trans(
-            'general.model_has_deleted_successfully',['model'=>trans('notice.model')]));
+            'general.model_has_deleted_successfully', ['model' => trans('notice.model')]));
     }
+
+
+    public function uploadImage(Request $request, $noticeId)
+    {
+        $notice = Notice::findOrFail($noticeId);
+
+        $notice->addMedia($request->file('image'))
+            ->toMediaCollection('images');
+
+        return $this->successResponse('',trans(
+            'model_has_upload_successfully', ['model'=>trans('notice.model')]));
+
+    }
+
+
+    public function getImage($noticeId)
+    {
+        $notice = Notice::findOrFail($noticeId);
+        $imageUrl = $notice->getFirstMediaUrl('images', 'thumbnail');
+
+        return response()->json(['image_url' => $imageUrl]);
+    }
+
 }
