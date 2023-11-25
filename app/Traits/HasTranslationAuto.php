@@ -22,7 +22,7 @@ trait HasTranslationAuto{
         $this->attributes[$key]=$value;
     }
 
-    public function translation()
+    public function translations()
     {
         return $this->morphMany(Translation::class,'translatable')
             ->where('locale',app()->getLocale());

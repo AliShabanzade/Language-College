@@ -19,8 +19,7 @@ class CategoryController extends ApiBaseController
 
     public function __construct()
     {
-        //$this->middleware('auth:api')->except('index','show');
-        //$this->authorizeResource(Category::class);
+        $this->middleware('auth:api')->except('index','show');
     }
 
     /**
@@ -66,7 +65,8 @@ class CategoryController extends ApiBaseController
      */
     public function update(UpdateCategoryRequest $request, Category $category): JsonResponse
     {
-        $this->authorize('update', $category);
+       $this->authorize('update', $category);
+
         $data = UpdateCategoryAction::run($category, $request->validated());
         return $this->successResponse(CategoryResource::make($data),
             trans('general.model_has_updated_successfully',['model'=>trans('category.model')]));

@@ -23,13 +23,10 @@ class StoreBookAction
     {
         return DB::transaction(function () use ($payload) {
             $category = $this->categoryRepository->find($payload['category_id']);
-
             if ($category->type == Book::class) {
                 $payload['user_id'] = auth()->user()->id;
-
                 $model = $this->repository->store($payload);
                 TranslationAction::run($model,$payload['translation']);
-
                 return $model;
             }
             return null;
