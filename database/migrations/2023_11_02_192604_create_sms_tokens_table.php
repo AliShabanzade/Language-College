@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('chins', function (Blueprint $table) {
             $table->id();
             $table->nullableNumericMorphs();
+
         Schema::create('sms_tokens', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
@@ -30,5 +31,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('chins');
-        Schema::dropIfExists('sms_tokens');    }
+        Schema::dropIfExists('sms_tokens');
+    }
 };

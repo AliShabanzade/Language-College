@@ -42,7 +42,7 @@ class Category extends Model
 
             return TranslationAction::run($this, $value);
         }
-        return $this->attributes[$key] = $value;
+        $this->attributes[$key] = $value;
     }
 
 
