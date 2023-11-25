@@ -28,4 +28,13 @@ class Notice extends Model
         'published',
     ];
 
+
+
+    public function registerMediaConversions(): void
+    {
+        $this->addMediaConversion('thumbnail')
+            ->width('')
+            ->height('');
+    }
+
 }
