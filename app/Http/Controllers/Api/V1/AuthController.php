@@ -10,7 +10,7 @@ use App\Http\Requests\ConfirmRequest;
 use App\Http\Requests\ForgetPasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
-use App\Http\Requests\SetpasswordRequest;
+use App\Http\Requests\SetPasswordRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Repositories\ActivationCode\ActivationCodeRepositoryInterface;
@@ -23,7 +23,7 @@ class AuthController extends ApiBaseController
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->only( 'logout','setPassword');
+        $this->middleware('auth:sanctum')->only('logout', 'setPassword');
     }
 
     public function register(RegisterRequest $request): JsonResponse
@@ -53,7 +53,7 @@ class AuthController extends ApiBaseController
         ]);
     }
 
-    public function setPassword(SetpasswordRequest $request, UserRepositoryInterface $repository): JsonResponse
+    public function setPassword(SetPasswordRequest $request, UserRepositoryInterface $repository): JsonResponse
     {
         $user = auth()->user();
         if (!$user) {
@@ -62,9 +62,8 @@ class AuthController extends ApiBaseController
         $data = $request->validated();
         $data['password'] = Hash::make($request->input('password'));
         $user = UpdateUserAction::run($user, $data);
-        $token = $repository->generateToken($user);
+
         return $this->successResponse([
-            'token' => $token,
             'user'  => UserResource::make($user)
         ], 'User authenticated successfully');
     }
@@ -78,7 +77,7 @@ class AuthController extends ApiBaseController
             $token = $userRepository->generateToken($user);
             return $this->successResponse([
                 'token' => $token,
-                'user' => UserResource::make($user)
+                'user'  => UserResource::make($user)
             ], 'User authenticated successfully');
         }
         return $this->errorResponse('mobile and password not match', 404);

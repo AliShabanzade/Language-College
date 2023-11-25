@@ -12,6 +12,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @property mixed $mobile_verify_at
+ * @property mixed $id
  */
 class User extends Authenticatable
 {

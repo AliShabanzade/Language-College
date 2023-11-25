@@ -10,23 +10,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('comments', static function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
-                  ->nullable()
-                  ->constrained()
-                  ->cascadeOnDelete();
-            $table->foreignId('parent_id')
-                  ->nullable()
-                  ->constrained('comments')
-                  ->cascadeOnDelete();
-            $table->string('slug');
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('parent_id')->nullable()->constrained('comments')->cascadeOnDelete();
             $table->morphs('commentable');
             $table->string('title');
             $table->text('body');
             $table->boolean('published');
-
-
             $table->timestamps();
         });
     }
