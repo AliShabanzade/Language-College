@@ -4,7 +4,8 @@ namespace App\Repositories\Category;
 
 use App\Models\Category;
 use App\Repositories\BaseRepository;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
 {
@@ -17,4 +18,18 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
    {
        return parent::getModel();
    }
+    public function query(array $payload = []): Builder|QueryBuilder
+    {
+        return QueryBuilder::for($this->model)
+            ->when(isset($payload['children']) && !isset($payload['parent']), function ($query) {
+                return $query->with('children');
+            })
+            ->when(isset($payload['parent']) && !isset($payload['children']), function ($query) {
+                return $query->with('parent');
+            })
+            ->when(isset($payload['parent']) && isset($payload['children']), function ($query) {
+                return $query->with(['parent', 'children']);
+            });
+    }
+
 }

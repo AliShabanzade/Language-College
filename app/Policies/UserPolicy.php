@@ -36,7 +36,8 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::USER_UPDATE->value) || $user->id === $model->id;
+        return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::USER_UPDATE->value) ||
+            $user->id === $model->id;
     }
 
     /**

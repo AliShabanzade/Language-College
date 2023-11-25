@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\PermissionEnum;
 use App\Models\Book;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -13,7 +14,8 @@ class BookPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_INDEX->value);
+
     }
 
     /**
@@ -21,7 +23,8 @@ class BookPolicy
      */
     public function view(User $user, Book $book): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_SHOW->value);
+
     }
 
     /**
@@ -29,7 +32,8 @@ class BookPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_STORE->value);
+
     }
 
     /**
@@ -37,7 +41,8 @@ class BookPolicy
      */
     public function update(User $user, Book $book): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_UPDATE->value)
+            || $user->id === $book->user_id;
     }
 
     /**
@@ -45,7 +50,8 @@ class BookPolicy
      */
     public function delete(User $user, Book $book): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_DELETE->value);
+
     }
 
     /**
@@ -53,7 +59,8 @@ class BookPolicy
      */
     public function restore(User $user, Book $book): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_RESTORE->value);
+
     }
 
     /**
@@ -61,6 +68,7 @@ class BookPolicy
      */
     public function forceDelete(User $user, Book $book): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_STORE->value);
+
     }
 }

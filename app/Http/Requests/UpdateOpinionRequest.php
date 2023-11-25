@@ -10,7 +10,9 @@ class UpdateOpinionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required'],
+            'body' => ['required'],
+            'media'=>['nullable|file']
         ];
     }
 }

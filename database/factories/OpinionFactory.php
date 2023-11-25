@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,10 @@ class OpinionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title'=>fake()->title(),
+            'user_id' => User::factory(),
+            'body'=> fake()->text(),
+            'published' => fake()->boolean(),
         ];
     }
 }

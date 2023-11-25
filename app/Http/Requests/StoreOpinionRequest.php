@@ -10,7 +10,9 @@ class StoreOpinionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title'      => ['required'],
+            'body'       => ['required'],
+            'deleted_at' => ['nullable', 'date'],
         ];
     }
 }
