@@ -28,7 +28,14 @@ enum PermissionEnum: string
     case OPINION_DELETE = "opinion.delete";
     case OPINION_RESTORE = "opinion.restore";
 
-
+    case NOTICE_ALL = "notice.all";
+    case NOTICE_INDEX = "notice.index";
+    case NOTICE_SHOW = "notice.show";
+    case NOTICE_STORE = "notice.store";
+    case NOTICE_UPDATE = "notice.update";
+    case NOTICE_TOGGLE = "notice.toggle";
+    case NOTICE_DELETE = "notice.delete";
+    case NOTICE_RESTORE = "notice.restore";
 
 
 
