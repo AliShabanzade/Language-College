@@ -2,6 +2,7 @@
 
 namespace App\Actions\Book;
 
+use App\Actions\Translation\SetTranslationAction;
 use App\Actions\Translation\TranslationAction;
 use App\Enums\CategoryEnum;
 use App\Models\Book;
@@ -15,7 +16,7 @@ class UpdateBookAction
     use AsAction;
 
     public function __construct(private readonly BookRepositoryInterface $repository,
-                                private readonly CategoryRepositoryInterface $categoryRepository)
+        private readonly CategoryRepositoryInterface $categoryRepository)
     {
     }
 
@@ -29,12 +30,11 @@ class UpdateBookAction
     public function handle(Book $book, array $payload): Book
     {
         return DB::transaction(function () use ($book, $payload) {
-            $category= $this->categoryRepository->find($payload['category_id']);
-
-            if($category->type == Book::class){
-                $payload['user_id']=auth()->user()->id;
+            $category = $this->categoryRepository->find($payload['category_id']);
+            if ($category->type == Book::class) {
+                $payload['user_id'] = auth()->user()->id;
                 $book->update($payload);
-                TranslationAction::run($book,$payload['translation']);
+                SetTranslationAction::run($book, $payload['translation']);
                 return $book;
             }
 

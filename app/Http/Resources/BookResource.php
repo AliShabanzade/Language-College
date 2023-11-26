@@ -23,7 +23,7 @@ class BookResource extends JsonResource
             'slug'=>$this->resource->slug,
             'publication'=>$this->resource->publication,
             'user_id'=>$this->whenLoaded('user',fn()=>UserResource::make($this->user)),
-            'category_id'=>$this->whenloaded('category',fn()=>CategoryResource::make($this->category)),
+            'category_id'=>$this->whenloaded('category',fn()=> CategoryResource::make($this->category)),
             'inventory'=>$this->inventory,
             'published'=>$this->published,
             'price'=>$this->price,

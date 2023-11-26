@@ -22,12 +22,9 @@ class StoreCategoryAction
 
     public function handle(array $payload): Category
     {
-
         return DB::transaction(function () use ($payload) {
             $model = $this->repository->store($payload);
             SetTranslationAction::translate($model, $payload['translation']);
-
-            //$this->category->setAttribute($payload['translation']['key'],$payload['translation']);
             return $model;
         });
 

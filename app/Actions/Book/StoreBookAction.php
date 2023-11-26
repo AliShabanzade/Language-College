@@ -2,7 +2,7 @@
 
 namespace App\Actions\Book;
 
-use App\Actions\Translation\TranslationAction;
+use App\Actions\Translation\SetTranslationAction;
 use App\Enums\CategoryEnum;
 use App\Models\Book;
 use App\Repositories\Book\BookRepositoryInterface;
@@ -14,8 +14,8 @@ class StoreBookAction
 {
     use AsAction;
 
-    public function __construct(private readonly BookRepositoryInterface     $repository,
-                                private readonly CategoryRepositoryInterface $categoryRepository)
+    public function __construct(private readonly BookRepositoryInterface $repository,
+        private readonly CategoryRepositoryInterface $categoryRepository)
     {
     }
 
@@ -26,7 +26,7 @@ class StoreBookAction
             if ($category->type == Book::class) {
                 $payload['user_id'] = auth()->user()->id;
                 $model = $this->repository->store($payload);
-                TranslationAction::run($model,$payload['translation']);
+                SetTranslationAction::run($model, $payload['translation']);
                 return $model;
             }
             return null;

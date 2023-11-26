@@ -16,30 +16,27 @@ class Category extends Model
 
     private array $translatable = ['title'];
 
-    protected $fillable = ['published','parent_id', 'slug', 'type'];
+    protected $fillable = ['published', 'parent_id', 'slug', 'type'];
 
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
     }
 
-    public function parent():BelongsTo
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'parent_id');
     }
 
-    public function children():HasMany
+    public function children(): HasMany
     {
         return $this->hasMany(Category::class, 'parent_id');
     }
 
-    public function books():HasMany
+    public function books(): HasMany
     {
         return $this->hasMany(Book::class);
     }
-
-
-
 
 
 }
