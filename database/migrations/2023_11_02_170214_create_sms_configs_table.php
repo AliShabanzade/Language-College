@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('sms_configs', function (Blueprint $table) {
+        Schema::create('sms_configs', static function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('username');
