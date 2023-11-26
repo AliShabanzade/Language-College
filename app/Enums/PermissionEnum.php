@@ -3,8 +3,6 @@
 namespace App\Enums;
 
 
-
-
 enum PermissionEnum: string
 {
 
@@ -28,12 +26,14 @@ enum PermissionEnum: string
     case OPINION_DELETE = "opinion.delete";
     case OPINION_RESTORE = "opinion.restore";
 
-
-
-
-
-
-
+    case COMMENT_ALL = "comment.all";
+    case COMMENT_INDEX = "comment.index";
+    case COMMENT_SHOW = "comment.show";
+    case COMMENT_STORE = "comment.store";
+    case COMMENT_UPDATE = "comment.update";
+    case COMMENT_TOGGLE = "comment.toggle";
+    case COMMENT_DELETE = "comment.delete";
+    case COMMENT_RESTORE = "comment.restore";
 
 
 }

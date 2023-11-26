@@ -39,7 +39,7 @@ class AuthController extends ApiBaseController
         $activationCode = $repository->checkCode($user, $request->input('code'));
 
         if (!$activationCode) {
-            return $this->errorResponse("");
+            return $this->errorResponse("please enter validation code");
         }
         $repository->useCode($activationCode);
         if (is_null($user->mobile_verify_at)) {
@@ -64,7 +64,6 @@ class AuthController extends ApiBaseController
         $user = UpdateUserAction::run($user, $data);
         $token = $repository->generateToken($user);
         return $this->successResponse([
-            'token' => $token,
             'user'  => UserResource::make($user)
         ], 'User authenticated successfully');
     }
@@ -74,7 +73,7 @@ class AuthController extends ApiBaseController
     {
         $credentials = $request->only('mobile', 'password');
         $user = $userRepository->find(value: $request->input('mobile'), field: 'mobile', firstOrFail: true);
-        if (Auth::guard('web')->attempt($credentials)) {
+        if (!empty($user->password) && Auth::guard('web')->attempt($credentials)) {
             $token = $userRepository->generateToken($user);
             return $this->successResponse([
                 'token' => $token,

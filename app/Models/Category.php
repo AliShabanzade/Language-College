@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Category extends Model
 {
     use HasFactory;
-    use HasTranslationAuto, HasGetAttribute;
+    use HasTranslationAuto;
 
     protected $fillable = ['parent_id', 'published', 'slug', 'type'];
 

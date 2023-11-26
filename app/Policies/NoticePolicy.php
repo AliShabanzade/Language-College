@@ -21,7 +21,7 @@ class NoticePolicy
      */
     public function view(User $user, Notice $notice): bool
     {
-        //
+        return true;
     }
 
     /**

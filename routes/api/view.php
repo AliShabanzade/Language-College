@@ -8,3 +8,4 @@ Route::group(['prefix' => 'view', 'as' => 'api.view.'], function () {
 });
 Route::apiResource('view', ViewController::class);
 
+

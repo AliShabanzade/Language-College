@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use App\Repositories\ActivationCode\ActivationCodeRepository;
 use App\Repositories\ActivationCode\ActivationCodeRepositoryInterface;
+use App\Repositories\Comment\CommentRepository;
+use App\Repositories\Comment\CommentRepositoryInterface;
+use App\Repositories\Notice\NoticeRepository;
+use App\Repositories\Notice\NoticeRepositoryInterface;
 use App\Repositories\Opinion\OpinionRepository;
 use App\Repositories\Opinion\OpinionRepositoryInterface;
 use App\Repositories\SmsConfig\SmsConfigRepository;
@@ -23,6 +27,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ActivationCodeRepositoryInterface::class,ActivationCodeRepository::class);
         $this->app->bind(SmsConfigRepositoryInterface::class,SmsConfigRepository::class);
         $this->app->bind(OpinionRepositoryInterface::class,OpinionRepository::class);
+        $this->app->bind(CommentRepositoryInterface::class,CommentRepository::class);
+        $this->app->bind(NoticeRepositoryInterface::class,NoticeRepository::class);
     }
 
     /**

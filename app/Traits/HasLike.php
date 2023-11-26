@@ -6,7 +6,18 @@ use App\Models\Like;
 
 trait HasLike{
     public function likes(){
-        return $this->morphMany(\App\Models\like::class,'likeable');
+        return $this->morphMany(Like::class,'likeable');
     }
 
+    public function like(): void
+    {
+        $model=$this->Likes()->where('user_id',auth()->id())->first();
+        if ($model){
+            $model->delete();
+        }else{
+            $this->Likes()->create([
+                'user_id'=>auth()->id(),
+            ]);
+        }
+    }
 }
