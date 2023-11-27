@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\PermissionEnum;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -13,15 +14,17 @@ class CategoryPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
+//        return $user->hasAnyPermission(PermissionEnum::CATEGORY_ALL->value, PermissionEnum::CATEGORY_INDEX->value);
     }
-
     /**
      * Determine whether the user can view the model.
      */
     public function view(User $user, Category $category): bool
     {
-        //
+        return true;
+        //return $user->hasAnyPermission(PermissionEnum::CATEGORY_ALL->value, PermissionEnum::CATEGORY_SHOW->value);
+
     }
 
     /**
@@ -29,7 +32,8 @@ class CategoryPolicy
      */
     public function create(User $user): bool
     {
-        //
+
+       return $user->hasAnyPermission(PermissionEnum::CATEGORY_ALL->value, PermissionEnum::CATEGORY_STORE->value);
     }
 
     /**
@@ -37,7 +41,8 @@ class CategoryPolicy
      */
     public function update(User $user, Category $category): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::CATEGORY_ALL->value, PermissionEnum::CATEGORY_UPDATE->value)
+            ||$user->id === $category->user_id;
     }
 
     /**
@@ -45,7 +50,7 @@ class CategoryPolicy
      */
     public function delete(User $user, Category $category): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::CATEGORY_ALL->value, PermissionEnum:: CATEGORY_DELETE->value);
     }
 
     /**
@@ -53,7 +58,7 @@ class CategoryPolicy
      */
     public function restore(User $user, Category $category): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::CATEGORY_ALL->value, PermissionEnum::CATEGORY_RESTORE->value);
     }
 
     /**
@@ -61,6 +66,6 @@ class CategoryPolicy
      */
     public function forceDelete(User $user, Category $category): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::CATEGORY_ALL->value, PermissionEnum::CATEGORY_INDEX->value);
     }
 }

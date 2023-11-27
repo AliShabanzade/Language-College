@@ -11,6 +11,7 @@ use App\Actions\Category\StoreCategoryAction;
 use App\Actions\Category\DeleteCategoryAction;
 use App\Actions\Category\UpdateCategoryAction;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use Illuminate\Http\Request;
 
 
 class CategoryController extends ApiBaseController
@@ -18,16 +19,16 @@ class CategoryController extends ApiBaseController
 
     public function __construct()
     {
-        $this->middleware('auth:api');
-        $this->authorizeResource(Category::class);
+        $this->middleware('auth:api')->except('index', 'show');
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index(CategoryRepositoryInterface $repository): JsonResponse
+    public function index(Request $request, CategoryRepositoryInterface $repository): JsonResponse
     {
-        return $this->successResponse(CategoryResource::collection($repository->paginate()));
+        $model = $repository->paginate($request->input('limit', 5), $request->all());
+        return $this->successResponse(CategoryResource::collection($model));
     }
 
     /**
@@ -35,14 +36,17 @@ class CategoryController extends ApiBaseController
      */
     public function show(Category $category): JsonResponse
     {
-        return $this->successResponse(CategoryResource::make($category));
+        return $this->successResponse(CategoryResource::make($category->load(['parent','children'])));
     }
 
 
     public function store(StoreCategoryRequest $request): JsonResponse
     {
+        $this->authorize('create', Category::class);
         $model = StoreCategoryAction::run($request->validated());
-        return $this->successResponse($model, trans('general.model_has_stored_successfully',['model'=>trans('category.model')]));
+        return $this->successResponse(CategoryResource::make($model),
+            trans('general.model_has_stored_successfully', ['model' => trans('category.model')]));
+
     }
 
     /**
@@ -50,8 +54,10 @@ class CategoryController extends ApiBaseController
      */
     public function update(UpdateCategoryRequest $request, Category $category): JsonResponse
     {
-        $data = UpdateCategoryAction::run($category, $request->all());
-        return $this->successResponse(CategoryResource::make($data),trans('general.model_has_updated_successfully',['model'=>trans('category.model')]));
+        $this->authorize('update', $category);
+        $data = UpdateCategoryAction::run($category, $request->validated());
+        return $this->successResponse(CategoryResource::make($data),
+            trans('general.model_has_updated_successfully', ['model' => trans('category.model')]));
     }
 
     /**
@@ -59,7 +65,16 @@ class CategoryController extends ApiBaseController
      */
     public function destroy(Category $category): JsonResponse
     {
+        $this->authorize('delete', $category);
         DeleteCategoryAction::run($category);
-        return $this->successResponse('', trans('general.model_has_deleted_successfully',['model'=>trans('category.model')]));
+        return $this->successResponse('',
+            trans('general.model_has_deleted_successfully', ['model' => trans('category.model')]));
+    }
+
+    public function toggle(Category $category, CategoryRepositoryInterface $repository): JsonResponse
+    {
+        $category = $repository->toggle($category, 'published');
+        return $this->successResponse($category, trans('general.model_has_toggled_successfully',
+            ['model' => trans('category.model')]));
     }
 }

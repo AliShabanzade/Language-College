@@ -2,7 +2,8 @@
 
 namespace App\Actions\Category;
 
-use App\Enums\PermissionEnum;
+use App\Actions\Translation\SetTranslationAction;
+use App\Actions\Translation\TranslationAction;
 use App\Models\Category;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -18,14 +19,15 @@ class UpdateCategoryAction
 
 
     /**
-     * @param Category                                          $category
+     * @param Category                                      $category
      * @param array{name:string,mobile:string,email:string} $payload
      * @return Category
      */
-    public function handle(Category $category, array $payload): Category
+    public function handle($category, array $payload): Category
     {
         return DB::transaction(function () use ($category, $payload) {
             $category->update($payload);
+            SetTranslationAction::translate($category, $payload['translation']);
             return $category;
         });
     }
