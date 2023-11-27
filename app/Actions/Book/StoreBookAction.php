@@ -19,17 +19,20 @@ class StoreBookAction
     {
     }
 
-    public function handle(array $payload): Book
+    public function handle(array $payload)
     {
-        return DB::transaction(function () use ($payload) {
+       return DB::transaction(function () use ($payload) {
             $category = $this->categoryRepository->find($payload['category_id']);
             if ($category->type == Book::class) {
                 $payload['user_id'] = auth()->user()->id;
+                dd($payload);
                 $model = $this->repository->store($payload);
-                SetTranslationAction::run($model, $payload['translation']);
+                SetTranslationAction::translate($model, $payload['translation']);
+                $model->save();
+
                 return $model;
             }
-            return null;
+           return null;
         });
     }
 }

@@ -34,7 +34,7 @@ class UpdateBookAction
             if ($category->type == Book::class) {
                 $payload['user_id'] = auth()->user()->id;
                 $book->update($payload);
-                SetTranslationAction::run($book, $payload['translation']);
+                SetTranslationAction::translate($book, $payload['translation']);
                 return $book;
             }
 

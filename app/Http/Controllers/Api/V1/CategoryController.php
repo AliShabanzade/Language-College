@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Requests\StoreCategoryRequest;
@@ -27,16 +28,8 @@ class CategoryController extends ApiBaseController
      */
     public function index(Request $request, CategoryRepositoryInterface $repository): JsonResponse
     {
-        $model = $repository->paginate($request->input('limit', 5), $request->all());
+        $model = $repository->paginate($request->input('limit', 15), $request->all());
         return $this->successResponse(CategoryResource::collection($model));
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Category $category): JsonResponse
-    {
-        return $this->successResponse(CategoryResource::make($category->load(['parent','children'])));
     }
 
 
@@ -55,8 +48,8 @@ class CategoryController extends ApiBaseController
     public function update(UpdateCategoryRequest $request, Category $category): JsonResponse
     {
         $this->authorize('update', $category);
-        $data = UpdateCategoryAction::run($category, $request->validated());
-        return $this->successResponse(CategoryResource::make($data),
+        $model = UpdateCategoryAction::run($category, $request->validated());
+        return $this->successResponse(CategoryResource::make($model),
             trans('general.model_has_updated_successfully', ['model' => trans('category.model')]));
     }
 
@@ -65,6 +58,7 @@ class CategoryController extends ApiBaseController
      */
     public function destroy(Category $category): JsonResponse
     {
+
         $this->authorize('delete', $category);
         DeleteCategoryAction::run($category);
         return $this->successResponse('',
@@ -76,5 +70,12 @@ class CategoryController extends ApiBaseController
         $category = $repository->toggle($category, 'published');
         return $this->successResponse($category, trans('general.model_has_toggled_successfully',
             ['model' => trans('category.model')]));
+    }
+
+    public function restore($slug, CategoryRepositoryInterface $repository): bool
+    {
+        $category = $repository->restore($slug);
+        $repository->toggle($category, 'published');
+          return $category;
     }
 }
