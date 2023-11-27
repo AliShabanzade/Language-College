@@ -17,6 +17,7 @@ class DeleteCategoryAction
 
     public function handle(Category $category): bool
     {
+
         return DB::transaction(function () use ($category) {
             $category->translations()->delete();
             return $this->repository->delete($category);

@@ -33,4 +33,15 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
                            });
     }
 
+    public function restore($slug)
+    {
+
+        $category =$this->getModel()->where('slug', $slug)->withTrashed()->first();
+        if ($category) {
+            $category->restore(); // This line restores the soft-deleted category.
+        }
+        dd($category);
+        return $category;
+    }
+
 }

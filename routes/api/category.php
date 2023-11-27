@@ -8,4 +8,7 @@ Route::group(['prefix' => 'category', 'as' => 'api.category.'], function () {
 });
 Route::apiResource('category', CategoryController::class);
 Route::get('category/toggle/{category}', [CategoryController::class, 'toggle']);
+Route::post('category/{slug}/restore', [CategoryController::class, 'restore']);
+
+
 
