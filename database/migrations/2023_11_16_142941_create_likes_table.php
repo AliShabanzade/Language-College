@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('likes', static function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->morphs('likeable');
             $table->timestamps();
         });

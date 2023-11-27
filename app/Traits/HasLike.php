@@ -4,20 +4,27 @@ namespace App\Traits;
 
 use App\Models\Like;
 
-trait HasLike{
-    public function likes(){
-        return $this->morphMany(Like::class,'likeable');
+trait HasLike
+{
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'likeable');
     }
 
     public function like(): void
     {
-        $model=$this->Likes()->where('user_id',auth()->id())->first();
-        if ($model){
-            $model->delete();
+        if (auth()->user()) {
+
+            $model = $this->Likes()->where('user_id', auth()->id())->first();
+            if ($model) {
+                $model->delete();
+            } else {
+                $this->Likes()->create([
+                    'user_id' => auth()->id(),
+                ]);
+            }
         }else{
-            $this->Likes()->create([
-                'user_id'=>auth()->id(),
-            ]);
+            echo "وارد سایت شوید";
         }
     }
 }
