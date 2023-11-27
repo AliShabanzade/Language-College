@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Like;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,6 +15,13 @@ class CommentResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id'      => $this->id,
+            'user'    => UserResource::make($this->user),
+            'comment' => $this->comment,
+            'parent'  => $this->parent,
+            'date'    => $this->date,
+            'like'    => LikeResource::collection($this->likes),
+        ];
     }
 }

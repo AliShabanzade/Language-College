@@ -15,11 +15,8 @@ return new class extends Migration {
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('parent_id')->nullable()->constrained('comments')->cascadeOnDelete();
             $table->morphs('commentable');
-            $table->string('title');
-            $table->text('body');
+            $table->text('comment');
             $table->boolean('published')->default(0);
-
-
             $table->timestamps();
         });
     }

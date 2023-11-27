@@ -19,9 +19,9 @@ class StoreCommentAction
     {
         return DB::transaction(function () use ($model, $payload) {
             return $model->comments()->create([
-                'user_id' => auth()->id(),
-                'title'   => $payload['title'],
-                'body'    => $payload['body'],
+                'user_id'   => auth()->id(),
+                'comment'   => $payload['comment'],
+                'parent_id' => $payload['parent_id'],
             ]);
         });
     }

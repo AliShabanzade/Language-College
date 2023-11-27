@@ -10,8 +10,8 @@ class StoreCommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'            => ['required', 'max:255'],
-            'body'             => ['required'],
+            'comment'   => ['required'],
+            'parent_id' => ['nullable']
         ];
     }
 }
