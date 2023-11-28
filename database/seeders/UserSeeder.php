@@ -6,6 +6,7 @@ use App\Enums\CategoryEnum;
 use App\Enums\RoleEnum;
 use App\Models\ActivationCode;
 use App\Models\Book;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -38,6 +39,15 @@ class UserSeeder extends Seeder
             ]);
  //__________________________________End OF Book____________________________________________
 
+
+//  -------------------------------Start OF Cart---------------------------------------------
+            Cart::factory(3)->create([
+                'user_id' => $user->id,
+                'book_id' => book::factory(),
+            ]);
+//----------------------------------End Of Cart-----------------------------------------------
         });
+
+
     }
 }

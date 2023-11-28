@@ -13,10 +13,11 @@ class SetpasswordRequest extends FormRequest
         return [
 
             'password'         => ['required',
+                                   'confirmed',
                                    'min:6',
                                    'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
             ],
-            'confirm_password' => 'required|same:password',
+//            'confirm_password' => 'required|same:password',
             'name'             => 'string|max:255',
         ];
     }

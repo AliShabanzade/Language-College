@@ -13,8 +13,15 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('slug')->unique();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->boolean('status')->comment('true=paid , false= unpaid');
+            $table->decimal('total');
+            $table->softDeletes();
             $table->timestamps();
         });
+
+
     }
 
     /**
