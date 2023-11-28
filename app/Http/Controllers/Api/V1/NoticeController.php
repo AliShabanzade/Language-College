@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Notice;
-use Illuminate\Http\JsonResponse;
-use App\Http\Requests\UpdateNoticeRequest;
-use App\Http\Requests\StoreNoticeRequest;
-use App\Http\Resources\NoticeResource;
-use App\Actions\Notice\StoreNoticeAction;
 use App\Actions\Notice\DeleteNoticeAction;
+use App\Actions\Notice\StoreNoticeAction;
 use App\Actions\Notice\UpdateNoticeAction;
+use App\Http\Requests\StoreNoticeRequest;
+use App\Http\Requests\UpdateNoticeRequest;
+use App\Http\Resources\NoticeResource;
+use App\Models\Notice;
 use App\Repositories\Notice\NoticeRepositoryInterface;
+use Illuminate\Http\JsonResponse;
 
 
 class NoticeController extends ApiBaseController
@@ -35,7 +35,7 @@ class NoticeController extends ApiBaseController
      */
     public function show(Notice $notice): JsonResponse
     {
-        return $this->successResponse(NoticeResource::make($notice->load('user')));
+        return $this->successResponse(NoticeResource::make($notice->load('media')));
     }
 
 
@@ -43,7 +43,8 @@ class NoticeController extends ApiBaseController
     {
         $model = StoreNoticeAction::run($request->validated());
         return $this->successResponse($model, trans(
-            'general.model_has_stored_successfully', ['model' => trans('notice.model')]));
+            'general.model_has_stored_successfully',
+            ['model' => trans('notice.model')]));
     }
 
     /**
@@ -51,9 +52,11 @@ class NoticeController extends ApiBaseController
      */
     public function update(UpdateNoticeRequest $request, Notice $notice): JsonResponse
     {
+//
         $data = UpdateNoticeAction::run($notice, $request->validated());
         return $this->successResponse(NoticeResource::make($data), trans(
-            'general.model_has_updated_successfully', ['model' => trans('notice.model')]));
+            'general.model_has_updated_successfully',
+            ['model' => trans('notice.model')]));
     }
 
     /**
@@ -63,29 +66,8 @@ class NoticeController extends ApiBaseController
     {
         DeleteNoticeAction::run($notice);
         return $this->successResponse('', trans(
-            'general.model_has_deleted_successfully', ['model' => trans('notice.model')]));
+            'general.model_has_deleted_successfully',
+            ['model' => trans('notice.model')]));
     }
-
-
-    public function uploadImage(Request $request, $noticeId)
-    {
-        $notice = Notice::findOrFail($noticeId);
-
-        $notice->addMedia($request->file('image'))
-            ->toMediaCollection('images');
-
-        return $this->successResponse('',trans(
-            'model_has_upload_successfully', ['model'=>trans('notice.model')]));
-
-    }
-
-
-    public function getImage($noticeId)
-    {
-        $notice = Notice::findOrFail($noticeId);
-        $imageUrl = $notice->getFirstMediaUrl('images', 'thumbnail');
-
-        return response()->json(['image_url' => $imageUrl]);
-    }
-
 }
+

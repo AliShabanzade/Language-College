@@ -18,7 +18,14 @@ class StoreNoticeAction
     public function handle(array $payload): Notice
     {
         return DB::transaction(function () use ($payload) {
-            return $this->repository->store($payload);
+
+            /** @var Notice $notice */
+            $notice = $this->repository->store($payload);
+            $notice->addMediaFromRequest('media')
+                   ->toMediaCollection('notice');
+
+            return $notice;
         });
     }
 }
+

@@ -11,7 +11,6 @@ class NoticeRepository extends BaseRepository implements NoticeRepositoryInterfa
 {
 
 
-
     public function __construct(Notice $model)
     {
         parent::__construct($model);
@@ -21,7 +20,6 @@ class NoticeRepository extends BaseRepository implements NoticeRepositoryInterfa
     {
         return parent::getModel();
     }
-
 
 
     public function query(array $payload = []): Builder

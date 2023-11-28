@@ -10,9 +10,10 @@ class StoreNoticeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'       => 'string|required',
-            'description' => 'string|required|max:255',
+            'title'       => 'string|required|max:255',
+            'description' => 'string|required',
             'published'   => 'boolean|required',
+            'media'       => ''
         ];
     }
 }
