@@ -35,8 +35,6 @@ class Notice extends Model implements HasMedia
     protected $fillable = [
         //        'category_id',
         'user_id',
-        'title',
-        'description',
         'published',
     ];
 
