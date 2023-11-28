@@ -21,8 +21,6 @@ class NoticeResource extends JsonResource
             'comment'     => $this->whenLoaded('comments', fn() => CommentResource::collection($this->resource->comments)),
             'like'        => $this->whenLoaded('likes', fn() => LikeResource::collection($this->resource->likes)),
             'view'        => $this->whenLoaded('views', fn() => ViewResource::collection($this->resource->views)),
-            'title'       => $this->resource->title,
-            'description' => $this->resource->description,
             'published'   => $this->resource->published,
             'media'       => $this->resource->getMedia('notice')
         ];
