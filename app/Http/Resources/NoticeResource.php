@@ -24,6 +24,7 @@ class NoticeResource extends JsonResource
             'title'       => $this->resource->title,
             'description' => $this->resource->description,
             'published'   => $this->resource->published,
+            'media'       => $this->resource->getMedia('notice')
         ];
     }
 }
