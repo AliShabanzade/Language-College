@@ -13,10 +13,9 @@ return new class extends Migration {
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
-            $table->string('slug')->unique();
             $table->longText('question')->nullable();
             $table->longText('answer')->nullable();
-            $table->boolean('published')->default(false)->comment('True:published , False:unpublished');
+            $table->boolean('published')->default(false)->comment('True= published , False= unpublished');
             $table->softDeletes();
             $table->timestamps();
         });

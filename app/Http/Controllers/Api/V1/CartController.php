@@ -42,7 +42,7 @@ class CartController extends ApiBaseController
     public function store(StoreCartRequest $request): JsonResponse
     {
         $model = StoreCartAction::run($request->validated());
-        return $this->successResponse($model, trans('general.model_has_stored_successfully',['model'=>trans('cart.model')]));
+        return $this->successResponse($model, trans('general.model_has_stored_successfully', ['model' => trans('cart.model')]));
     }
 
     /**
@@ -51,7 +51,7 @@ class CartController extends ApiBaseController
     public function update(UpdateCartRequest $request, Cart $cart): JsonResponse
     {
         $data = UpdateCartAction::run($cart, $request->all());
-        return $this->successResponse(CartResource::make($data),trans('general.model_has_updated_successfully',['model'=>trans('cart.model')]));
+        return $this->successResponse(CartResource::make($data), trans('general.model_has_updated_successfully', ['model' => trans('cart.model')]));
     }
 
     /**
@@ -60,6 +60,6 @@ class CartController extends ApiBaseController
     public function destroy(Cart $cart): JsonResponse
     {
         DeleteCartAction::run($cart);
-        return $this->successResponse('', trans('general.model_has_deleted_successfully',['model'=>trans('cart.model')]));
+        return $this->successResponse('', trans('general.model_has_deleted_successfully', ['model' => trans('cart.model')]));
     }
 }

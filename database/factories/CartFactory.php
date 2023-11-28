@@ -19,10 +19,10 @@ class CartFactory extends Factory
     public function definition(): array
     {
         return [
-             'user_id' => User::factory(),
-             'book_id' => Book::factory(),
-             'quantity' => rand(1,2),
-             'slug' => fake()->slug,
+            'user_id'  => User::factory(),
+            'book_id'  => Book::factory(),
+            'quantity' => rand(1, 2),
+
         ];
     }
 }

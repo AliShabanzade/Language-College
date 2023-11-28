@@ -10,18 +10,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Cart extends Model
 {
-    use HasFactory , HasSlug , HasUser;
+    use HasFactory, HasUser;
 
-    protected $fillable = ['slug', 'user_id', 'book_id', 'quantity'];
+    protected $fillable = ['user_id', 'book_id', 'quantity'];
 
 
-
-    public function book():BelongsTo
+    public function book(): BelongsTo
     {
         return $this->belongsTo(Book::class);
     }
 
-    public function user():BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
