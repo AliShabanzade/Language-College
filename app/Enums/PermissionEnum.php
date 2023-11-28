@@ -3,8 +3,6 @@
 namespace App\Enums;
 
 
-
-
 enum PermissionEnum: string
 {
 
@@ -28,7 +26,6 @@ enum PermissionEnum: string
     case CATEGORY_RESTORE = "category.restore";
 
 
-
     case FAQ_ALL = "faq_make.all";
     case FAQ_INDEX = "faq_make.index";
     case FAQ_SHOW = "faq_make.show";
@@ -39,9 +36,7 @@ enum PermissionEnum: string
     case FAQ_RESTORE = "faq_make.restore";
 
 
-
-
-  //____________book___________________________
+    //____________book___________________________
     case BOOK_ALL = "book.all";
     case BOOK_INDEX = "book.index";
     case BOOK_SHOW = "book.show";
@@ -51,6 +46,16 @@ enum PermissionEnum: string
     case BOOK_DELETE = "book.delete";
     case BOOK_RESTORE = "book.restore";
 
+
+    //-------------------Cart-------------------------
+
+    case CART_ALL = "cart.all";
+    case CART_INDEX = "cart.index";
+    case CART_SHOW = "cart.show";
+    case CART_STORE = "cart.store";
+    case CART_UPDATE = "cart.update";
+    case CART_DELETE = "cart.delete";
+    case CART_RESTORE = "cart.restore";
 
 
 }

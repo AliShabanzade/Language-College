@@ -15,16 +15,17 @@ use Spatie\Permission\Traits\HasRoles;
 class UserSeeder extends Seeder
 {
     use HasRoles;
+
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
         $admin = User::create([
-            'name'          => 'admin',
-            'mobile' => '09151111111',
-            'mobile_verify_at'     => now(),
-            'password' => 'password',
+            'name'             => 'admin',
+            'mobile'           => '09151111111',
+            'mobile_verify_at' => now(),
+            'password'         => 'password',
         ]);
 
 
@@ -33,11 +34,11 @@ class UserSeeder extends Seeder
             ActivationCode::factory(3)->create([
                 'user_id' => $user->id,
             ]);
- //__________________________________Start of Book__________________________________________
+            //__________________________________Start of Book__________________________________________
             Book::factory(5)->create([
-                'user_id'=>  $user->id,
+                'user_id' => $user->id,
             ]);
- //__________________________________End OF Book____________________________________________
+            //__________________________________End OF Book____________________________________________
 
 
 //  -------------------------------Start OF Cart---------------------------------------------

@@ -14,7 +14,6 @@ class UpdateFaqRequest extends FormRequest
             'question'    => ['required'],
             'answer'      => ['required'],
             'type'        => ['required'],
-            'slug'        => ['required|string'],
             'category_id' => ['required'],
 
         ];

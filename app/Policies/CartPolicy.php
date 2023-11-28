@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\PermissionEnum;
 use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -13,7 +14,7 @@ class CartPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $this->$user->hasAnyPermission(PermissionEnum::CART_ALL->value , PermissionEnum::CART_INDEX->value);
     }
 
     /**

@@ -12,20 +12,20 @@ use Illuminate\Support\Str;
 
 class Faq extends Model
 {
-    use HasFactory, SoftDeletes, HasCategory, HasSlug;
+    use HasFactory, SoftDeletes, HasCategory;
 
-    protected $fillable = ['category_id', 'slug', 'question', 'answer', 'published'];
+    protected $fillable = ['category_id', 'question', 'answer', 'published'];
 
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
+//    public function getRouteKeyName(): string
+//    {
+//        return 'slug';
+//    }
 
 
-    public function setSlugAttribute($value)
-    {
-        $this->attributes['slug'] = Str::slug($value);
-    }
+//    public function setSlugAttribute($value)
+//    {
+//        $this->attributes['slug'] = Str::slug($value);
+//    }
 
 
 }

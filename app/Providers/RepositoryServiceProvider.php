@@ -6,6 +6,8 @@ use App\Repositories\ActivationCode\ActivationCodeRepository;
 use App\Repositories\ActivationCode\ActivationCodeRepositoryInterface;
 use App\Repositories\Book\BookRepository;
 use App\Repositories\Book\BookRepositoryInterface;
+use App\Repositories\Cart\CartRepository;
+use App\Repositories\Cart\CartRepositoryInterface;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Faq\FaqRepository;
@@ -28,7 +30,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(SmsConfigRepositoryInterface::class, SmsConfigRepository::class);
         $this->app->bind(FaqRepositoryInterface::class, FaqRepository::class);
         $this->app->bind(BookRepositoryInterface::class, BookRepository::class);
-        $this->app->bind(CategoryRepositoryInterface::class , CategoryRepository::class);
+        $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
+        $this->app->bind(CartRepositoryInterface::class, CartRepository::class);
     }
 
     /**

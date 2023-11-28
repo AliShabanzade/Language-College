@@ -57,7 +57,6 @@ class FaqController extends ApiBaseController
      */
     public function update(UpdateFaqRequest $request, Faq $faq): JsonResponse
     {
-
         $this->authorize('update', $faq);
         $data = UpdateFaqAction::run($faq, $request->validated());
         return $this->successResponse(FaqResource::make($data), trans('general.model_has_updated_successfully', ['model' => trans('faq.model')]));

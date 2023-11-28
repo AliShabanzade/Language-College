@@ -27,9 +27,9 @@ class UpdateFaqAction
      */
     public function handle(Faq $faq, array $payload): Faq
     {
-//       dd($faq->category->type);
+
         return DB::transaction(function () use ($payload, $faq) {
-            if ($faq->category->id  && $faq->category->type === "App\Models\Faq") {
+            if ($faq->category->id && $faq->category->type === "App\Models\Faq") {
                 $payload['user_id'] = Auth::user()->id;
                 $faq->update($payload);
 
