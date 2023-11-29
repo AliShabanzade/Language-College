@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Actions\Translation\TranslationAction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,11 +15,18 @@ class CategoryResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
 
-            'title'=>$this->title,
-            'published'=>$this->published,
-            'type'=>$this->type,
+        return [
+            'id'        => $this->id,
+            'title'     => $this->title,
+            'published' => $this->published,
+            'type'      => $this->type,
+            'children'  => $this->whenLoaded('children', function () {
+                return $this->children;
+            }),
+            'parent'    => $this->whenLoaded('parent', function () {
+                return CategoryResource::make($this->parent);
+            }),
 
         ];
     }

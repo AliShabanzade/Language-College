@@ -15,8 +15,8 @@ return new class extends Migration {
             $table->foreignId('parent_id')->nullable()->references('id')->on('categories');
             $table->string('type');
             $table->boolean('published')->default(0);
-           $table->string('slug')->unique()->nullable();
-//            $table->string('name');
+            $table->string('slug')->unique()->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

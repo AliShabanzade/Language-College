@@ -18,6 +18,7 @@ class DeleteBookAction
     public function handle(Book $book): bool
     {
         return DB::transaction(function () use ($book) {
+            $book->translations()->delete();
             return $this->repository->delete($book);
         });
     }

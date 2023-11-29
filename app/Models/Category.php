@@ -3,27 +3,28 @@
 namespace App\Models;
 
 use App\Actions\Translation\TranslationAction;
-
 use App\Traits\HasTranslationAuto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
     use HasFactory;
-    use HasTranslationAuto;
+    use HasTranslationAuto, SoftDeletes;
 
-    protected $fillable = ['parent_id', 'published', 'slug', 'type'];
+    private array $translatable = ['title'];
 
+    protected $fillable = ['published', 'parent_id', 'slug', 'type'];
 
-    public function parent():BelongsTo
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'parent_id');
     }
 
-    public function child(): HasMany
+    public function children(): HasMany
     {
         return $this->hasMany(Category::class, 'parent_id');
     }
@@ -33,23 +34,17 @@ class Category extends Model
         return $this->hasMany(Book::class);
     }
 
-    private array $translatable = ['title'];
-
     public function setAttribute($key, $value)
     {
-
         if (in_array($key, $this->translatable)) {
-
             return TranslationAction::run($this, $value);
         }
         $this->attributes[$key] = $value;
     }
 
-
     public function faqs(): HasMany
     {
         return $this->hasMany(Faq::class);
     }
-
 
 }
