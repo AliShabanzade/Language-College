@@ -7,8 +7,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class BookResource extends JsonResource
 {
-
-
     /**
      * Transform the resource into an array.
      *
@@ -16,22 +14,20 @@ class BookResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-
-
         return [
-            'name'=>$this->resource->name,
-            'slug'=>$this->resource->slug,
-            'publication'=>$this->resource->publication,
-            'user_id'=>$this->whenLoaded('user',fn()=>UserResource::make($this->user)),
-            'category_id'=>$this->whenloaded('category',fn()=>CategoryResource::make($this->category)),
-            'inventory'=>$this->inventory,
-            'published'=>$this->published,
-            'price'=>$this->price,
-            'pages'=>$this->pages,
-            'sales'=>$this->sales,
-            'writer'=>$this->writer,
-            'created_at'=>$this->created_at,
-            'updated_at'=>$this->updated_at,
+            'name'        => $this->name,
+            'slug'        => $this->slug,
+            'publication' => $this->publication,
+            'user_id'     => $this->whenLoaded('user', fn() => UserResource::make($this->user)),
+            'category_id' => $this->whenloaded('category', fn() => CategoryResource::make($this->category)),
+            'inventory'   => $this->inventory,
+            'published'   => $this->published,
+            'price'       => $this->price,
+            'pages'       => $this->pages,
+            'sales'       => $this->sales,
+            'writer'      => $this->writer,
+            'created_at'  => $this->created_at,
+            'updated_at'  => $this->updated_at,
         ];
     }
 }

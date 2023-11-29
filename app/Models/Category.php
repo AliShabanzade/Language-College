@@ -46,4 +46,10 @@ class Category extends Model
     }
 
 
+    public function faqs(): HasMany
+    {
+        return $this->hasMany(Faq::class);
+    }
+
+
 }

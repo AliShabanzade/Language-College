@@ -12,6 +12,10 @@ return new class extends Migration {
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('book_id')->constrained();
+            $table->integer('quantity')->default(1);
+            $table->boolean('payment')->default(false)->comment('true= paid , false= unpaid  ');
             $table->timestamps();
         });
     }

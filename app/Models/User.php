@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,15 +14,15 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable , SoftDeletes;
-    use HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes ;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'mobile_verify_at', 'name', 'block', 'mobile', 'password', 'email', 'remember_token',
+        'name', 'block', 'mobile', 'password', 'email', 'mobile_verify_at', 'remember_token',
     ];
 
     /**
@@ -41,8 +42,14 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'password'          => 'hashed',
     ];
+
+
+    public function carts():HasMany
+    {
+        return $this->hasMany(Cart::class);
+    }
 
     public function notices(): HasMany
     {

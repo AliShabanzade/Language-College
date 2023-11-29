@@ -9,8 +9,13 @@ class UpdateFaqRequest extends FormRequest
 
     public function rules(): array
     {
+
         return [
-            //
+            'question'    => ['required'],
+            'answer'      => ['required'],
+            'type'        => ['required'],
+            'category_id' => ['required'],
+
         ];
     }
 }

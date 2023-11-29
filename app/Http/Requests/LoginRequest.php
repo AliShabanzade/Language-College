@@ -10,6 +10,8 @@ class LoginRequest extends FormRequest
 
     public function rules(): array
     {
+//       dd($this->request->all());
+
         return [
             'mobile'   => 'required|size:11',
             'password' => 'required',

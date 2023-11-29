@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\PermissionEnum;
 use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -13,7 +14,9 @@ class CartPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+
+        return $user->hasAnyPermission(PermissionEnum::CART_ALL->value , PermissionEnum::CART_INDEX->value ,
+            PermissionEnum::ADMIN->value);
     }
 
     /**
@@ -21,7 +24,7 @@ class CartPolicy
      */
     public function view(User $user, Cart $cart): bool
     {
-        //
+      return true;
     }
 
     /**
@@ -29,7 +32,7 @@ class CartPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -37,7 +40,7 @@ class CartPolicy
      */
     public function update(User $user, Cart $cart): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -45,7 +48,7 @@ class CartPolicy
      */
     public function delete(User $user, Cart $cart): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -53,7 +56,7 @@ class CartPolicy
      */
     public function restore(User $user, Cart $cart): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -61,6 +64,6 @@ class CartPolicy
      */
     public function forceDelete(User $user, Cart $cart): bool
     {
-        //
+        return true;
     }
 }
