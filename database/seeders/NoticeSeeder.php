@@ -14,19 +14,19 @@ class NoticeSeeder extends Seeder
      */
     public function run(): void
     {
-        Notice::factory(10)->create();
-//              ->each(function (Notice $notice) {
-//                  Comment::factory(3)
-//                         ->create([
-//                             'commentable_type' => Notice::class,
-//                             'commentable_id'   => $notice->id,
-//                         ]);
-//              })->each(function (Notice $notice) {
-//                Like::factory(1)->create([
-//                    'likeable_id'   => $notice->id,
-//                    'likeable_type' => Notice::class,
-//
-//                ]);
-//            });
+        Notice::factory(10)->create()
+              ->each(function (Notice $notice) {
+                  Comment::factory(1)
+                         ->create([
+                             'commentable_type' => Notice::class,
+                             'commentable_id'   => $notice->id,
+                         ]);
+              })->each(function (Notice $notice) {
+                Like::factory(1)->create([
+                    'likeable_id'   => $notice->id,
+                    'likeable_type' => Notice::class,
+
+                ]);
+            });
     }
 }

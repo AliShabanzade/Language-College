@@ -24,9 +24,6 @@ class UpdateNoticeAction
     public function handle(Notice $notice, array $payload): Notice
     {
         return DB::transaction(function () use ($notice, $payload) {
-
-//            $notice->updateMedia([]);
-
             $notice->media()->delete();
             $notice->addMediaFromRequest('media')
                    ->toMediaCollection('notice');

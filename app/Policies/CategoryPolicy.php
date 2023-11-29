@@ -5,27 +5,9 @@ namespace App\Policies;
 use App\Enums\PermissionEnum;
 use App\Models\Category;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class CategoryPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
-    {
-        return true;
-//        return $user->hasAnyPermission(PermissionEnum::CATEGORY_ALL->value, PermissionEnum::CATEGORY_INDEX->value);
-    }
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Category $category): bool
-    {
-        return true;
-        //return $user->hasAnyPermission(PermissionEnum::CATEGORY_ALL->value, PermissionEnum::CATEGORY_SHOW->value);
-
-    }
 
     /**
      * Determine whether the user can create models.

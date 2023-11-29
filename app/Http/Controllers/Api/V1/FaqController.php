@@ -20,7 +20,6 @@ class FaqController extends ApiBaseController
     public function __construct()
     {
         $this->middleware('auth:api')->except('index', 'show');
-//        $this->authorizeResource(Faq::class);
     }
 
     /**
@@ -73,11 +72,9 @@ class FaqController extends ApiBaseController
     }
 
 
-    public function toggle(Faq $faq)
+    public function toggle(Faq $faq, FaqRepositoryInterface $repository): JsonResponse
     {
-//       dd(11);
-        $faq->published = !$faq->published;
-        $faq->save();
-        return $this->successResponse(FaqResource::make($faq) , trans('general.model_has_updated_successfully'));
+        $model = $repository->toggle($faq);
+        return $this->successResponse(FaqResource::make($model), trans('general.model_has_updated_successfully'));
     }
 }

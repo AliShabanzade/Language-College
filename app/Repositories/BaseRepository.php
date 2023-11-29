@@ -84,4 +84,5 @@ class BaseRepository implements BaseRepositoryInterface
     {
         return [];
     }
+
 }
