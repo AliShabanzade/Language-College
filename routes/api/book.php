@@ -8,3 +8,4 @@ Route::group(['prefix' => 'book', 'as' => 'api.book.'], function () {
 });
 //Route::apiResource('{book:slug}', BookController::class);
 
+

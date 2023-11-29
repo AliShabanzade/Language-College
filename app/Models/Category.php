@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Actions\Translation\TranslationAction;
 use App\Traits\HasTranslationAuto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +16,7 @@ class Category extends Model
 
     private array $translatable = ['title'];
 
-    protected $fillable = ['published', 'parent_id', 'slug', 'type'];
+    protected $fillable = ['published', 'parent_id', 'slug', 'type', 'category_id'];
 
     public function parent(): BelongsTo
     {
@@ -34,13 +33,6 @@ class Category extends Model
         return $this->hasMany(Book::class);
     }
 
-    public function setAttribute($key, $value)
-    {
-        if (in_array($key, $this->translatable)) {
-            return TranslationAction::run($this, $value);
-        }
-        $this->attributes[$key] = $value;
-    }
 
     public function faqs(): HasMany
     {

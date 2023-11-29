@@ -16,7 +16,8 @@ enum PermissionEnum: string
     case USER_TOGGLE = "user.toggle";
     case USER_DELETE = "user.delete";
     case USER_RESTORE = "user.restore";
-//_________________category________________
+
+
     case CATEGORY_ALL = "category.all";
     case CATEGORY_INDEX = "category.index";
     case CATEGORY_SHOW = "category.show";
@@ -37,7 +38,6 @@ enum PermissionEnum: string
     case FAQ_RESTORE = "faq_make.restore";
 
 
-    //____________book___________________________
     case BOOK_ALL = "book.all";
     case BOOK_INDEX = "book.index";
     case BOOK_SHOW = "book.show";
@@ -47,6 +47,7 @@ enum PermissionEnum: string
     case BOOK_DELETE = "book.delete";
     case BOOK_RESTORE = "book.restore";
 
+
     case NOTICE_ALL = "notice.all";
     case NOTICE_INDEX = "notice.index";
     case NOTICE_SHOW = "notice.show";
@@ -55,6 +56,8 @@ enum PermissionEnum: string
     case NOTICE_TOGGLE = "notice.toggle";
     case NOTICE_DELETE = "notice.delete";
     case NOTICE_RESTORE = "notice.restore";
+
+
     case OPINION_ALL = "opinion.all";
     case OPINION_INDEX = "opinion.index";
     case OPINION_SHOW = "opinion.show";
@@ -63,6 +66,7 @@ enum PermissionEnum: string
     case OPINION_TOGGLE = "opinion.toggle";
     case OPINION_DELETE = "opinion.delete";
     case OPINION_RESTORE = "opinion.restore";
+
 
     case COMMENT_ALL = "comment.all";
     case COMMENT_INDEX = "comment.index";
@@ -73,7 +77,6 @@ enum PermissionEnum: string
     case COMMENT_DELETE = "comment.delete";
     case COMMENT_RESTORE = "comment.restore";
 
-    //-------------------Cart-------------------------
 
     case CART_ALL = "cart.all";
     case CART_INDEX = "cart.index";

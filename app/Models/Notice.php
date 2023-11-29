@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasCategory;
 use App\Traits\HasComment;
 use App\Traits\HasLike;
 use App\Traits\HasUser;
@@ -29,11 +30,11 @@ class Notice extends Model implements HasMedia
     use HasView;
 
 //    use HasTag;
-//    use HasCategory;
+    use HasCategory;
 
 
     protected $fillable = [
-        //        'category_id',
+        'category_id',
         'user_id',
         'published',
     ];

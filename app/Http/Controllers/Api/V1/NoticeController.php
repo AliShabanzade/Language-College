@@ -18,8 +18,7 @@ class NoticeController extends ApiBaseController
 
     public function __construct()
     {
-        $this->middleware('auth:api');
-        $this->authorizeResource(Notice::class);
+        $this->middleware('auth:api')->except('index','show');
     }
 
     /**
@@ -41,6 +40,7 @@ class NoticeController extends ApiBaseController
 
     public function store(StoreNoticeRequest $request): JsonResponse
     {
+        $this->authorize('create',Notice::class);
         $model = StoreNoticeAction::run($request->validated());
         return $this->successResponse($model, trans(
             'general.model_has_stored_successfully',
@@ -52,7 +52,7 @@ class NoticeController extends ApiBaseController
      */
     public function update(UpdateNoticeRequest $request, Notice $notice): JsonResponse
     {
-//
+        $this->authorize('update', $notice);
         $data = UpdateNoticeAction::run($notice, $request->validated());
         return $this->successResponse(NoticeResource::make($data), trans(
             'general.model_has_updated_successfully',
@@ -64,6 +64,7 @@ class NoticeController extends ApiBaseController
      */
     public function destroy(Notice $notice): JsonResponse
     {
+        $this->authorize('delete',$notice);
         DeleteNoticeAction::run($notice);
         return $this->successResponse('', trans(
             'general.model_has_deleted_successfully',

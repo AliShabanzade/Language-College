@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Enums\CategoryEnum;
 use App\Models\Book;
 use App\Models\Faq;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,7 +20,6 @@ class CategoryFactory extends Factory
     {
 
         return [
-            // 'name'=>fake()->name,
             'published' => fake()->boolean(),
             'type'      => fake()->randomElement([Book::class, Faq::class]),
 
