@@ -20,8 +20,6 @@ class NoticeFactory extends Factory
         return [
             'user_id'     => User::factory(),
 //            'category_id' => Category::factory(),
-            'title'       => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
             'published'   => $this->faker->boolean(),
         ];
     }
