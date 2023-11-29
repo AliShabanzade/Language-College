@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Cart;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UpdateCartRequest;
 use App\Http\Requests\StoreCartRequest;
@@ -11,6 +12,7 @@ use App\Actions\Cart\StoreCartAction;
 use App\Actions\Cart\DeleteCartAction;
 use App\Actions\Cart\UpdateCartAction;
 use App\Repositories\Cart\CartRepositoryInterface;
+use Illuminate\Http\Request;
 
 
 class CartController extends ApiBaseController
@@ -25,7 +27,7 @@ class CartController extends ApiBaseController
     /**
      * Display a listing of the resource.
      */
-    public function index(CartRepositoryInterface $repository): JsonResponse
+    public function index( CartRepositoryInterface $repository): JsonResponse
     {
         return $this->successResponse(CartResource::collection($repository->paginate()));
     }

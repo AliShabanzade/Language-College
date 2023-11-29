@@ -19,6 +19,7 @@ class FaqResource extends JsonResource
             'question'    => $this->question,
             'answer'      => $this->answer,
             'category_id' => $this->whenloaded('category', fn() => CategoryResource::make($this->category)),
+            'published'   => $this->published,
         ];
     }
 }

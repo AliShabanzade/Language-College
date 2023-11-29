@@ -71,4 +71,13 @@ class FaqController extends ApiBaseController
         DeleteFaqAction::run($faq);
         return $this->successResponse('', trans('general.model_has_deleted_successfully', ['model' => trans('faq.model')]));
     }
+
+
+    public function toggle(Faq $faq)
+    {
+//       dd(11);
+        $faq->published = !$faq->published;
+        $faq->save();
+        return $this->successResponse(FaqResource::make($faq) , trans('general.model_has_updated_successfully'));
+    }
 }
