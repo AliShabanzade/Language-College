@@ -87,4 +87,14 @@ enum PermissionEnum: string
     case CART_RESTORE = "cart.restore";
 
 
+    case BLOG_ALL = "blog.all";
+    case BLOG_INDEX = "blog.index";
+    case BLOG_SHOW = "blog.show";
+    case BLOG_STORE = "blog.store";
+    case BLOG_UPDATE = "blog.update";
+    case BLOG_TOGGLE = "blog.toggle";
+    case BLOG_DELETE = "blog.delete";
+    case BLOG_RESTORE = "blog.restore";
+
+
 }

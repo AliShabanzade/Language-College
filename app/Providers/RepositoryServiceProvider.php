@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\ActivationCode\ActivationCodeRepository;
 use App\Repositories\ActivationCode\ActivationCodeRepositoryInterface;
+use App\Repositories\Blog\BlogRepository;
+use App\Repositories\Blog\BlogRepositoryInterface;
 use App\Repositories\Book\BookRepository;
 use App\Repositories\Book\BookRepositoryInterface;
 use App\Repositories\Cart\CartRepository;
@@ -45,6 +47,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(CommentRepositoryInterface::class,CommentRepository::class);
         $this->app->bind(NoticeRepositoryInterface::class,NoticeRepository::class);
         $this->app->bind(NoticeRepositoryInterface::class , NoticeRepository::class);
+        $this->app->bind(BlogRepositoryInterface::class , BlogRepository::class);
     }
 
     /**

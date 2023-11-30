@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\View>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Blog>
  */
-class ViewFactory extends Factory
+class BlogFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +18,9 @@ class ViewFactory extends Factory
     public function definition(): array
     {
         return [
-            'ip' => fake()->ipv4
+            'reading_time' => random_int(10,30),
+            'published' => fake()->boolean,
+            'category_id' => Category::factory(),
         ];
     }
 }

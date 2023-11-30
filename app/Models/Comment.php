@@ -17,7 +17,7 @@ class Comment extends Model
 
     protected $fillable = [
         'user_id', 'parent_id', 'commentable_id', 'commentable_type',
-         'comment', 'published'];
+        'comment', 'published'];
 
 
     public function commentable(): MorphTo
@@ -38,5 +38,10 @@ class Comment extends Model
     public function book()
     {
         return $this->belongsTo(Book::class);
+    }
+
+    public function blog(): BelongsTo
+    {
+        return $this->belongsTo(Blog::class);
     }
 }

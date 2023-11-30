@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Blog;
 use App\Models\Book;
 use App\Models\Faq;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,8 +22,7 @@ class CategoryFactory extends Factory
 
         return [
             'published' => fake()->boolean(),
-            'type'      => fake()->randomElement([Book::class, Faq::class]),
-
+            'type'      => fake()->randomElement([Book::class, Faq::class, Blog::class]),
         ];
     }
 }

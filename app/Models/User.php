@@ -13,7 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes ;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -45,7 +45,7 @@ class User extends Authenticatable
     ];
 
 
-    public function carts():HasMany
+    public function carts(): HasMany
     {
         return $this->hasMany(Cart::class);
     }
@@ -62,9 +62,14 @@ class User extends Authenticatable
     }
 
 
-    public function opinion():HasMany
+    public function opinion(): HasMany
     {
         return $this->hasMany(Opinion::class);
+    }
+
+    public function blogs(): HasMany
+    {
+        return $this->hasMany(Blog::class);
     }
 
 }
