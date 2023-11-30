@@ -18,7 +18,6 @@ class CommentFactory extends Factory
     {
         return [
             'comment' => fake()->text,
-
         ];
     }
 }

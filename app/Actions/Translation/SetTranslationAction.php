@@ -28,6 +28,7 @@ class SetTranslationAction
 
     public static function translate($model, $translation)
     {
+
         foreach ($translation[app()->getLocale()] as $item) {
             self::handle($model, $item['key'], $item['value']);
         }
