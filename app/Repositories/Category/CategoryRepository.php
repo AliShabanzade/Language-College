@@ -21,21 +21,24 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 
     public function query(array $payload = []): Builder|QueryBuilder
     {
-
         return QueryBuilder::for($this->model)
-            ->allowedIncludes(['parent', 'children'])
-            ->allowedFilters(['published'])
-            ->when(isset($payload['children']) && !isset($payload['parent']), function (Builder $query) {
-                $query->with('children');
+            ->when(isset($payload['children']) && !isset($payload['parent']), function ($query) {
+                return $query->with('children');
             })
-            ->when(isset($payload['parent']) && !isset($payload['children']), function (Builder $query) {
-                $query->with('parent');
+            ->when(isset($payload['parent']) && !isset($payload['children']), function ($query) {
+                return $query->with('parent');
             })
-            ->when(isset($payload['parent']) && isset($payload['children']), function (Builder $query) {
-                $query->with(['parent', 'children']);
+            ->when(isset($payload['parent']) && isset($payload['children']), function ($query) {
+                return $query->with(['parent', 'children']);
             })
-            ; // You might want to use ->paginate() here depending on your needs
+            ->when(isset($payload['published']), function ($query) use ($payload) {
+                return $query->where('published', $payload['published']);
+            }, function ($query) {
+                // If 'published' is not set, return all categories
+                return $query;
+            });
     }
+
 
 
 
