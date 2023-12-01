@@ -9,5 +9,5 @@ interface CategoryRepositoryInterface extends BaseRepositoryInterface
 {
     public function getModel(): Category;
 
-    public function restore($slug);
+
 }

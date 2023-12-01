@@ -28,6 +28,7 @@ class CategoryController extends ApiBaseController
      */
     public function index(Request $request, CategoryRepositoryInterface $repository): JsonResponse
     {
+
         $model = $repository->paginate($request->input('limit', 15), $request->all());
         return $this->successResponse(CategoryResource::collection($model));
     }
@@ -35,6 +36,7 @@ class CategoryController extends ApiBaseController
 
     public function store(StoreCategoryRequest $request): JsonResponse
     {
+
         $this->authorize('create', Category::class);
         $model = StoreCategoryAction::run($request->validated());
         return $this->successResponse(CategoryResource::make($model),

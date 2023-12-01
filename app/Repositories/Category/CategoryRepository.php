@@ -21,27 +21,22 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 
     public function query(array $payload = []): Builder|QueryBuilder
     {
+
         return QueryBuilder::for($this->model)
-                           ->when(isset($payload['children']) && !isset($payload['parent']), function ($query) {
-                               return $query->with('children');
-                           })
-                           ->when(isset($payload['parent']) && !isset($payload['children']), function ($query) {
-                               return $query->with('parent');
-                           })
-                           ->when(isset($payload['parent']) && isset($payload['children']), function ($query) {
-                               return $query->with(['parent', 'children']);
-                           });
+            ->allowedIncludes(['parent', 'children'])
+            ->allowedFilters(['published'])
+            ->when(isset($payload['children']) && !isset($payload['parent']), function (Builder $query) {
+                $query->with('children');
+            })
+            ->when(isset($payload['parent']) && !isset($payload['children']), function (Builder $query) {
+                $query->with('parent');
+            })
+            ->when(isset($payload['parent']) && isset($payload['children']), function (Builder $query) {
+                $query->with(['parent', 'children']);
+            })
+            ; // You might want to use ->paginate() here depending on your needs
     }
 
-    public function restore($slug)
-    {
 
-        $category =$this->getModel()->where('slug', $slug)->withTrashed()->first();
-        if ($category) {
-            $category->restore(); // This line restores the soft-deleted category.
-        }
-        dd($category);
-        return $category;
-    }
 
 }

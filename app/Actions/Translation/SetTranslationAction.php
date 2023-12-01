@@ -11,25 +11,21 @@ class SetTranslationAction
     use AsAction;
     use HasTranslationAuto;
 
-    public static function handle($model, string $key, string $value): void
+    public static function handle($model,array $translations): void
     {
-        if (!empty($key) && !empty($value)) {
-            $model->translations()->updateOrCreate(
-                [
-                    'key'    => $key,
-                    'locale' => app()->getLocale(),
-                ],
-                [
-                    'value' => $value,
-                ]
-            );
-        }
+        foreach ($translations as $locale=>$rows) {
+            foreach ($rows as $row) {
+                $model->translations()->updateOrCreate(
+                    [
+                        'key'    => $row['key'],
+                        'locale' => $locale,
+                    ],
+                    [
+                        'value' => $row['value'],
+                    ]
+                );
+            }
+       }
     }
 
-    public static function translate($model, $translation)
-    {
-        foreach ($translation[app()->getLocale()] as $item) {
-            self::handle($model, $item['key'], $item['value']);
-        }
-    }
 }

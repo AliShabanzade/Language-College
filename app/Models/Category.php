@@ -19,10 +19,7 @@ class Category extends Model
 
     protected $fillable = ['published', 'parent_id', 'slug', 'type'];
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-    }
+
 
     public function parent(): BelongsTo
     {
