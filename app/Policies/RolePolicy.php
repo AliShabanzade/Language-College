@@ -82,17 +82,14 @@ class RolePolicy
     public function addRole(User $user)
     {
 
-        if ($user->hasPermissionTo( PermissionEnum::ADMIN->value)) {
+        return $user->hasAnyPermission(PermissionEnum::ROLE_ALL->value, PermissionEnum::ADMIN->value);
 
-            return true;
-        }
     }
 
     public function removeRole($user)
     {
-        if ($user->hasPermissionTo(PermissionEnum::ADMIN->value)) {
-            return true;
-        }
+        return $user->hasAnyPermission(PermissionEnum::ROLE_ALL->value, PermissionEnum::ADMIN->value);
+
     }
 
 }
