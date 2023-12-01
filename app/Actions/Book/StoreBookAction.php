@@ -14,25 +14,32 @@ class StoreBookAction
 {
     use AsAction;
 
-    public function __construct(private readonly BookRepositoryInterface $repository,
-        private readonly CategoryRepositoryInterface $categoryRepository)
+    public function __construct(private readonly BookRepositoryInterface     $repository,
+                                private readonly CategoryRepositoryInterface $categoryRepository)
     {
     }
 
     public function handle(array $payload)
     {
-       return DB::transaction(function () use ($payload) {
+
+        return DB::transaction(function () use ($payload) {
+
             $category = $this->categoryRepository->find($payload['category_id']);
             if ($category->type == Book::class) {
                 $payload['user_id'] = auth()->user()->id;
-                dd($payload);
+                /** @var Book $model */
                 $model = $this->repository->store($payload);
-                SetTranslationAction::translate($model, $payload['translation']);
+                $model->extra_attributes->set($payload['extra_attributes']);
                 $model->save();
-
+                if (request()->hasFile('media')) {
+                    $model->addMediaFromRequest('media')
+                        ->toMediaCollection('book');
+                }
+                SetTranslationAction::run($model, $payload['translations']);
                 return $model;
             }
-           return null;
+
+            return null;
         });
     }
 }

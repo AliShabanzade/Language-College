@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateBookRequest;
 use App\Http\Resources\BookResource;
 use App\Models\Book;
 use App\Repositories\Book\BookRepositoryInterface;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\JsonResponse;
 
 
@@ -18,8 +19,8 @@ class BookController extends ApiBaseController
 
     public function __construct()
     {
-//        $this->middleware('auth:api');
-//        $this->authorizeResource(Book::class);
+        $this->middleware('auth:api');
+        $this->authorizeResource(Book::class);
     }
 
     /**
@@ -37,15 +38,15 @@ class BookController extends ApiBaseController
     public function show(Book $book)
     {
 
-        return $this->successResponse(BookResource::make($book->load(['category','user'])));
+        return $this->successResponse(BookResource::make($book->load(['user','category', 'media','publication'])));
     }
 
 
-    public function store(StoreBookRequest $request): JsonResponse
+    public function store(StoreBookRequest $request)
     {
-
         $model = StoreBookAction::run($request->validated());
-        return $this->successResponse(BookResource::make($model), trans('general.model_has_stored_successfully',['model'=>trans('book.model')]));
+        return $this->successResponse(BookResource::make($model->load('user','category','publication')),
+            trans('general.model_has_stored_successfully', ['model' => trans('book.model')]));
     }
 
     /**
@@ -53,9 +54,9 @@ class BookController extends ApiBaseController
      */
     public function update(UpdateBookRequest $request, Book $book): JsonResponse
     {
-
         $data = UpdateBookAction::run($book, $request->validated());
-        return $this->successResponse(BookResource::make($data),trans('general.model_has_updated_successfully',['model'=>trans('book.model')]));
+        return $this->successResponse(BookResource::make($data->load('user','category','publication')),
+            trans('general.model_has_updated_successfully', ['model' => trans('book.model')]));
     }
 
     /**
@@ -64,7 +65,7 @@ class BookController extends ApiBaseController
     public function destroy(Book $book): JsonResponse
     {
         DeleteBookAction::run($book);
-        return $this->successResponse('', trans('general.model_has_deleted_successfully',['model'=>trans('book.model')]));
+        return $this->successResponse('', trans('general.model_has_deleted_successfully', ['model' => trans('book.model')]));
     }
 
     public function toggle(Book $book, BookRepositoryInterface $repository): JsonResponse
