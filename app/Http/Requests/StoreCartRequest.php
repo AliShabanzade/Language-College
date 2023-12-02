@@ -10,7 +10,8 @@ class StoreCartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_id'  => ['required'],
+            'book_id' => ['required'],
         ];
     }
 }
