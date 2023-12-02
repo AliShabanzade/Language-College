@@ -26,11 +26,11 @@ class UpdateNoticeAction
         return DB::transaction(function () use ($notice, $payload) {
 
 //            $notice->updateMedia([]);
-
+            $notice=$this->repository->update($notice , $payload);
             $notice->media()->delete();
+
             $notice->addMediaFromRequest('media')
                    ->toMediaCollection('notice');
-            $notice->update($payload);
             return $notice;
         });
     }

@@ -24,8 +24,16 @@ class NoticeRepository extends BaseRepository implements NoticeRepositoryInterfa
 
     public function query(array $payload = []): Builder
     {
-        return parent::query($payload)->with('media','user');
+        $query = parent::query($payload)->with('media', 'user');
+
+        if (isset($payload['published'])) {
+            $value = (bool)$payload['published'];
+            $query->where('published', '=', $value);
+        }
+        return $query;
     }
+
+
 
 
 }

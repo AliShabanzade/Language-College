@@ -27,7 +27,7 @@ class NoticeController extends ApiBaseController
      */
     public function index(NoticeRepositoryInterface $repository): JsonResponse
     {
-        return $this->successResponse(NoticeResource::collection($repository->paginate()));
+        return $this->successResponse(NoticeResource::collection($repository->query(request()->all())->paginate()));
     }
 
     /**
@@ -68,6 +68,13 @@ class NoticeController extends ApiBaseController
         return $this->successResponse('', trans(
             'general.model_has_deleted_successfully',
             ['model' => trans('notice.model')]));
+    }
+
+
+    public function toggle(Notice $notice , NoticeRepositoryInterface $repository)
+    {
+        $data= $repository->toggle($notice);
+        return $this->successResponse(NoticeResource::make($data) , '');
     }
 }
 
