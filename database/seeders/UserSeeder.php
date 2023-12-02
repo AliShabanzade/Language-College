@@ -13,6 +13,8 @@ use App\Models\Gallery;
 use App\Models\Like;
 use App\Models\Notice;
 use App\Models\Opinion;
+use App\Models\Category;
+use App\Models\Order;
 use App\Models\User;
 use App\Models\View;
 use Illuminate\Database\Seeder;
@@ -107,6 +109,11 @@ class UserSeeder extends Seeder
                     ]);
                 });
             });
+
+
+            Order::factory(5)->create();
         });
+
+
     }
 }

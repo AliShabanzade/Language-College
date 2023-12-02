@@ -12,19 +12,22 @@ class CartPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $user ): bool
     {
 
+
         return $user->hasAnyPermission(PermissionEnum::CART_ALL->value , PermissionEnum::CART_INDEX->value ,
-            PermissionEnum::ADMIN->value);
+            PermissionEnum::ADMIN->value) ;
     }
+
+
 
     /**
      * Determine whether the user can view the model.
      */
     public function view(User $user, Cart $cart): bool
     {
-      return true;
+      return $user->id==$cart->user_id || $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::USER_SHOW->value);
     }
 
     /**

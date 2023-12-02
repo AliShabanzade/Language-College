@@ -17,6 +17,10 @@ return new class extends Migration {
             $table->integer('quantity')->default(1);
             $table->boolean('payment')->default(false)->comment('true= paid , false= unpaid  ');
             $table->timestamps();
+            $table->unique([
+               'user_id',
+               'book_id',
+            ]);
         });
     }
 

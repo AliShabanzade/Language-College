@@ -25,7 +25,7 @@ class UpdateCartAction
     public function handle(Cart $cart, array $payload): Cart
     {
         return DB::transaction(function () use ($cart, $payload) {
-            $cart->update($payload);
+           $cart = $this->repository->update($cart , $payload);
             return $cart;
         });
     }

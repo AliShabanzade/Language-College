@@ -27,9 +27,21 @@ class CartController extends ApiBaseController
     /**
      * Display a listing of the resource.
      */
-    public function index( CartRepositoryInterface $repository): JsonResponse
+    public function index(CartRepositoryInterface $repository): JsonResponse
     {
-        return $this->successResponse(CartResource::collection($repository->paginate()));
+
+        $user = auth()->user();
+
+        $roles = $user->roles;
+        if ($roles->contains('name', 'admin') || $roles->contains('name')) {
+            return $this->successResponse(CartResource::collection($repository->paginate()));
+        } else {
+
+            $shoppingCart = $repository->userOwnCart($user)->paginate();
+            return $this->successResponse(CartResource::collection($shoppingCart));
+        }
+
+
     }
 
     /**
@@ -37,7 +49,7 @@ class CartController extends ApiBaseController
      */
     public function show(Cart $cart): JsonResponse
     {
-        return $this->successResponse(CartResource::make($cart));
+        return $this->successResponse(CartResource::make($cart->load('user')));
     }
 
 

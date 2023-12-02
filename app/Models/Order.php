@@ -12,15 +12,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use HasFactory, HasUser, SoftDeletes, HasSlug;
+    use HasFactory, HasUser, SoftDeletes;
 
-    protected $fillable = ['slug', 'user_id', 'status', 'total'];
+    protected $fillable = ['user_id', 'status', 'total'];
 
     public function books(): BelongsToMany
     {
         return $this->belongsToMany(Book::class, 'order_items')
                     ->using(OrderItem::class)
-                    ->withPivot(['quantity', 'price', 'uuid']);
+                    ->withPivot(['quantity', 'price']);
     }
 
     public function items(): HasMany
