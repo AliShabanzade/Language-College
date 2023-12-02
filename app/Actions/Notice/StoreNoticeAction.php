@@ -2,6 +2,7 @@
 
 namespace App\Actions\Notice;
 
+use App\Actions\Translation\SetTranslationAction;
 use App\Models\Notice;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Notice\NoticeRepositoryInterface;
@@ -13,8 +14,8 @@ class StoreNoticeAction
 {
     use AsAction;
 
-    public function __construct(private readonly NoticeRepositoryInterface   $repository,
-                                private readonly CategoryRepositoryInterface $categoryRepository)
+    public function __construct(private readonly NoticeRepositoryInterface $repository,
+        private readonly CategoryRepositoryInterface $categoryRepository)
     {
     }
 
@@ -22,20 +23,19 @@ class StoreNoticeAction
     {
         return DB::transaction(function () use ($payload) {
             $category = $this->categoryRepository->find($payload['category_id']);
-            if ($category->type === Notice::class) {
 
-                /** @var Notice $notice */
-                $notice = $this->repository->store($payload);
-                //translation
-                if (request()->hasFile('media')) {
-                    $notice->addMediaFromRequest('media')
-                        ->toMediaCollection('notice');
-                }
+            /** @var Notice $notice */
+            $notice = $this->repository->store($payload);
+            //translation
+            SetTranslationAction::translate($notice, $payload['translations']);
+            $notice->save();
 
-                return $notice;
+            if (request()->hasFile('media')) {
+                $notice->addMediaFromRequest('media')
+                       ->toMediaCollection('notice');
             }
 
-            return null;
+            return $notice;
         });
     }
 }

@@ -8,29 +8,28 @@ use App\Models\Translation;
 
 trait HasTranslationAuto
 {
-    public function getAttribute($key)
-    {
-        if (in_array($key, $this->translatable)) {
-            return GetTranslationAction::run($this, $key);
-        }
-        // If the key corresponds to a relationship, return the relationship
-        if (method_exists($this, $key)) {
-            return $this->getRelationshipFromMethod($key);
-        }
+//    public function getAttribute($key)
+//    {
+//        if (in_array($key, $this->translatable)) {
+//            return GetTranslationAction::run($this, $key);
+//        }
+//        // If the key corresponds to a relationship, return the relationship
+//        if (method_exists($this, $key)) {
+//            return $this->getRelationshipFromMethod($key);
+//        }
+//
+//        // Otherwise, return the attribute value
+//        return $this->attributes[$key];
+//    }
 
-        // Otherwise, return the attribute value
-        return $this->attributes[$key];
-    }
-
-    public function setAttribute($key, $value)
-    {
-        if (in_array($key,$this->translatable)) {
-             SetTranslationAction::run($this, $key,$value);
-             return;
-        }
-        $this->attributes[$key] = $value;
-    }
-
+//    public function setAttribute($key, $value)
+//    {
+//        if (in_array($key,$this->translatable)) {
+//             SetTranslationAction::run($this, $key,$value);
+//             return;
+//        }
+//        $this->attributes[$key] = $value;
+//    }
     public function translations()
     {
         return $this->morphMany(Translation::class, 'translatable')

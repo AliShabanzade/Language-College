@@ -5,7 +5,8 @@ namespace App\Repositories\Notice;
 use App\Models\Notice;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class NoticeRepository extends BaseRepository implements NoticeRepositoryInterface
 {
@@ -22,18 +23,13 @@ class NoticeRepository extends BaseRepository implements NoticeRepositoryInterfa
     }
 
 
-    public function query(array $payload = []): Builder
+    public function query(array $payload = []): Builder|QueryBuilder
     {
-        $query = parent::query($payload)->with('media', 'user');
-
-        if (isset($payload['published'])) {
-            $value = (bool)$payload['published'];
-            $query->where('published', '=', $value);
-        }
-        return $query;
+        return QueryBuilder::for($this->model)
+                           ->with(['media', 'user'])
+                           ->allowedFilters([
+                               'published',
+                               AllowedFilter::scope('search'),
+                           ]);
     }
-
-
-
-
 }

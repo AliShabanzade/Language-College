@@ -44,4 +44,9 @@ class Category extends Model
         return $this->hasMany(Blog::class);
     }
 
+    public function notices():HasMany
+    {
+        return $this->hasMany(Notice::class);
+    }
+
 }
