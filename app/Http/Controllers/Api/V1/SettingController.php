@@ -18,8 +18,8 @@ class SettingController extends ApiBaseController
 
     public function __construct()
     {
-        $this->middleware('auth:api');
-        $this->authorizeResource(Setting::class);
+        $this->middleware('auth:api')->except('index','show');
+        //$this->authorizeResource(Setting::class);
     }
 
     /**
@@ -41,6 +41,7 @@ class SettingController extends ApiBaseController
 
     public function store(StoreSettingRequest $request): JsonResponse
     {
+        $this->authorizeResource('create',Setting::class);
         $model = StoreSettingAction::run($request->validated());
         return $this->successResponse($model, trans('general.model_has_stored_successfully',['model'=>trans('setting.model')]));
     }
@@ -50,6 +51,7 @@ class SettingController extends ApiBaseController
      */
     public function update(UpdateSettingRequest $request, Setting $setting): JsonResponse
     {
+        $this->authorizeResource('update',$setting);
         $data = UpdateSettingAction::run($setting, $request->all());
         return $this->successResponse(SettingResource::make($data),trans('general.model_has_updated_successfully',['model'=>trans('setting.model')]));
     }
@@ -59,6 +61,7 @@ class SettingController extends ApiBaseController
      */
     public function destroy(Setting $setting): JsonResponse
     {
+        $this->authorizeResource('delete',$setting);
         DeleteSettingAction::run($setting);
         return $this->successResponse('', trans('general.model_has_deleted_successfully',['model'=>trans('setting.model')]));
     }

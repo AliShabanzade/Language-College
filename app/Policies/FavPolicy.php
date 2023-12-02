@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\PermissionEnum;
 use App\Models\Fav;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -13,7 +14,8 @@ class FavPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::FAV_ALL->value,
+            PermissionEnum::FAV_INDEX->value);
     }
 
     /**
@@ -21,7 +23,8 @@ class FavPolicy
      */
     public function view(User $user, Fav $fav): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::FAV_ALL->value,
+            PermissionEnum::FAV_INDEX->value);
     }
 
     /**
@@ -29,7 +32,8 @@ class FavPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::FAV_ALL->value,
+            PermissionEnum::FAV_INDEX->value);
     }
 
     /**
@@ -37,7 +41,8 @@ class FavPolicy
      */
     public function update(User $user, Fav $fav): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::FAV_ALL->value,
+            PermissionEnum::FAV_INDEX->value);
     }
 
     /**
@@ -45,22 +50,9 @@ class FavPolicy
      */
     public function delete(User $user, Fav $fav): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::FAV_ALL->value,
+            PermissionEnum::FAV_INDEX->value);
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Fav $fav): bool
-    {
-        //
-    }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Fav $fav): bool
-    {
-        //
-    }
 }

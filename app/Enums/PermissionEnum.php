@@ -55,5 +55,20 @@ enum PermissionEnum: string
     case PUBLICATION_DELETE = "publication.delete";
     case PUBLICATION_RESTORE = "publication.restore";
 
+    case SETTING_ALL = "setting.all";
+    case SETTING_INDEX = "setting.index";
+    case SETTING_SHOW = "setting.show";
+    case SETTING_STORE = "setting.store";
+    case SETTING_UPDATE = "setting.update";
+    case SETTING_DELETE = "setting.delete";
+
+    case FAV_ALL = "fav.all";
+    case FAV_INDEX = "fav.index";
+    case FAV_SHOW = "fav.show";
+    case FAV_STORE = "fav.store";
+    case FAV_UPDATE = "fav.update";
+    case FAV_DELETE = "fav.delete";
+
+
 
 }

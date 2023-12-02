@@ -24,7 +24,8 @@ class BookPolicy
      */
     public function view(User $user, Book $book): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_SHOW->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value,
+            PermissionEnum::BOOK_SHOW->value,PermissionEnum::ADMIN->value);
 
     }
 
@@ -33,7 +34,8 @@ class BookPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_STORE->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value,
+            PermissionEnum::BOOK_STORE->value,PermissionEnum::ADMIN->value);
 
     }
 
@@ -42,7 +44,8 @@ class BookPolicy
      */
     public function update(User $user, Book $book): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_UPDATE->value,PermissionEnum::ADMIN->value)
+        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value,
+                PermissionEnum::BOOK_UPDATE->value,PermissionEnum::ADMIN->value)
             || $user->id === $book->user_id;
     }
 

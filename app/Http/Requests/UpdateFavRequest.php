@@ -10,7 +10,10 @@ class UpdateFavRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'translations'            => 'array',
+            'translations.*.fa.*.key'   => 'string',
+            'translations.*.fa.*.value' => 'string',
+            'media'       => '',
         ];
     }
 }

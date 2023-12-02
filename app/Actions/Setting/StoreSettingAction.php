@@ -18,7 +18,10 @@ class StoreSettingAction
     public function handle(array $payload): Setting
     {
         return DB::transaction(function () use ($payload) {
-            return $this->repository->store($payload);
+            $model= $this->repository->store($payload);
+            $model->set($payload['extra_attributes']);
+            $model->save();
+            return    $model;
         });
     }
 }

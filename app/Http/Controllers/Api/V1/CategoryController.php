@@ -74,10 +74,4 @@ class CategoryController extends ApiBaseController
             ['model' => trans('category.model')]));
     }
 
-    public function restore($slug, CategoryRepositoryInterface $repository): bool
-    {
-        $category = $repository->restore($slug);
-        $repository->toggle($category, 'published');
-          return $category;
-    }
 }
