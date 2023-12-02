@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Cart;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UpdateCartRequest;
 use App\Http\Requests\StoreCartRequest;
@@ -11,6 +12,7 @@ use App\Actions\Cart\StoreCartAction;
 use App\Actions\Cart\DeleteCartAction;
 use App\Actions\Cart\UpdateCartAction;
 use App\Repositories\Cart\CartRepositoryInterface;
+use Illuminate\Http\Request;
 
 
 class CartController extends ApiBaseController
@@ -25,7 +27,7 @@ class CartController extends ApiBaseController
     /**
      * Display a listing of the resource.
      */
-    public function index(CartRepositoryInterface $repository): JsonResponse
+    public function index( CartRepositoryInterface $repository): JsonResponse
     {
         return $this->successResponse(CartResource::collection($repository->paginate()));
     }
@@ -42,7 +44,7 @@ class CartController extends ApiBaseController
     public function store(StoreCartRequest $request): JsonResponse
     {
         $model = StoreCartAction::run($request->validated());
-        return $this->successResponse($model, trans('general.model_has_stored_successfully',['model'=>trans('cart.model')]));
+        return $this->successResponse($model, trans('general.model_has_stored_successfully', ['model' => trans('cart.model')]));
     }
 
     /**
@@ -51,7 +53,7 @@ class CartController extends ApiBaseController
     public function update(UpdateCartRequest $request, Cart $cart): JsonResponse
     {
         $data = UpdateCartAction::run($cart, $request->all());
-        return $this->successResponse(CartResource::make($data),trans('general.model_has_updated_successfully',['model'=>trans('cart.model')]));
+        return $this->successResponse(CartResource::make($data), trans('general.model_has_updated_successfully', ['model' => trans('cart.model')]));
     }
 
     /**
@@ -60,6 +62,6 @@ class CartController extends ApiBaseController
     public function destroy(Cart $cart): JsonResponse
     {
         DeleteCartAction::run($cart);
-        return $this->successResponse('', trans('general.model_has_deleted_successfully',['model'=>trans('cart.model')]));
+        return $this->successResponse('', trans('general.model_has_deleted_successfully', ['model' => trans('cart.model')]));
     }
 }

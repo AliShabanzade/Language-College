@@ -2,30 +2,38 @@
 
 namespace App\Traits;
 
-use App\Actions\Translation\TranslationAction;
+use App\Actions\Translation\GetTranslationAction;
+use App\Actions\Translation\SetTranslationAction;
 use App\Models\Translation;
 
-trait HasTranslationAuto{
+trait HasTranslationAuto
+{
     public function getAttribute($key)
     {
         if (in_array($key, $this->translatable)) {
-            return TranslationAction::get($this, $key);
+            return GetTranslationAction::run($this, $key);
         }
+        // If the key corresponds to a relationship, return the relationship
+        if (method_exists($this, $key)) {
+            return $this->getRelationshipFromMethod($key);
+        }
+
+        // Otherwise, return the attribute value
         return $this->attributes[$key];
     }
-    public function setAttribute($key,$value)
-    {
-        if(in_array($key,$this->translatable)){
 
-            return TranslationAction::run($this,$value);
+    public function setAttribute($key, $value)
+    {
+        if (in_array($key,$this->translatable)) {
+             SetTranslationAction::run($this, $key,$value);
+             return;
         }
-        $this->attributes[$key]=$value;
+        $this->attributes[$key] = $value;
     }
 
-    public function translation()
+    public function translations()
     {
-        return $this->morphMany(Translation::class,'translatable')
-            ->where('locale',app()->getLocale());
+        return $this->morphMany(Translation::class, 'translatable')
+                    ->where('locale', app()->getLocale());
     }
-
 }

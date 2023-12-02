@@ -4,6 +4,7 @@ namespace App\Repositories\Faq;
 
 use App\Models\Faq;
 use App\Repositories\BaseRepository;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class FaqRepository extends BaseRepository implements FaqRepositoryInterface
@@ -13,8 +14,16 @@ class FaqRepository extends BaseRepository implements FaqRepositoryInterface
         parent::__construct($model);
     }
 
-   public function getModel(): Faq
-   {
-       return parent::getModel();
-   }
+    public function query(array $payload = []): Builder
+    {
+        return parent::query()->when(!empty($payload['search']), function (Builder $q) use ($payload) {
+            $q->where('question', 'like', '%' . $payload['search'] . '%')
+              ->orWhere('answer', 'like', '%' . $payload['search'] . '%');
+        });
+    }
+
+    public function getModel(): Faq
+    {
+        return parent::getModel();
+    }
 }

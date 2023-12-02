@@ -11,5 +11,4 @@ return [
     'model_has_retrieved_successfully' => ':model  با موفقیت بازیابی شده است',
 
 
-
 ];

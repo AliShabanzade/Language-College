@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1;
+namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -12,14 +12,15 @@ class ApiBaseController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function successResponse($data=[],$message="",$statusCode = 200): JsonResponse
+    public function successResponse($data = [], $message = "", $statusCode = 200): JsonResponse
     {
-        return response()->json(compact('data','message'),$statusCode);
+        return response()->json(compact('data', 'message'), $statusCode);
     }
-    public function errorResponse($message="",$statusCode=404): JsonResponse
+
+    public function errorResponse($message = "", $statusCode = 404): JsonResponse
     {
 
-        return response()->json(compact('message'),$statusCode);
+        return response()->json(compact('message'), $statusCode);
     }
 
 

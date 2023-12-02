@@ -2,7 +2,7 @@
 
 namespace App\Actions\Book;
 
-use App\Actions\Translation\TranslationAction;
+use App\Actions\Translation\SetTranslationAction;
 use App\Enums\CategoryEnum;
 use App\Models\Book;
 use App\Repositories\Book\BookRepositoryInterface;
@@ -19,20 +19,19 @@ class StoreBookAction
     {
     }
 
-    public function handle(array $payload): Book
+    public function handle(array $payload)
     {
-        return DB::transaction(function () use ($payload) {
+       return DB::transaction(function () use ($payload) {
             $category = $this->categoryRepository->find($payload['category_id']);
-
             if ($category->type == Book::class) {
-               // $payload['user_id'] = auth()->user()->id;
-
+                $payload['user_id'] = auth()->user()->id;
                 $model = $this->repository->store($payload);
-                TranslationAction::run($model,$payload['translation']);
+                SetTranslationAction::translate($model, $payload['translation']);
+                $model->save();
 
                 return $model;
             }
-            return null;
+           return null;
         });
     }
 }

@@ -17,7 +17,7 @@ class ViewFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'ip' => fake()->ipv4
         ];
     }
 }

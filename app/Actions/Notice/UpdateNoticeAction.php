@@ -28,7 +28,6 @@ class UpdateNoticeAction
 //            $notice->updateMedia([]);
             $notice=$this->repository->update($notice , $payload);
             $notice->media()->delete();
-
             $notice->addMediaFromRequest('media')
                    ->toMediaCollection('notice');
             return $notice;

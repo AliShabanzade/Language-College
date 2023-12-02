@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,9 +11,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-/**
- * @property mixed $mobile_verify_at
- */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
@@ -23,7 +21,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'mobile_verify_at', 'name', 'block', 'mobile', 'password', 'email', 'remember_token',
+        'name', 'block', 'mobile', 'password', 'email', 'mobile_verify_at', 'remember_token',
     ];
 
     /**
@@ -46,15 +44,32 @@ class User extends Authenticatable
         'password'          => 'hashed',
     ];
 
+
+    public function carts(): HasMany
+    {
+        return $this->hasMany(Cart::class);
+    }
+
     public function notices(): HasMany
     {
         return $this->hasMany(Notice::class);
     }
 
 
-    public function opinion():HasMany
+    public function activationCodes(): HasMany
+    {
+        return $this->hasMany(ActivationCode::class);
+    }
+
+
+    public function opinion(): HasMany
     {
         return $this->hasMany(Opinion::class);
+    }
+
+    public function blogs(): HasMany
+    {
+        return $this->hasMany(Blog::class);
     }
 
 }

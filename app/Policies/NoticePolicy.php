@@ -5,32 +5,19 @@ namespace App\Policies;
 use App\Enums\PermissionEnum;
 use App\Models\Notice;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class NoticePolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
-    {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value, PermissionEnum::NOTICE_ALL->value, PermissionEnum::NOTICE_INDEX->value);
-    }
-
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Notice $notice): bool
-    {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value, PermissionEnum::NOTICE_ALL->value, PermissionEnum::NOTICE_SHOW->value);
-    }
 
     /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value, PermissionEnum::NOTICE_ALL->value, PermissionEnum::NOTICE_STORE->value);
+        return $user->hasAnyPermission(
+            PermissionEnum::ADMIN->value,
+            PermissionEnum::NOTICE_ALL->value,
+            PermissionEnum::NOTICE_STORE->value);
     }
 
     /**
@@ -38,7 +25,11 @@ class NoticePolicy
      */
     public function update(User $user, Notice $notice): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value, PermissionEnum::NOTICE_ALL->value, PermissionEnum::NOTICE_UPDATE->value) || $notice->id === $notice->user_id;
+        return $user->hasAnyPermission(
+                PermissionEnum::ADMIN->value,
+                PermissionEnum::NOTICE_ALL->value,
+                PermissionEnum::NOTICE_UPDATE->value) ||
+            $user->id === $notice->user_id;
     }
 
     /**
@@ -47,7 +38,10 @@ class NoticePolicy
     public function delete(User $user, Notice $notice): bool
     {
 
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value, PermissionEnum::NOTICE_ALL->value, PermissionEnum::NOTICE_DELETE->value);
+        return $user->hasAnyPermission(
+            PermissionEnum::ADMIN->value,
+            PermissionEnum::NOTICE_ALL->value,
+            PermissionEnum::NOTICE_DELETE->value);
     }
 
     /**
@@ -55,7 +49,10 @@ class NoticePolicy
      */
     public function restore(User $user, Notice $notice): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value, PermissionEnum::NOTICE_ALL->value, PermissionEnum::NOTICE_RESTORE->value);
+        return $user->hasAnyPermission(
+            PermissionEnum::ADMIN->value,
+            PermissionEnum::NOTICE_ALL->value,
+            PermissionEnum::NOTICE_RESTORE->value);
     }
 
     /**
@@ -63,6 +60,7 @@ class NoticePolicy
      */
     public function forceDelete(User $user, Notice $notice): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(
+            PermissionEnum::ADMIN->value);
     }
 }
