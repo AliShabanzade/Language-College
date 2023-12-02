@@ -15,7 +15,7 @@ class OrderItem extends pivot
 
     protected $table = 'order_items';
 
-    protected $fillable = ['uuid', 'book_id', 'order_id', 'quantity', 'price'];
+    protected $fillable = [ 'book_id', 'order_id', 'quantity', 'price'];
 
     public function order(): BelongsTo
     {

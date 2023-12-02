@@ -8,6 +8,7 @@ use App\Models\ActivationCode;
 use App\Models\Book;
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Traits\HasRoles;
@@ -29,7 +30,7 @@ class UserSeeder extends Seeder
         ]);
 
 
-        $admin->syncRoles(RoleEnum::ADMIN->value);
+        $admin->syncRoles(RoleEnum::ADMIN->value  );
         User::factory(5)->create()->each(function (User $user) {
             ActivationCode::factory(3)->create([
                 'user_id' => $user->id,
@@ -47,6 +48,7 @@ class UserSeeder extends Seeder
                 'book_id' => book::factory(),
             ]);
 //----------------------------------End Of Cart-----------------------------------------------
+            Order::factory(5)->create();
         });
 
 

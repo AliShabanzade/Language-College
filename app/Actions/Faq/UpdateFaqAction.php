@@ -31,7 +31,7 @@ class UpdateFaqAction
         return DB::transaction(function () use ($payload, $faq) {
             if ($faq->category->id && $faq->category->type === "App\Models\Faq") {
                 $payload['user_id'] = Auth::user()->id;
-                $faq->update($payload);
+                $faq = $this->repository->update($faq, $payload);
 
             }
             return $faq;
