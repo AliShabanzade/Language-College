@@ -33,8 +33,6 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
                 ])),
             ]); // Execute the query and return the result
     }
-
-
-}
+    
 
 }
