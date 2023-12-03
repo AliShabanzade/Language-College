@@ -7,7 +7,7 @@ use App\Models\View;
 trait HasView{
     public function views()
     {
-        return $this->morphMany(\App\Models\View::class,'viewable');
+        return $this->morphMany(View::class,'viewable');
 
     }
 }
