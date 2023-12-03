@@ -64,7 +64,4 @@ class BookController extends ApiBaseController
         DeleteBookAction::run($book);
         return $this->successResponse('', trans('general.model_has_deleted_successfully', ['model' => trans('book.model')]));
     }
-
-
-
 }

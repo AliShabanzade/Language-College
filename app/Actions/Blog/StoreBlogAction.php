@@ -16,7 +16,6 @@ class StoreBlogAction
     public function __construct(
         private readonly BlogRepositoryInterface $repository,
         private readonly CategoryRepositoryInterface $categoryRepository,
-
     )
     {
     }
@@ -25,7 +24,7 @@ class StoreBlogAction
     {
         return DB::transaction(function () use ($payload) {
             $category = $this->categoryRepository->find($payload['category_id']);
-            if ($category && $category->type === Blog::class) {
+            if ($category->type === Blog::class) {
                 $payload['user_id'] = auth()->id();
                 $blog = $this->repository->store($payload);
                 SetTranslationAction::translate($blog, $payload['translations']);

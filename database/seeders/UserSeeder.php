@@ -59,11 +59,11 @@ class UserSeeder extends Seeder
                     'likeable_id' => $blog->id,
                     'likeable_type' => Blog::class
                 ]);
-                View::factory(1)->create([
-                    'user_id' => $user->id,
-                    'viewable_id' => $blog->id,
-                    'viewable_type' => Blog::class
-                ]);
+//                View::factory(1)->create([
+//                    'user_id' => $user->id,
+//                    'viewable_id' => $blog->id,
+//                    'viewable_type' => Blog::class
+//                ]);
                 Comment::factory(1)->create([
                     'user_id' => $user->id,
                     'commentable_id' => $blog->id,
