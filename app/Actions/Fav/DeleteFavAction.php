@@ -18,6 +18,8 @@ class DeleteFavAction
     public function handle(Fav $fav): bool
     {
         return DB::transaction(function () use ($fav) {
+            $fav->translations()->delete();
+            $fav->media()->delete();
             return $this->repository->delete($fav);
         });
     }

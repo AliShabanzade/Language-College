@@ -15,13 +15,14 @@ use App\Actions\Book\UpdateBookAction;
 use App\Repositories\Book\BookRepositoryInterface;
 
 
+
 class BookController extends ApiBaseController
 {
 
     public function __construct()
     {
-//        $this->middleware('auth:api');
-//        $this->authorizeResource(Book::class);
+        $this->middleware('auth:api');
+        $this->authorizeResource(Book::class);
     }
 
     /**
@@ -37,14 +38,16 @@ class BookController extends ApiBaseController
      */
     public function show(Book $book): JsonResponse
     {
-        return $this->successResponse(BookResource::make($book));
+
+        return $this->successResponse(BookResource::make($book->load(['user','category', 'media','publication'])));
     }
 
 
     public function store(StoreBookRequest $request): JsonResponse
     {
         $model = StoreBookAction::run($request->validated());
-        return $this->successResponse($model, trans('general.model_has_stored_successfully', ['model' => trans('book.model')]));
+        return $this->successResponse(BookResource::make($model->load('user','category','publication')),
+            trans('general.model_has_stored_successfully', ['model' => trans('book.model')]));
     }
 
     /**
@@ -52,8 +55,9 @@ class BookController extends ApiBaseController
      */
     public function update(UpdateBookRequest $request, Book $book): JsonResponse
     {
-        $data = UpdateBookAction::run($book, $request->all());
-        return $this->successResponse(BookResource::make($data), trans('general.model_has_updated_successfully', ['model' => trans('book.model')]));
+        $data = UpdateBookAction::run($book, $request->validated());
+        return $this->successResponse(BookResource::make($data->load('user','category','publication')),
+            trans('general.model_has_updated_successfully', ['model' => trans('book.model')]));
     }
 
     /**
@@ -63,5 +67,12 @@ class BookController extends ApiBaseController
     {
         DeleteBookAction::run($book);
         return $this->successResponse('', trans('general.model_has_deleted_successfully', ['model' => trans('book.model')]));
+    }
+
+    public function toggle(Book $book, BookRepositoryInterface $repository): JsonResponse
+    {
+        $book = $repository->toggle($book, 'published');
+        return $this->successResponse($book, trans('general.model_has_toggled_successfully',
+            ['model' => trans('book.model')]));
     }
 }

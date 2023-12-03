@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\PermissionEnum;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -13,7 +14,8 @@ class SettingPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::SETTING_ALL->value,
+            PermissionEnum::SETTING_INDEX->value);
     }
 
     /**
@@ -21,7 +23,8 @@ class SettingPolicy
      */
     public function view(User $user, Setting $setting): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::SETTING_ALL->value,
+            PermissionEnum::SETTING_SHOW->value);
     }
 
     /**
@@ -29,7 +32,8 @@ class SettingPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::SETTING_ALL->value,
+            PermissionEnum::SETTING_STORE->value);
     }
 
     /**
@@ -37,7 +41,8 @@ class SettingPolicy
      */
     public function update(User $user, Setting $setting): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::SETTING_ALL->value,
+            PermissionEnum::SETTING_UPDATE->value);
     }
 
     /**
@@ -45,22 +50,9 @@ class SettingPolicy
      */
     public function delete(User $user, Setting $setting): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::SETTING_ALL->value,
+            PermissionEnum::SETTING_DELETE->value);
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Setting $setting): bool
-    {
-        //
-    }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Setting $setting): bool
-    {
-        //
-    }
 }

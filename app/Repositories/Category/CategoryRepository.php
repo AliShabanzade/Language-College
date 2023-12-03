@@ -2,9 +2,11 @@
 
 namespace App\Repositories\Category;
 
+use App\Filters\FiltersCategoryTranslation;
 use App\Models\Category;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Builder;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
@@ -22,15 +24,15 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     public function query(array $payload = []): Builder|QueryBuilder
     {
         return QueryBuilder::for($this->model)
-                           ->when(isset($payload['children']) && !isset($payload['parent']), function ($query) {
-                               return $query->with('children');
-                           })
-                           ->when(isset($payload['parent']) && !isset($payload['children']), function ($query) {
-                               return $query->with('parent');
-                           })
-                           ->when(isset($payload['parent']) && isset($payload['children']), function ($query) {
-                               return $query->with(['parent', 'children']);
-                           });
+            ->allowedFilters([
+                'published',
+                AllowedFilter::scope('with_relations'),
+                AllowedFilter::scope('only_relation'),
+                AllowedFilter::custom('search', new FiltersCategoryTranslation([
+                    'key' => ['title']
+                ])),
+            ]); // Execute the query and return the result
     }
+    
 
 }

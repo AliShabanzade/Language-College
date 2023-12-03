@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fav;
 
+use App\Actions\Translation\SetTranslationAction;
 use App\Models\Fav;
 use App\Repositories\Fav\FavRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -17,8 +18,16 @@ class StoreFavAction
 
     public function handle(array $payload): Fav
     {
+
         return DB::transaction(function () use ($payload) {
-            return $this->repository->store($payload);
+
+            $model= $this->repository->store($payload);
+            if (request()->hasFile('media')) {
+                $model->addMediaFromRequest('media')
+                    ->toMediaCollection('book');
+            }
+            SetTranslationAction::run($model, $payload['translations']);
+            return $model;
         });
     }
 }

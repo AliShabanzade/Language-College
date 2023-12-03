@@ -19,13 +19,22 @@ class StoreCategoryAction
         $this->category = $category;
     }
 
-    public function handle(array $payload): Category
+    public function handle(array $payload): Category|null
     {
         return DB::transaction(function () use ($payload) {
-            $model = $this->repository->store($payload);
-            SetTranslationAction::translate($model, $payload['translation']);
-            return $model;
+            if(!empty($payload['parent_id'])){
+                $categoryTyp=$this->repository->find($payload['parent_id']);
+                if($payload['type']==$categoryTyp->type){
+                    $model = $this->repository->store($payload);
+                    SetTranslationAction::handle($model, $payload['translation']);
+                    return $model;
+                }
+            }else{
+                $model = $this->repository->store($payload);
+                SetTranslationAction::handle($model, $payload['translation']);
+                return $model;
+            }
+            return null;
         });
-
     }
 }

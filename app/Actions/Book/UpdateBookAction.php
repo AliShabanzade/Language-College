@@ -29,12 +29,20 @@ class UpdateBookAction
      */
     public function handle(Book $book, array $payload): Book
     {
+
         return DB::transaction(function () use ($book, $payload) {
             $category = $this->categoryRepository->find($payload['category_id']);
             if ($category->type == Book::class) {
                 $payload['user_id'] = auth()->user()->id;
-                $book->update($payload);
-                SetTranslationAction::translate($book, $payload['translation']);
+                $model=$this->repository->update($book,$payload);
+                $model->extra_attributes->set($payload['extra_attributes']);
+                $model->save();
+                SetTranslationAction::run($book,$payload['translations']);
+                if(request()->hasFile('media')){
+                    $book->media()->delete();
+                    $book->addMediaFromRequest('media')
+                        ->toMediaCollection('book');
+                }
                 return $book;
             }
 

@@ -47,6 +47,40 @@ enum PermissionEnum: string
     case BOOK_DELETE = "book.delete";
     case BOOK_RESTORE = "book.restore";
 
+    case ROLE_ALL = "role.all";
+    case ROLE_INDEX = "role.index";
+    case ROLE_SHOW = "role.show";
+    case ROLE_STORE = "role.store";
+    case ROLE_UPDATE = "role.update";
+    case ROLE_TOGGLE = "role.toggle";
+    case ROLE_DELETE = "role.delete";
+    case ROLE_RESTORE = "role.restore";
+    case ROLE_ADD = "role.add";
+    case ROLE_REMOVE = "role.remove";
+
+    case PUBLICATION_ALL = "publication.all";
+    case PUBLICATION_INDEX = "publication.index";
+    case PUBLICATION_SHOW = "publication.show";
+    case PUBLICATION_STORE = "publication.store";
+    case PUBLICATION_UPDATE = "publication.update";
+    case PUBLICATION_TOGGLE = "publication.toggle";
+    case PUBLICATION_DELETE = "publication.delete";
+    case PUBLICATION_RESTORE = "publication.restore";
+
+    case SETTING_ALL = "setting.all";
+    case SETTING_INDEX = "setting.index";
+    case SETTING_SHOW = "setting.show";
+    case SETTING_STORE = "setting.store";
+    case SETTING_UPDATE = "setting.update";
+    case SETTING_DELETE = "setting.delete";
+
+    case FAV_ALL = "fav.all";
+    case FAV_INDEX = "fav.index";
+    case FAV_SHOW = "fav.show";
+    case FAV_STORE = "fav.store";
+    case FAV_UPDATE = "fav.update";
+    case FAV_DELETE = "fav.delete";
+
 
     case NOTICE_ALL = "notice.all";
     case NOTICE_INDEX = "notice.index";

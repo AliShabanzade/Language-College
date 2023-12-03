@@ -2,38 +2,39 @@
 
 namespace App\Models;
 
+
+use App\Traits\HasCategory;
+use App\Traits\HasSchemalessAttributes;
 use App\Traits\HasSlug;
 use App\Traits\HasUser;
-use Cviebrock\EloquentSluggable\Sluggable;
+use App\Traits\HasTranslationAuto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\SchemalessAttributes\SchemalessAttributesTrait;
+use Spatie\SchemalessAttributes\Casts\SchemalessAttributes;
 
-
-class Book extends Model
+class Book extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, HasSlug, HasUser;
+    use SchemalessAttributesTrait;
+//    use HasSchemalessAttributes;
+    use InteractsWithMedia,HasFactory, SoftDeletes, HasSlug,
+        HasTranslationAuto, HasUser, HasCategory;
 
-    protected $fillable = ['name', 'publication', 'user_id', 'category_id', 'inventory', 'published',
-                           'price', 'pages', 'sales', 'writer'];
+    private array $translatable = ['name',  'writer'];
+    protected     $fillable     = ['slug', 'user_id', 'category_id', 'inventory', 'published', 'price', 'pages', 'sales','publication_id'];
+    protected $schemalessAttributes = ['extra_attributes'];
+    protected     $casts        = [
+        'extra_attributes' => 'array',
+    ];
 
-//    public function sluggable()
-//    {
-//        return [
-//            'slug' => [
-//                'source' => 'name'
-//            ]
-//        ];
-//    }
-    public function category(): BelongsTo
+    public function publication():BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Publication::class);
     }
-
-
     public function orders(): BelongsToMany
     {
         return $this->belongsToMany(Order::class, 'order_items')

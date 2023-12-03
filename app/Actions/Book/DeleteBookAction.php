@@ -19,6 +19,7 @@ class DeleteBookAction
     {
         return DB::transaction(function () use ($book) {
             $book->translations()->delete();
+            $book->media()->delete();
             return $this->repository->delete($book);
         });
     }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasTranslationAuto;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,7 +17,7 @@ class Category extends Model
 
     private array $translatable = ['title'];
 
-    protected $fillable = ['published', 'parent_id', 'slug', 'type', 'category_id'];
+    protected $fillable = ['published', 'parent_id', 'slug', 'type'];
 
     public function parent(): BelongsTo
     {
@@ -33,7 +34,15 @@ class Category extends Model
         return $this->hasMany(Book::class);
     }
 
+    public function scopeWithRelations(Builder $query, $relation1, $relation2): Builder
+    {
+        return $query->with([$relation1, $relation2]);
+    }
 
+    public function scopeOnlyRelation(Builder $query, $relation): Builder
+    {
+        return $query->with($relation);
+    }
     public function faqs(): HasMany
     {
         return $this->hasMany(Faq::class);
