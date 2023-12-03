@@ -15,6 +15,7 @@ class SetTranslationAction
     {
         foreach ($translations as $locale=>$rows) {
             foreach ($rows as $row) {
+
                 $model->translations()->updateOrCreate(
                     [
                         'key'    => $row['key'],

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Actions\Translation\GetTranslationAction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,7 +17,7 @@ class PublicationResource extends JsonResource
     {
         return[
             'id'=>$this->id,
-            'publication'=>$this->publication,
+            'publication'=>GetTranslationAction::run($this->resource,'publication'),
         ];
     }
 }
