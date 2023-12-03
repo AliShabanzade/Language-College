@@ -18,11 +18,8 @@ class StoreCommentAction
     public function handle($model, array $payload): Comment
     {
         return DB::transaction(function () use ($model, $payload) {
-            return $model->comments()->create([
-                'user_id'   => auth()->id(),
-                'comment'   => $payload['comment'],
-                'parent_id' => $payload['parent_id'],
-            ]);
+            $payload['user_id']=auth()->id();
+            return $model->comments()->create($payload);
         });
     }
 }

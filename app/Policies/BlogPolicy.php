@@ -13,7 +13,10 @@ class BlogPolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        return $user->hasAnyPermission(
+            PermissionEnum::ADMIN->value,
+            PermissionEnum::BLOG_ALL->value,
+            PermissionEnum::BLOG_INDEX->value);
     }
 
     /**
@@ -21,7 +24,10 @@ class BlogPolicy
      */
     public function view(User $user, Blog $blog): bool
     {
-        return true;
+        return $user->hasAnyPermission(
+            PermissionEnum::ADMIN->value,
+            PermissionEnum::BLOG_ALL->value,
+            PermissionEnum::BLOG_SHOW->value);
     }
 
     /**
@@ -40,7 +46,10 @@ class BlogPolicy
      */
     public function update(User $user, Blog $blog): bool
     {
-        return true;
+        return $user->hasAnyPermission(
+            PermissionEnum::ADMIN->value,
+            PermissionEnum::BLOG_ALL->value,
+            PermissionEnum::BLOG_UPDATE->value) || $blog->user_id==$user->id;
     }
 
     /**
@@ -48,7 +57,10 @@ class BlogPolicy
      */
     public function delete(User $user, Blog $blog): bool
     {
-        return true;
+        return $user->hasAnyPermission(
+            PermissionEnum::ADMIN->value,
+            PermissionEnum::BLOG_ALL->value,
+            PermissionEnum::BLOG_DELETE->value);
     }
 
     /**
