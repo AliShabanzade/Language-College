@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Actions\Comment\StoreCommentAction;
 use App\Actions\Notice\DeleteNoticeAction;
 use App\Actions\Notice\StoreNoticeAction;
 use App\Actions\Notice\UpdateNoticeAction;
+use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\StoreNoticeRequest;
 use App\Http\Requests\UpdateNoticeRequest;
 use App\Http\Resources\NoticeResource;
@@ -77,5 +79,14 @@ class NoticeController extends ApiBaseController
         $data = $repository->toggle($notice);
         return $this->successResponse(NoticeResource::make($data), '');
     }
+
+
+    public function addLike(Notice $notice): bool
+    {
+        $notice->like();
+        return true;
+    }
+
+
 }
 

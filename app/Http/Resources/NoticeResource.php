@@ -18,7 +18,7 @@ class NoticeResource extends JsonResource
         return [
             'id'          => $this->resource->id,
             'title'       => GetTranslationAction::run($this->resource,'title'),
-            'description' => $this->resource->description,
+            'description' => GetTranslationAction::run($this->resource,'description'),
             'user'        => $this->whenLoaded('user', fn() => UserResource::make($this->resource->user)),
             'category'    => $this->whenLoaded('category', fn() => CategoryResource::make($this->resource->category)),
             'comment'     => $this->whenLoaded('comments', fn() => CommentResource::collection($this->resource->comments)),

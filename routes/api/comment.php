@@ -8,5 +8,5 @@ Route::group(['prefix' => 'comment', 'as' => 'api.comment.'], function () {
 
 });
 Route::apiResource('comment', CommentController::class);
-Route::post('comment/notice/{notice}', [NoticeController::class, 'comment']);
+Route::post('comment/notice/{notice}', [CommentController::class, 'comment']);
 

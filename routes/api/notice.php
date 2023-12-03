@@ -8,5 +8,5 @@ Route::group(['prefix' => 'notice', 'as' => 'api.notice.'], function () {
 });
 Route::apiResource('notice', NoticeController::class);
 
-Route::patch('notice/toggle/{notice}' ,[NoticeController::class,'toggle']);
+Route::patch('notice/toggle/{notice}', [NoticeController::class, 'toggle']);
 
