@@ -4,7 +4,7 @@ namespace App\Repositories\Book;
 
 use App\Models\Book;
 use App\Repositories\BaseRepository;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class BookRepository extends BaseRepository implements BookRepositoryInterface
 {
@@ -17,4 +17,10 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
    {
        return parent::getModel();
    }
+
+    public function query(array $payload=[]):Builder
+    {
+        return parent::query($payload)->with(['category','user','publication']);
+    }
+
 }

@@ -10,7 +10,7 @@ class StoreSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'extra_attributes'        => 'array',
         ];
     }
 }

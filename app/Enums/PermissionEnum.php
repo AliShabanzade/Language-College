@@ -3,12 +3,11 @@
 namespace App\Enums;
 
 
-
-
 enum PermissionEnum: string
 {
 
     case ADMIN = "admin";
+
     case USER_ALL = "user.all";
     case USER_INDEX = "user.index";
     case USER_SHOW = "user.show";
@@ -17,7 +16,8 @@ enum PermissionEnum: string
     case USER_TOGGLE = "user.toggle";
     case USER_DELETE = "user.delete";
     case USER_RESTORE = "user.restore";
-//_________________category________________
+
+
     case CATEGORY_ALL = "category.all";
     case CATEGORY_INDEX = "category.index";
     case CATEGORY_SHOW = "category.show";
@@ -27,7 +27,17 @@ enum PermissionEnum: string
     case CATEGORY_DELETE = "category.delete";
     case CATEGORY_RESTORE = "category.restore";
 
-  //____________book___________________________
+
+    case FAQ_ALL = "faq_make.all";
+    case FAQ_INDEX = "faq_make.index";
+    case FAQ_SHOW = "faq_make.show";
+    case FAQ_STORE = "faq_make.store";
+    case FAQ_UPDATE = "faq_make.update";
+    case FAQ_TOGGLE = "faq_make.toggle";
+    case FAQ_DELETE = "faq_make.delete";
+    case FAQ_RESTORE = "faq_make.restore";
+
+
     case BOOK_ALL = "book.all";
     case BOOK_INDEX = "book.index";
     case BOOK_SHOW = "book.show";
@@ -37,6 +47,78 @@ enum PermissionEnum: string
     case BOOK_DELETE = "book.delete";
     case BOOK_RESTORE = "book.restore";
 
+    case ROLE_ALL = "role.all";
+    case ROLE_INDEX = "role.index";
+    case ROLE_SHOW = "role.show";
+    case ROLE_STORE = "role.store";
+    case ROLE_UPDATE = "role.update";
+    case ROLE_TOGGLE = "role.toggle";
+    case ROLE_DELETE = "role.delete";
+    case ROLE_RESTORE = "role.restore";
+    case ROLE_ADD = "role.add";
+    case ROLE_REMOVE = "role.remove";
+
+    case PUBLICATION_ALL = "publication.all";
+    case PUBLICATION_INDEX = "publication.index";
+    case PUBLICATION_SHOW = "publication.show";
+    case PUBLICATION_STORE = "publication.store";
+    case PUBLICATION_UPDATE = "publication.update";
+    case PUBLICATION_TOGGLE = "publication.toggle";
+    case PUBLICATION_DELETE = "publication.delete";
+    case PUBLICATION_RESTORE = "publication.restore";
+
+    case SETTING_ALL = "setting.all";
+    case SETTING_INDEX = "setting.index";
+    case SETTING_SHOW = "setting.show";
+    case SETTING_STORE = "setting.store";
+    case SETTING_UPDATE = "setting.update";
+    case SETTING_DELETE = "setting.delete";
+
+    case FAV_ALL = "fav.all";
+    case FAV_INDEX = "fav.index";
+    case FAV_SHOW = "fav.show";
+    case FAV_STORE = "fav.store";
+    case FAV_UPDATE = "fav.update";
+    case FAV_DELETE = "fav.delete";
+
+
+    case NOTICE_ALL = "notice.all";
+    case NOTICE_INDEX = "notice.index";
+    case NOTICE_SHOW = "notice.show";
+    case NOTICE_STORE = "notice.store";
+    case NOTICE_UPDATE = "notice.update";
+    case NOTICE_TOGGLE = "notice.toggle";
+    case NOTICE_DELETE = "notice.delete";
+    case NOTICE_RESTORE = "notice.restore";
+
+
+    case OPINION_ALL = "opinion.all";
+    case OPINION_INDEX = "opinion.index";
+    case OPINION_SHOW = "opinion.show";
+    case OPINION_STORE = "opinion.store";
+    case OPINION_UPDATE = "opinion.update";
+    case OPINION_TOGGLE = "opinion.toggle";
+    case OPINION_DELETE = "opinion.delete";
+    case OPINION_RESTORE = "opinion.restore";
+
+
+    case COMMENT_ALL = "comment.all";
+    case COMMENT_INDEX = "comment.index";
+    case COMMENT_SHOW = "comment.show";
+    case COMMENT_STORE = "comment.store";
+    case COMMENT_UPDATE = "comment.update";
+    case COMMENT_TOGGLE = "comment.toggle";
+    case COMMENT_DELETE = "comment.delete";
+    case COMMENT_RESTORE = "comment.restore";
+
+
+    case CART_ALL = "cart.all";
+    case CART_INDEX = "cart.index";
+    case CART_SHOW = "cart.show";
+    case CART_STORE = "cart.store";
+    case CART_UPDATE = "cart.update";
+    case CART_DELETE = "cart.delete";
+    case CART_RESTORE = "cart.restore";
 
 
     case BLOG_ALL = "blog.all";

@@ -26,9 +26,19 @@ class UpdateCategoryAction
     public function handle($category, array $payload): Category
     {
         return DB::transaction(function () use ($category, $payload) {
-            $category->update($payload);
-            SetTranslationAction::translate($category, $payload['translation']);
-            return $category;
+            if(!empty($payload['parent_id'])){
+                $categoryTyp=$this->repository->find($payload['parent_id']);
+                if($payload['type']==$categoryTyp->type){
+                    $model = $this->repository->update($category,$payload);
+                    SetTranslationAction::handle($model, $payload['translation']);
+                    return $model;
+                }
+                return null;
+            }else{
+                $model = $this->repository->update($category,$payload);
+                SetTranslationAction::handle($model, $payload['translation']);
+                return $model;
+            }
         });
     }
 }

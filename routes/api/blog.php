@@ -7,4 +7,5 @@ Route::group(['prefix' => 'blog', 'as' => 'api.blog.'], function () {
 
 });
 Route::apiResource('blog', BlogController::class);
+Route::get('comment/blog/{blog}',[BlogController::class,'comment']);
 

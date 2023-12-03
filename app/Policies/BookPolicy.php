@@ -14,7 +14,8 @@ class BookPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_INDEX->value);
+        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value,
+            PermissionEnum::BOOK_INDEX->value,PermissionEnum::ADMIN->value);
 
     }
 
@@ -23,7 +24,8 @@ class BookPolicy
      */
     public function view(User $user, Book $book): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_SHOW->value);
+        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value,
+            PermissionEnum::BOOK_SHOW->value,PermissionEnum::ADMIN->value);
 
     }
 
@@ -32,7 +34,8 @@ class BookPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_STORE->value);
+        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value,
+            PermissionEnum::BOOK_STORE->value,PermissionEnum::ADMIN->value);
 
     }
 
@@ -41,7 +44,8 @@ class BookPolicy
      */
     public function update(User $user, Book $book): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_UPDATE->value)
+        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value,
+                PermissionEnum::BOOK_UPDATE->value,PermissionEnum::ADMIN->value)
             || $user->id === $book->user_id;
     }
 
@@ -50,7 +54,7 @@ class BookPolicy
      */
     public function delete(User $user, Book $book): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_DELETE->value);
+        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_DELETE->value,PermissionEnum::ADMIN->value);
 
     }
 
@@ -59,7 +63,7 @@ class BookPolicy
      */
     public function restore(User $user, Book $book): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_RESTORE->value);
+        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_RESTORE->value,PermissionEnum::ADMIN->value);
 
     }
 
@@ -68,7 +72,7 @@ class BookPolicy
      */
     public function forceDelete(User $user, Book $book): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_STORE->value);
+        return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_STORE->value,PermissionEnum::ADMIN->value);
 
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fav;
 
+use App\Actions\Translation\SetTranslationAction;
 use App\Enums\PermissionEnum;
 use App\Models\Fav;
 use App\Repositories\Fav\FavRepositoryInterface;
@@ -25,8 +26,14 @@ class UpdateFavAction
     public function handle(Fav $fav, array $payload): Fav
     {
         return DB::transaction(function () use ($fav, $payload) {
-            $fav->update($payload);
-            return $fav;
+            $model=$this->repository->update($fav,$payload);
+            SetTranslationAction::run($model,$payload['translations']);
+            if(request()->hasFile('media')){
+                $model->media()->delete();
+                $model->addMediaFromRequest('media')
+                    ->toMediaCollection('book');
+            }
+            return $model;
         });
     }
 }

@@ -15,14 +15,19 @@ class UpdateBookRequest extends FormRequest
 
             'user_id' => ['nullable', 'integer', 'exists:users,id'],
             'category_id' => ['nullable', 'exists:categories,id'],
+            'publication_id' => ['nullable', 'integer', 'exists:publications,id'],
             'inventory' => ['required', 'integer'],
             'published' => ['required'],
             'price' => ['required', 'numeric'],
             'pages' => ['required', 'integer'],
             'sales' => ['required', 'integer'],
-            'translation' => 'array',
-            'translation.fa.*.key' => 'required|string',
-            'translation.fa.*.value' => 'required|string',
+            'media' => '',
+
+            'translations' => 'array',
+            'translations.*.fa.*.key' => 'string',
+            'translations.*.fa.*.value' => 'string',
+
+            'extra_attributes' => 'array',
         ];
     }
 }

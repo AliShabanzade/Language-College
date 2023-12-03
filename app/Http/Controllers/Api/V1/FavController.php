@@ -18,8 +18,8 @@ class FavController extends ApiBaseController
 
     public function __construct()
     {
-        $this->middleware('auth:api');
-        $this->authorizeResource(Fav::class);
+        $this->middleware('auth:api')->except('index','show');
+
     }
 
     /**
@@ -41,6 +41,8 @@ class FavController extends ApiBaseController
 
     public function store(StoreFavRequest $request): JsonResponse
     {
+
+        $this->authorize('create', Fav::class);
         $model = StoreFavAction::run($request->validated());
         return $this->successResponse($model, trans('general.model_has_stored_successfully',['model'=>trans('fav.model')]));
     }
@@ -50,6 +52,7 @@ class FavController extends ApiBaseController
      */
     public function update(UpdateFavRequest $request, Fav $fav): JsonResponse
     {
+        $this->authorize('update', $fav);
         $data = UpdateFavAction::run($fav, $request->all());
         return $this->successResponse(FavResource::make($data),trans('general.model_has_updated_successfully',['model'=>trans('fav.model')]));
     }
@@ -59,6 +62,7 @@ class FavController extends ApiBaseController
      */
     public function destroy(Fav $fav): JsonResponse
     {
+        $this->authorize('delete', $fav);
         DeleteFavAction::run($fav);
         return $this->successResponse('', trans('general.model_has_deleted_successfully',['model'=>trans('fav.model')]));
     }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Actions\Translation\GetTranslationAction;
+use App\Actions\Translation\TranslationAction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,7 +19,7 @@ class CategoryResource extends JsonResource
 
         return [
             'id'        => $this->id,
-            'title'     => $this->title,
+            'title'     => GetTranslationAction::run($this->resource, 'title'),
             'published' => $this->published,
             'type'      => $this->type,
             'children'  => $this->whenLoaded('children', function () {

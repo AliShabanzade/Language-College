@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,8 +13,8 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable , SoftDeletes;
-    use HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -41,8 +41,19 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'password'          => 'hashed',
     ];
+
+
+    public function carts(): HasMany
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function notices(): HasMany
+    {
+        return $this->hasMany(Notice::class);
+    }
 
 
     public function activationCodes(): HasMany
@@ -51,15 +62,14 @@ class User extends Authenticatable
     }
 
 
-    public function notices(): HasMany
-    {
-        return $this->hasMany(Notice::class);
-    }
-
-
-    public function opinion():HasMany
+    public function opinion(): HasMany
     {
         return $this->hasMany(Opinion::class);
+    }
+
+    public function blogs(): HasMany
+    {
+        return $this->hasMany(Blog::class);
     }
 
 }

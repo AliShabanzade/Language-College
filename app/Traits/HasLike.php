@@ -24,7 +24,7 @@ trait HasLike
                     'user_id' => auth()->id(),
                 ]);
             }
-        }else{
+        } else {
             echo "وارد سایت شوید";
         }
     }

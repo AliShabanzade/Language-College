@@ -25,8 +25,10 @@ class UpdateSettingAction
     public function handle(Setting $setting, array $payload): Setting
     {
         return DB::transaction(function () use ($setting, $payload) {
-            $setting->update($payload);
-            return $setting;
+            $model=$this->repository->update($setting,$payload);
+            $model->set($payload['extra_attributes']);
+            $model->save();
+            return $model;
         });
     }
 }
