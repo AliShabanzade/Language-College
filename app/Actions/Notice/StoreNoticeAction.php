@@ -27,7 +27,7 @@ class StoreNoticeAction
             /** @var Notice $notice */
             $notice = $this->repository->store($payload);
             //translation
-            SetTranslationAction::translate($notice, $payload['translations']);
+            SetTranslationAction::run($notice, $payload['translations']);
             $notice->save();
 
             if (request()->hasFile('media')) {

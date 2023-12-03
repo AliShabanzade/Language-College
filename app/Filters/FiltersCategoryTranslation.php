@@ -15,7 +15,7 @@ class FiltersCategoryTranslation implements Filter
         $this->params = $params;
     }
 
-    public function __invoke(Builder $query, $value, string $property)
+    public function __invoke(Builder $query, $value, string $property): void
     {
         foreach ($this->params as $param) {
             foreach ($param as $item) {

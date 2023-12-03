@@ -9,4 +9,4 @@ Route::group(['prefix' => 'like', 'as' => 'api.like.'], function () {
 });
 Route::get('like/blog/{blog}',[BlogController::class, 'addLike']);
 
-Route::get('like/notice/{notice}',[NoticeController::class, 'addLike']);
+

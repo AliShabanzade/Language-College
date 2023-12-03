@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Notice;
 
+use App\Filters\FiltersCategoryTranslation;
 use App\Models\Notice;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Builder;
@@ -23,13 +24,15 @@ class NoticeRepository extends BaseRepository implements NoticeRepositoryInterfa
     }
 
 
-    public function query(array $payload = []): Builder|QueryBuilder
+    public function query(array $payload = []): QueryBuilder|Builder
     {
         return QueryBuilder::for($this->model)
                            ->with(['media', 'user'])
                            ->allowedFilters([
                                'published',
-                               AllowedFilter::scope('search'),
+                               AllowedFilter::custom('search' ,new FiltersCategoryTranslation([
+                                   'key' => ['title']
+                               ])),
                            ]);
     }
 }
