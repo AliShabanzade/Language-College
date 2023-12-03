@@ -6,7 +6,6 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Actions\User\StoreUserAction;
 use App\Actions\User\DeleteUserAction;

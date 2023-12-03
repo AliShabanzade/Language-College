@@ -12,7 +12,7 @@ class StoreUserRequest extends FormRequest
         return [
             'name'   => 'string|max:255',
             'mobile' => 'required|size:11|string|unique:users,mobile',
-            'email'  => 'string|email|unique:users,email',
+            'email'  => 'nullable|string|email|unique:users,email',
         ];
     }
 }

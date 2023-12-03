@@ -15,10 +15,11 @@ class StoreCommentAction
     {
     }
 
-    public function handle(array $payload): Comment
+    public function handle($model, array $payload): Comment
     {
-        return DB::transaction(function () use ($payload) {
-            return $this->repository->store($payload);
+        return DB::transaction(function () use ($model, $payload) {
+            $payload['user_id']=auth()->id();
+            return $model->comments()->create($payload);
         });
     }
 }

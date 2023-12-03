@@ -21,26 +21,6 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         return parent::getModel();
     }
 
-//    public function query(array $payload = []): Builder|QueryBuilder
-//    {
-//        return QueryBuilder::for($this->model)
-//            ->when(isset($payload['children']) && !isset($payload['parent']), function ($query) {
-//                return $query->with('children');
-//            })
-//            ->when(isset($payload['parent']) && !isset($payload['children']), function ($query) {
-//                return $query->with('parent');
-//            })
-//            ->when(isset($payload['parent']) && isset($payload['children']), function ($query) {
-//                return $query->with(['parent', 'children']);
-//            })
-//            ->when(isset($payload['published']), function ($query) use ($payload) {
-//                return $query->where('published', $payload['published']);
-//            }, function ($query) {
-//                // If 'published' is not set, return all categories
-//                return $query;
-//            });
-//    }
-
     public function query(array $payload = []): Builder|QueryBuilder
     {
         return QueryBuilder::for($this->model)
@@ -57,3 +37,4 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 
 }
 
+}

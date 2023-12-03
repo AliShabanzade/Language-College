@@ -8,8 +8,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class BookResource extends JsonResource
 {
-
-
     /**
      * Transform the resource into an array.
      *
@@ -17,7 +15,6 @@ class BookResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-
         return [
             'id' => $this->resource->id,
             'name' => GetTranslationAction::run($this->resource,'name'),

@@ -10,7 +10,9 @@ class StoreNoticeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+
+            'published'   => 'boolean|required',
+            'media'       => ''
         ];
     }
 }

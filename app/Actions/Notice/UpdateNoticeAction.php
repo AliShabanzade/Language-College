@@ -2,7 +2,6 @@
 
 namespace App\Actions\Notice;
 
-use App\Enums\PermissionEnum;
 use App\Models\Notice;
 use App\Repositories\Notice\NoticeRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -18,13 +17,16 @@ class UpdateNoticeAction
 
 
     /**
-     * @param Notice                                          $notice
+     * @param Notice                                        $notice
      * @param array{name:string,mobile:string,email:string} $payload
      * @return Notice
      */
     public function handle(Notice $notice, array $payload): Notice
     {
         return DB::transaction(function () use ($notice, $payload) {
+            $notice->media()->delete();
+            $notice->addMediaFromRequest('media')
+                   ->toMediaCollection('notice');
             $notice->update($payload);
             return $notice;
         });

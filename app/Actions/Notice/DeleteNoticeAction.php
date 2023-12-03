@@ -18,6 +18,7 @@ class DeleteNoticeAction
     public function handle(Notice $notice): bool
     {
         return DB::transaction(function () use ($notice) {
+            $notice->media()->delete();
             return $this->repository->delete($notice);
         });
     }

@@ -3,7 +3,6 @@
 namespace App\Actions\Category;
 
 use App\Actions\Translation\SetTranslationAction;
-use App\Actions\Translation\TranslationAction;
 use App\Models\Category;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use Illuminate\Support\Facades\DB;

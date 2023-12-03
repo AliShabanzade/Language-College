@@ -38,8 +38,7 @@ class StoreBookAction
                 SetTranslationAction::run($model, $payload['translations']);
                 return $model;
             }
-
-            return null;
+           return null;
         });
     }
 }

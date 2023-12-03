@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Actions\Book\DeleteBookAction;
-use App\Actions\Book\StoreBookAction;
-use App\Actions\Book\UpdateBookAction;
-use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\UpdateBookRequest;
-use App\Http\Resources\BookResource;
+use App\Actions\Comment\StoreCommentAction;
+use App\Http\Requests\StoreCommentRequest;
 use App\Models\Book;
-use App\Repositories\Book\BookRepositoryInterface;
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\JsonResponse;
+use App\Http\Requests\UpdateBookRequest;
+use App\Http\Requests\StoreBookRequest;
+use App\Http\Resources\BookResource;
+use App\Actions\Book\StoreBookAction;
+use App\Actions\Book\DeleteBookAction;
+use App\Actions\Book\UpdateBookAction;
+use App\Repositories\Book\BookRepositoryInterface;
+
 
 
 class BookController extends ApiBaseController
@@ -28,21 +30,20 @@ class BookController extends ApiBaseController
      */
     public function index(BookRepositoryInterface $repository): JsonResponse
     {
-
         return $this->successResponse(BookResource::collection($repository->paginate()));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Book $book)
+    public function show(Book $book): JsonResponse
     {
 
         return $this->successResponse(BookResource::make($book->load(['user','category', 'media','publication'])));
     }
 
 
-    public function store(StoreBookRequest $request)
+    public function store(StoreBookRequest $request): JsonResponse
     {
         $model = StoreBookAction::run($request->validated());
         return $this->successResponse(BookResource::make($model->load('user','category','publication')),

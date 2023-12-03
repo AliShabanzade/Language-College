@@ -25,7 +25,7 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->query($payload)->get();
     }
 
-    public function paginate($limit = null, array $payload = []): LengthAwarePaginator
+    public function paginate($limit = null, array $payload = []): LengthAwarePaginator|Collection
     {
         if (empty($limit)) {
             $limit = request('limit', 15);
@@ -84,4 +84,5 @@ class BaseRepository implements BaseRepositoryInterface
     {
         return [];
     }
+
 }

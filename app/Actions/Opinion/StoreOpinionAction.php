@@ -18,6 +18,7 @@ class StoreOpinionAction
     public function handle(array $payload): Opinion
     {
         return DB::transaction(function () use ($payload) {
+            $payload['user_id']= auth()->id();
             return $this->repository->store($payload);
         });
     }

@@ -6,8 +6,8 @@ namespace App\Models;
 use App\Traits\HasCategory;
 use App\Traits\HasSchemalessAttributes;
 use App\Traits\HasSlug;
-use App\Traits\HasTranslationAuto;
 use App\Traits\HasUser;
+use App\Traits\HasTranslationAuto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -35,4 +35,21 @@ class Book extends Model implements HasMedia
     {
         return $this->belongsTo(Publication::class);
     }
+    public function orders(): BelongsToMany
+    {
+        return $this->belongsToMany(Order::class, 'order_items')
+                    ->using(OrderItem::class)
+                    ->withPivot(['quantity', 'price', 'uuid']);
+    }
+
+    public function items():HasMany
+    {
+        return $this->hasMany(OrderItem::class , 'book_id' , 'id');
+    }
+
+    public function carts(): HasMany
+    {
+        return  $this->hasMany(Cart::class);
+    }
+
 }
