@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Actions\Comment\StoreCommentAction;
 use App\Actions\Notice\DeleteNoticeAction;
 use App\Actions\Notice\StoreNoticeAction;
 use App\Actions\Notice\UpdateNoticeAction;
-use App\Http\Requests\StoreCommentRequest;
+use App\Actions\View\CreateOrUpdateViewAction;
 use App\Http\Requests\StoreNoticeRequest;
 use App\Http\Requests\UpdateNoticeRequest;
 use App\Http\Resources\NoticeResource;
@@ -36,6 +35,7 @@ class NoticeController extends ApiBaseController
      */
     public function show(Notice $notice): JsonResponse
     {
+        addView::run($notice);
         return $this->successResponse(NoticeResource::make($notice->load('media')));
     }
 
