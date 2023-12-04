@@ -9,6 +9,7 @@ use App\Traits\HasSlug;
 use App\Traits\HasUser;
 use App\Traits\HasTranslationAuto;
 use App\Traits\HasView;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,9 +32,10 @@ class Book extends Model implements HasMedia
     protected     $casts        = [
         'extra_attributes' => 'array',
     ];
-
-
-
+    public function scopeWithRelations(Builder $query, ...$relations): Builder
+    {
+        return $query->with($relations);
+    }
     public function publication():BelongsTo
     {
         return $this->belongsTo(Publication::class);

@@ -15,7 +15,6 @@ class DeleteRoleAction
     public function __construct(public readonly RoleRepositoryInterface $repository)
     {
     }
-
     public function handle(Role $role): bool
     {
         return DB::transaction(function () use ($role) {

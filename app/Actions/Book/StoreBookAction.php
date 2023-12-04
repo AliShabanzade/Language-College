@@ -29,7 +29,6 @@ class StoreBookAction
                 $payload['user_id'] = auth()->user()->id;
                 /** @var Book $model */
                 $model = $this->repository->store($payload);
-
                 if (request()->hasFile('media')) {
                     $model->addMediaFromRequest('media')
                         ->toMediaCollection('book');
@@ -37,7 +36,7 @@ class StoreBookAction
                 SetTranslationAction::run($model, $payload['translations']);
                 return $model;
             }
-            abort(Response::HTTP_UNPROCESSABLE_ENTITY,"aaaaa");
+            abort(Response::HTTP_UNPROCESSABLE_ENTITY,"نوع دسته بندی به بخش کتاب ها مربوط نمی باشد");
         });
     }
 }
