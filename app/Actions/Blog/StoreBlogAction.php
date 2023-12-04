@@ -8,6 +8,7 @@ use App\Repositories\Blog\BlogRepositoryInterface;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class StoreBlogAction
 {
@@ -27,14 +28,14 @@ class StoreBlogAction
             if ($category->type === Blog::class) {
                 $payload['user_id'] = auth()->id();
                 $blog = $this->repository->store($payload);
-                SetTranslationAction::translate($blog, $payload['translations']);
-                if (request()->hasFile('media')) {
+                SetTranslationAction::run($blog, $payload['translations']);
+                if (request()?->hasFile('media')) {
                     $blog->addMediaFromRequest('media')
                          ->toMediaCollection('blog');
                 }
                 return $blog;
             }
-            return null;
+            abort(ResponseAlias::HTTP_UNPROCESSABLE_ENTITY,"not found");
         });
     }
 }

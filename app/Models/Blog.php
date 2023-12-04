@@ -35,6 +35,7 @@ class Blog extends Model implements HasMedia
 
     private $translatable = [
         'title',
-        'description'
+        'description',
+        'slug',
     ];
 }
