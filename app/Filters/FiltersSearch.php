@@ -6,7 +6,7 @@ use App\Models\Translation;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 
-class FiltersCategoryTranslation implements Filter
+class FiltersSearch implements Filter
 {
     protected array $params = [];
 
@@ -17,11 +17,12 @@ class FiltersCategoryTranslation implements Filter
 
     public function __invoke(Builder $query, $value, string $property)
     {
+
         foreach ($this->params as $param) {
             foreach ($param as $item) {
                 $query->whereHas('translations', function (Builder $query) use ($value, $item) {
-                    $query->where('value', $value)
-                        ->where('key', $item);
+                    $query->where('value',  'LIKE' , '%' . $value . '%')
+                        ->where('key', $item,);
                 });
             }
         }

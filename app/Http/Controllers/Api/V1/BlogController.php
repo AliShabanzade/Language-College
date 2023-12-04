@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Actions\Comment\StoreCommentAction;
-use App\Actions\View\CreateOrUpdateViewAction;
+use App\Actions\View\AddView;
 use App\Http\Requests\StoreCommentRequest;
 use App\Models\Blog;
 use Illuminate\Http\JsonResponse;
@@ -37,7 +37,7 @@ class BlogController extends ApiBaseController
      */
     public function show(Blog $blog): JsonResponse
     {
-        CreateOrUpdateViewAction::run($blog);
+        AddView::run($blog);
         return $this->successResponse(BlogResource::make($blog
             ->load(['likes', 'comments', 'views'])));
     }

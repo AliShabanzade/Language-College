@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->foreignId('category_id')->nullable()->constrained()->cacadeOndelete();
             $table->foreignId('publication_id')->nullable()->constrained()->nullOnDelete();
             $table->unsignedBigInteger('inventory')->default(0)->comment('موجودی');
-            $table->boolean('published')->default(0);
+            $table->boolean('published')->default(false);
             $table->decimal('price');
             $table->integer('pages')->comment('تعداد صفحات');
             $table->integer('sales')->comment('تعداد خرید ');

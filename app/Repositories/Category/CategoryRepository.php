@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Category;
 
-use App\Filters\FiltersCategoryTranslation;
+use App\Filters\FiltersSearch;
 use App\Models\Category;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Builder;
@@ -23,16 +23,16 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 
     public function query(array $payload = []): Builder|QueryBuilder
     {
+
         return QueryBuilder::for($this->model)
             ->allowedFilters([
                 'published',
                 AllowedFilter::scope('with_relations'),
-                AllowedFilter::scope('only_relation'),
-                AllowedFilter::custom('search', new FiltersCategoryTranslation([
+                AllowedFilter::custom('search', new FiltersSearch([
                     'key' => ['title']
                 ])),
             ]); // Execute the query and return the result
     }
-    
+
 
 }

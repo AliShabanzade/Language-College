@@ -7,6 +7,7 @@ use App\Enums\CategoryEnum;
 use App\Models\Book;
 use App\Repositories\Book\BookRepositoryInterface;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 
@@ -19,18 +20,15 @@ class StoreBookAction
     {
     }
 
-    public function handle(array $payload)
+    public function handle(array $payload):Book
     {
 
         return DB::transaction(function () use ($payload) {
-
             $category = $this->categoryRepository->find($payload['category_id']);
             if ($category->type == Book::class) {
                 $payload['user_id'] = auth()->user()->id;
                 /** @var Book $model */
                 $model = $this->repository->store($payload);
-                $model->extra_attributes->set($payload['extra_attributes']);
-                $model->save();
                 if (request()->hasFile('media')) {
                     $model->addMediaFromRequest('media')
                         ->toMediaCollection('book');
@@ -38,7 +36,7 @@ class StoreBookAction
                 SetTranslationAction::run($model, $payload['translations']);
                 return $model;
             }
-           return null;
+            abort(Response::HTTP_UNPROCESSABLE_ENTITY,"نوع دسته بندی به بخش کتاب ها مربوط نمی باشد");
         });
     }
 }

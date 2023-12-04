@@ -9,7 +9,7 @@ use App\Http\Requests\StoreViewRequest;
 use App\Http\Resources\ViewResource;
 use App\Actions\View\StoreViewAction;
 use App\Actions\View\DeleteViewAction;
-use App\Actions\View\CreateOrUpdateViewAction;
+use App\Actions\View\AddView;
 use App\Repositories\View\ViewRepositoryInterface;
 
 
@@ -50,7 +50,7 @@ class ViewController extends ApiBaseController
      */
     public function update(UpdateViewRequest $request, View $view): JsonResponse
     {
-        $data = CreateOrUpdateViewAction::run($view, $request->all());
+        $data = AddView::run($view, $request->all());
         return $this->successResponse(ViewResource::make($data),trans('general.model_has_updated_successfully',['model'=>trans('view.model')]));
     }
 

@@ -28,6 +28,9 @@ class CategoryResource extends JsonResource
             'parent'    => $this->whenLoaded('parent', function () {
                 return CategoryResource::make($this->parent);
             }),
+            'books'    => $this->whenLoaded('books', function () {
+                return BookResource::collection($this->resource->books);
+            }),
 
         ];
     }

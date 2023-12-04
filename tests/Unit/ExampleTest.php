@@ -2,8 +2,9 @@
 
 namespace Tests\Unit;
 
+use App\Models\Book;
 use Illuminate\Support\Str;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
@@ -12,7 +13,9 @@ class ExampleTest extends TestCase
      */
     public function test_that_true_is_true(): void
     {
-        $str = "SajadEs";
-        dd(Str::kebab($str));
+       $data = Book::withExtraAttributes(
+           'view_count','=',4
+       )->get()->toArray();
+       dd($data);
     }
 }

@@ -14,6 +14,7 @@ trait HasLike
 
     public function like(): void
     {
+
         if (auth()->user()) {
 
             $model = $this->Likes()->where('user_id', auth()->id())->first();
