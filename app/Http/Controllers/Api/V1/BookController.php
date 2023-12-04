@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Actions\Comment\StoreCommentAction;
+use App\Actions\View\AddView;
 use App\Http\Requests\StoreCommentRequest;
 use App\Models\Book;
 use Illuminate\Http\JsonResponse;
@@ -38,7 +39,7 @@ class BookController extends ApiBaseController
      */
     public function show(Book $book): JsonResponse
     {
-
+        AddView::run($book);
         return $this->successResponse(BookResource::make($book->load(['user','category', 'media','publication'])));
     }
 

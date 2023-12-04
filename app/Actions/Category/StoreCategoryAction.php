@@ -22,14 +22,14 @@ class StoreCategoryAction
     public function handle(array $payload): Category|null
     {
         return DB::transaction(function () use ($payload) {
-            if(!empty($payload['parent_id'])){
-                $categoryTyp=$this->repository->find($payload['parent_id']);
-                if($payload['type']==$categoryTyp->type){
+            if (!empty($payload['parent_id'])) {
+                $categoryTyp = $this->repository->find($payload['parent_id']);
+                if ($payload['type'] == $categoryTyp->type) {
                     $model = $this->repository->store($payload);
                     SetTranslationAction::handle($model, $payload['translation']);
                     return $model;
                 }
-            }else{
+            } else {
                 $model = $this->repository->store($payload);
                 SetTranslationAction::handle($model, $payload['translation']);
                 return $model;
