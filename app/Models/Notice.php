@@ -59,8 +59,17 @@ class Notice extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumbnail')
-             ->width((int)null)
-             ->height((int)null);
+             ->performOnCollections('gallery')
+             ->width(100)
+             ->height(100);
+
+        $this->addMediaConversion('480')
+             ->width(480)
+             ->height(480);
+
+        $this->addMediaConversion('1080')
+             ->width(1080)
+             ->height(1080);
     }
 
     public function scopeSearch(Builder $query,string $data)

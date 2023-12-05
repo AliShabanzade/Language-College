@@ -26,9 +26,9 @@ class GalleryResource extends JsonResource
             'like'        => $this->whenLoaded('likes', fn() => LikeResource::collection($this->resource->likes)),
             'view'        => $this->whenLoaded('views', fn() => ViewResource::collection($this->resource->views)),
             'published'   => $this->resource->published,
-            'media'       => $this->when(Str::contains($request->route()->getName(),'show' ), function () {
+            'media'       => $this->when(Str::contains($request->route()->getName(), 'show'), function () {
                 return $this->resource->getFirstMediaUrl('gallery', '1080');
-            },$this->resource->getFirstMediaUrl('gallery', 'thumbnail')),
+            }, $this->resource->getFirstMediaUrl('gallery', 'thumbnail')),
             'view_count'  => $this->resource->extra_attributes->get('view_count', 0),
 
         ];
