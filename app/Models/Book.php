@@ -32,6 +32,7 @@ class Book extends Model implements HasMedia
         'extra_attributes' => 'array',
     ];
 
+    // extra_attributes : ExtraEnum::class
 
 
     public function publication():BelongsTo

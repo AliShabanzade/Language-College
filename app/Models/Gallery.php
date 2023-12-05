@@ -32,12 +32,12 @@ class Gallery extends Model implements HasMedia
         'extra_attributes' => 'array',
     ];
 
-    protected $fillable = [
+    protected       $fillable     = [
 //        'slug',
-        'user_id',
-        'category_id',
-        'published',
-        'extra_attributes',
+'user_id',
+'category_id',
+'published',
+'extra_attributes',
 
     ];
     protected array $translatable = ['title', 'description'];
@@ -48,7 +48,16 @@ class Gallery extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumbnail')
-             ->width((int)null)
-             ->height((int)null);
+             ->performOnCollections('gallery')
+             ->width(100)
+             ->height(100);
+
+        $this->addMediaConversion('480')
+             ->width(480)
+             ->height(480);
+
+        $this->addMediaConversion('1080')
+             ->width(1080)
+             ->height(1080);
     }
 }

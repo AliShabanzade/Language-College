@@ -38,7 +38,7 @@ class GalleryController extends ApiBaseController
     public function show(Gallery $gallery): JsonResponse
     {
         AddView::run($gallery);
-        return $this->successResponse(GalleryResource::make($gallery));
+        return $this->successResponse(GalleryResource::make($gallery->load(['media','user'])));
     }
 
 
