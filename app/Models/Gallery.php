@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Traits\HasCategory;
 use App\Traits\HasComment;
 use App\Traits\HasLike;
+use App\Traits\HasSchemalessAttributes;
+use App\Traits\HasTranslationAuto;
 use App\Traits\HasUser;
 use App\Traits\HasView;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,14 +24,23 @@ class Gallery extends Model implements HasMedia
     use HasLike;
     use HasComment;
     use HasUser;
-//    use HasCategory;
-    protected $fillable = [
-        'user_id',
-        'category_id',
-        'title',
-        'description'
+    use HasCategory;
+    use HasTranslationAuto;
+    use HasSchemalessAttributes;
+
+    protected $casts = [
+        'extra_attributes' => 'array',
     ];
 
+    protected $fillable = [
+//        'slug',
+        'user_id',
+        'category_id',
+        'published',
+        'extra_attributes',
+
+    ];
+    protected array $translatable = ['title', 'description'];
 
     /**
      * @throws InvalidManipulationAlias

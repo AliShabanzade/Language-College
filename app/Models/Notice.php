@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasCategory;
 use App\Traits\HasComment;
 use App\Traits\HasLike;
+use App\Traits\HasSchemalessAttributes;
 use App\Traits\HasTranslation;
 use App\Traits\HasTranslationAuto;
 use App\Traits\HasUser;
@@ -33,14 +34,20 @@ class Notice extends Model implements HasMedia
     use HasLike;
     use HasView;
     use HasTranslationAuto;
+    use HasSchemalessAttributes;
 //    use HasTranslation;
 //    use HasTag;
 
 
     protected $fillable = [
+//        'slug',
         'category_id',
         'user_id',
         'published',
+        'extra_attributes',
+    ];
+    protected $casts = [
+        'extra_attributes' => 'array',
     ];
 
     protected array $translatable = ['title', 'description'];

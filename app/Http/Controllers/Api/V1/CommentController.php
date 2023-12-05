@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Actions\Comment\DeleteCommentAction;
-use App\Actions\Comment\StoreCommentAction;
-use App\Http\Requests\StoreCommentRequest;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
-use App\Models\Notice;
 use App\Repositories\Comment\CommentRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 
@@ -28,7 +25,7 @@ class CommentController extends ApiBaseController
         return $this->successResponse(CommentResource::collection($repository->paginate()));
     }
 
-     /**
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Comment $comment): JsonResponse
@@ -36,11 +33,5 @@ class CommentController extends ApiBaseController
         $this->authorize('delete',$comment);
         DeleteCommentAction::run($comment);
         return $this->successResponse('', trans('general.model_has_deleted_successfully',['model'=>trans('comment.model')]));
-    }
-
-    public function comment(StoreCommentRequest $request, Notice $notice)
-    {
-        $data = StoreCommentAction::run($notice, $request->validated());
-        return $this->successResponse($data,'');
     }
 }

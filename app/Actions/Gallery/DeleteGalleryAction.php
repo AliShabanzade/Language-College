@@ -18,6 +18,7 @@ class DeleteGalleryAction
     public function handle(Gallery $gallery): bool
     {
         return DB::transaction(function () use ($gallery) {
+            $gallery->media()->delete();
             return $this->repository->delete($gallery);
         });
     }

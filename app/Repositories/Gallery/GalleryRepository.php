@@ -2,10 +2,12 @@
 
 namespace App\Repositories\Gallery;
 
+use App\Filters\FiltersCategoryTranslation;
 use App\Models\Gallery;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class GalleryRepository extends BaseRepository implements GalleryRepositoryInterface
@@ -22,6 +24,17 @@ class GalleryRepository extends BaseRepository implements GalleryRepositoryInter
 
    public function query(array $payload = []): Builder|QueryBuilder
    {
-       return parent::query($payload)->with('user', 'media');
+       return QueryBuilder::for($this->model)
+                          ->with(['media', 'user'])
+                          ->allowedFilters([
+                              'published',
+                              AllowedFilter::custom('search' ,new FiltersCategoryTranslation([
+                                  'key' => ['title'],
+                                  'value' => ['description'],
+                                  'description' => ['description'],
+
+                              ])),
+                          ]);
    }
+
 }

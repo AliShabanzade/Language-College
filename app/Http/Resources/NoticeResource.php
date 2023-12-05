@@ -16,8 +16,8 @@ class NoticeResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'          => $this->resource->id,
             'title'       => GetTranslationAction::run($this->resource,'title'),
+//            'slug'        => $this->resource->slug,
             'description' => GetTranslationAction::run($this->resource,'description'),
             'user'        => $this->whenLoaded('user', fn() => UserResource::make($this->resource->user)),
             'category'    => $this->whenLoaded('category', fn() => CategoryResource::make($this->resource->category)),
@@ -25,7 +25,8 @@ class NoticeResource extends JsonResource
             'like'        => $this->whenLoaded('likes', fn() => LikeResource::collection($this->resource->likes)),
             'view'        => $this->whenLoaded('views', fn() => ViewResource::collection($this->resource->views)),
             'published'   => $this->resource->published,
-            'media'       => $this->resource->getMedia('notice')
+            'media'       => $this->resource->getMedia('notice'),
+            'view_count' => $this->resource->extra_attributes->get('view_count', 0),
         ];
     }
 }

@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('galleries', function (Blueprint $table) {
             $table->id();
+//            $table->string('slug')->unique();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete()->cascadeOnUpdate();
-//            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete()->cascadeOnUpdate();
-            $table->string('title');
-            $table->string('description');
+            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete()->cascadeOnUpdate();
+            $table->boolean('published')->default(false);
+            $table->schemalessAttributes('extra_attributes');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

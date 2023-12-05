@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Http\Middleware\EncryptCookies;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,10 +20,10 @@ class GalleryFactory extends Factory
     public function definition(): array
     {
         return [
+//            'slug'        => fake()->slug,
             'user_id'     => User::factory(),
-            'title'       => fake()->title(),
-            'description' => fake()->text(),
-            //            'category_id' => Category::factory(),
+            'published'   => fake()->boolean(),
+            'category_id' => Category::factory(),
         ];
     }
 }

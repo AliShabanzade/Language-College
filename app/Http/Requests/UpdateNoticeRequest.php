@@ -20,6 +20,7 @@ class UpdateNoticeRequest extends FormRequest
             'translations.en.*.key'   => 'string',
             'translations.en.*.value' => 'string',
             'category_id'             => 'required|int|exists:categories,id',
+            'extra_attributes'        => 'array',
             'media'                   => ''
         ];
     }

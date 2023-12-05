@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete()->cascadeOnUpdate();
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->boolean('published')->default(false);
+            $table->schemalessAttributes('extra_attributes');
             $table->softDeletes();
             $table->timestamps();
         });

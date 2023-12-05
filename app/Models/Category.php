@@ -58,4 +58,9 @@ class Category extends Model
         return $this->hasMany(Notice::class);
     }
 
+    public function galleries():HasMany
+    {
+        return $this->hasMany(Gallery::class);
+    }
+
 }

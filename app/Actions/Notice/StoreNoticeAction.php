@@ -23,10 +23,9 @@ class StoreNoticeAction
     {
         return DB::transaction(function () use ($payload) {
             $category = $this->categoryRepository->find($payload['category_id']);
-
+            $payload['user_id'] = auth()->id();
             /** @var Notice $notice */
             $notice = $this->repository->store($payload);
-            //translation
             SetTranslationAction::run($notice, $payload['translations']);
             $notice->save();
 

@@ -19,9 +19,9 @@ class DatabaseSeeder extends Seeder
             SmsConfigSeeder::class,
             OpinionSeeder::class,
             UserSeeder::class,
-            NoticeSeeder::class,
             FaqSeeder::class,
-            GallerySeeder::class,
+            //            NoticeSeeder::class,
+            //            GallerySeeder::class,
         ]);
     }
 }

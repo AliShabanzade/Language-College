@@ -10,4 +10,4 @@ Route::apiResource('notice', NoticeController::class);
 
 Route::patch('notice/toggle/{notice}', [NoticeController::class, 'toggle']);
 
-Route::get('like/notice/{notice}',[NoticeController::class, 'addLike']);
+Route::post('notice/comment/{notice}', [NoticeController::class, 'comment']);
