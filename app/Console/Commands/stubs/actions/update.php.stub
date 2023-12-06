@@ -25,7 +25,7 @@ class Update{{model}}Action
     public function handle({{model}} ${{cmodel}}, array $payload): {{model}}
     {
         return DB::transaction(function () use (${{cmodel}}, $payload) {
-            ${{cmodel}}->update($payload);
+            $this->repository->update( ${{cmodel}},$payload);
             return ${{cmodel}};
         });
     }

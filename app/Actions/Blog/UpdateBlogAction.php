@@ -35,7 +35,7 @@ class UpdateBlogAction
                 $payload['user_id'] = auth()->id();
                 $blog->media()->delete();
                 $blog->update($payload);
-                SetTranslationAction::translate($blog, $payload['translations']);
+                SetTranslationAction::run($blog, $payload['translations']);
                 if (request()->hasFile('media')) {
                     $blog->addMediaFromRequest('media')
                          ->toMediaCollection('blog');

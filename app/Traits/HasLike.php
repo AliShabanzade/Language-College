@@ -14,7 +14,6 @@ trait HasLike
 
     public function like(): void
     {
-
         if (auth()->user()) {
 
             $model = $this->Likes()->where('user_id', auth()->id())->first();
@@ -26,7 +25,7 @@ trait HasLike
                 ]);
             }
         } else {
-            echo "وارد سایت شوید";
+            echo 'please login first';
         }
     }
 }

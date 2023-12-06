@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Enums\RoleEnum;
 use App\Models\ActivationCode;
+use App\Models\Attendance;
 use App\Models\Blog;
 use App\Models\Book;
 use App\Models\Cart;
@@ -37,6 +38,9 @@ class UserSeeder extends Seeder
             ActivationCode::factory(3)->create([
                 'user_id' => $user->id,
             ]);
+            Attendance::factory(5)->create([
+                'user_id' => $user->id,
+            ]);
 
             Opinion::factory(1)->create([
                 'user_id' => $user->id,
@@ -55,8 +59,8 @@ class UserSeeder extends Seeder
                 'user_id' => $user->id,
             ])->each(function (Blog $blog) use ($user) {
                 Like::factory(1)->create([
-                    'user_id' => $user->id,
-                    'likeable_id' => $blog->id,
+                    'user_id'       => $user->id,
+                    'likeable_id'   => $blog->id,
                     'likeable_type' => Blog::class
                 ]);
 //                View::factory(1)->create([
@@ -65,13 +69,13 @@ class UserSeeder extends Seeder
 //                    'viewable_type' => Blog::class
 //                ]);
                 Comment::factory(1)->create([
-                    'user_id' => $user->id,
-                    'commentable_id' => $blog->id,
+                    'user_id'          => $user->id,
+                    'commentable_id'   => $blog->id,
                     'commentable_type' => Blog::class
-                ])->each(function (Comment $comment) use ($user){
+                ])->each(function (Comment $comment) use ($user) {
                     Like::factory(1)->create([
-                        'user_id' => $user->id,
-                        'likeable_id' => $comment->id,
+                        'user_id'       => $user->id,
+                        'likeable_id'   => $comment->id,
                         'likeable_type' => Comment::class
                     ]);
                 });

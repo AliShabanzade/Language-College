@@ -29,10 +29,11 @@ class BookController extends ApiBaseController
     /**
      * Display a listing of the resource.
      */
-    public function index(BookRepositoryInterface $repository): JsonResponse
+    public function index()
+
     {
-        return $this->successResponse(BookResource::collection($repository->paginate()));
-    }
+        return $this->successResponse(BookResource::collection(Book::all()));
+   }
 
     /**
      * Display the specified resource.

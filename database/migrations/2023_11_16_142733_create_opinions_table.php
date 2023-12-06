@@ -12,7 +12,6 @@ return new class extends Migration {
     {
         Schema::create('opinions', static function (Blueprint $table) {
             $table->id();
-            $table->string('slug');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->boolean('published')->default(0);
             $table->string('title');
