@@ -50,6 +50,8 @@ class Notice extends Model implements HasMedia
         'extra_attributes' => 'array',
     ];
 
+    // extra_attributes : ExtraEnum::class
+
     protected array $translatable = ['title', 'description'];
 
     /**

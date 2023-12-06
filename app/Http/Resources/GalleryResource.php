@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Actions\Translation\GetTranslationAction;
+use App\ExtraAttributes\GalleryExtraEnum;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
@@ -22,9 +23,9 @@ class GalleryResource extends JsonResource
             'description' => GetTranslationAction::run($this->resource, 'description'),
             'user'        => $this->whenLoaded('user', fn() => UserResource::make($this->resource->user)),
             'category'    => $this->whenLoaded('category', fn() => CategoryResource::make($this->resource->category)),
-            'comment'     => $this->whenLoaded('comments', fn() => CommentResource::collection($this->resource->comments)),
-            'like'        => $this->whenLoaded('likes', fn() => LikeResource::collection($this->resource->likes)),
-            'view'        => $this->whenLoaded('views', fn() => ViewResource::collection($this->resource->views)),
+            'comment'     => $this->resource->extra_attributes->get(GalleryExtraEnum::COMMENT_COUNT->value, 0),
+            'like'        => $this->resource->extra_attributes->get(GalleryExtraEnum::LIKE_COUNT->value, 0),
+            'view'        => $this->resource->extra_attributes->get(GalleryExtraEnum::VIEW_COUNT->value, 0),
             'published'   => $this->resource->published,
             'media'       => $this->when(Str::contains($request->route()->getName(), 'show'), function () {
                 return $this->resource->getFirstMediaUrl('gallery', '1080');

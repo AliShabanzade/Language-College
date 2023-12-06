@@ -40,6 +40,10 @@ class Gallery extends Model implements HasMedia
 'extra_attributes',
 
     ];
+
+    // extra_attributes : ExtraEnum::class
+
+
     protected array $translatable = ['title', 'description'];
 
     /**
