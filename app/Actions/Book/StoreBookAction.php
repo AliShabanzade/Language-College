@@ -15,12 +15,12 @@ class StoreBookAction
 {
     use AsAction;
 
-    public function __construct(private readonly BookRepositoryInterface     $repository,
-                                private readonly CategoryRepositoryInterface $categoryRepository)
+    public function __construct(private readonly BookRepositoryInterface $repository,
+        private readonly CategoryRepositoryInterface $categoryRepository)
     {
     }
 
-    public function handle(array $payload):Book
+    public function handle(array $payload): Book
     {
 
         return DB::transaction(function () use ($payload) {
@@ -32,12 +32,12 @@ class StoreBookAction
 
                 if (request()->hasFile('media')) {
                     $model->addMediaFromRequest('media')
-                        ->toMediaCollection('book');
+                          ->toMediaCollection('book');
                 }
                 SetTranslationAction::run($model, $payload['translations']);
                 return $model;
             }
-            abort(Response::HTTP_UNPROCESSABLE_ENTITY,"aaaaa");
+            abort(Response::HTTP_UNPROCESSABLE_ENTITY, "aaaaa");
         });
     }
 }

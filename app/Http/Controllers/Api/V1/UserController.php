@@ -36,7 +36,7 @@ class UserController extends ApiBaseController
      */
     public function show(User $user): JsonResponse
     {
-        return $this->successResponse(UserResource::make($user));
+        return $this->successResponse(UserResource::make($user->load('media')));
     }
 
 

@@ -32,7 +32,7 @@ class Gallery extends Model implements HasMedia
         'extra_attributes' => 'array',
     ];
 
-    protected       $fillable     = [
+    protected $fillable = [
 //        'slug',
 'user_id',
 'category_id',

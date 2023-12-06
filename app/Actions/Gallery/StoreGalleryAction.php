@@ -9,7 +9,6 @@ use App\Repositories\Gallery\GalleryRepositoryInterface;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 /**
  * @property $categoryRepository
@@ -18,7 +17,7 @@ class StoreGalleryAction
 {
     use AsAction;
 
-    public function __construct(private readonly GalleryRepositoryInterface $repository ,
+    public function __construct(private readonly GalleryRepositoryInterface $repository,
         private readonly CategoryRepositoryInterface $categoryRepository)
     {
     }
@@ -28,19 +27,15 @@ class StoreGalleryAction
         return DB::transaction(function () use ($payload) {
             $category = $this->categoryRepository->find($payload['category_id']);
             if ($category->type == Gallery::class) {
-
-
                 $gallery = $this->repository->store($payload);
                 SetTranslationAction::run($gallery, $payload['translations']);
-                $gallery->save();
-
                 if (request()->hasFile('media')) {
                     $gallery->addMediaFromRequest('media')
                             ->toMediaCollection('gallery');
                 }
                 return $gallery;
             }
-            abort(ResponseAlias::HTTP_UNPROCESSABLE_ENTITY,"aaaaa");
+            abort(Response::HTTP_UNPROCESSABLE_ENTITY, "");
         });
     }
 }

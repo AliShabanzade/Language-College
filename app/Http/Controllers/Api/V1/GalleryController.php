@@ -29,7 +29,7 @@ class GalleryController extends ApiBaseController
      */
     public function index(GalleryRepositoryInterface $repository): JsonResponse
     {
-        return $this->successResponse(GalleryResource::collection($repository->query(request()->all())->paginate()));
+        return $this->successResponse(GalleryResource::collection($repository->paginate(payload: request()->all())));
     }
 
     /**

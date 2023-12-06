@@ -39,7 +39,6 @@ class UpdateGalleryAction
 
                 if (isset($payload['media'])) {
                     $gallery->media()->delete();
-
                     $gallery->addMediaFromRequest('media')
                            ->toMediaCollection('gallery');
                 }

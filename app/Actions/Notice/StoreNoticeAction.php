@@ -6,6 +6,7 @@ use App\Actions\Translation\SetTranslationAction;
 use App\Models\Notice;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Notice\NoticeRepositoryInterface;
+use Illuminate\Http\Response;
 use Hamcrest\Core\Set;
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
@@ -23,18 +24,21 @@ class StoreNoticeAction
     {
         return DB::transaction(function () use ($payload) {
             $category = $this->categoryRepository->find($payload['category_id']);
-            $payload['user_id'] = auth()->id();
-            /** @var Notice $notice */
-            $notice = $this->repository->store($payload);
-            SetTranslationAction::run($notice, $payload['translations']);
-            $notice->save();
+            if ($category->type == Notice::class) {
+                $payload['user_id'] = auth()->id();
+                /** @var Notice $notice */
+                $notice = $this->repository->store($payload);
+                SetTranslationAction::run($notice, $payload['translations']);
+                $notice->save();
 
-            if (request()->hasFile('media')) {
-                $notice->addMediaFromRequest('media')
-                       ->toMediaCollection('notice');
+                if (request()->hasFile('media')) {
+                    $notice->addMediaFromRequest('media')
+                           ->toMediaCollection('notice');
+                }
+
+                return $notice;
             }
-
-            return $notice;
+            abort(Response::HTTP_UNPROCESSABLE_ENTITY, "");
         });
     }
 }
