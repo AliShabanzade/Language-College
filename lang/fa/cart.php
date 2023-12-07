@@ -1,5 +1,5 @@
 <?php
 
 return [
- 'model'=>'کارت',
+    'model' => 'کارت',
 ];

@@ -43,6 +43,7 @@ class BaseRepository implements BaseRepositoryInterface
 
     public function update($eloquent, array $payload)
     {
+
         $eloquent->update($payload);
         return $eloquent;
     }

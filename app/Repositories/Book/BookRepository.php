@@ -4,7 +4,7 @@ namespace App\Repositories\Book;
 
 use App\Models\Book;
 use App\Repositories\BaseRepository;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class BookRepository extends BaseRepository implements BookRepositoryInterface
 {
@@ -13,14 +13,18 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
         parent::__construct($model);
     }
 
-   public function getModel(): Book
-   {
-       return parent::getModel();
-   }
-
-    public function query(array $payload=[]):Builder
+    public function getModel(): Book
     {
-        return parent::query($payload)->with(['category','user','publication']);
+        return parent::getModel();
     }
 
+    public function subtractBookInventory($bookId, $quantity): void
+    {
+        $book = $this->getModel()->find($bookId);
+
+        if ($book) {
+            $newInventory = max(0, $book->inventory - $quantity);
+            $book->update(['inventory' => $newInventory]);
+        }
+    }
 }

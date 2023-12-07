@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CartResource extends JsonResource
+class UserCartResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +16,8 @@ class CartResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'book_id'  => $this->book_id,
-            'quantity' => $this->quantity,
-            'user'     => $this->user_id,
-            'book' => $this->whenLoaded('book' , fn() => BookResource::make($this->book)),
+            'total_price'  => $this['total_price'],
+            'carts' =>CartResource::collection($this['carts'])
         ];
     }
 }

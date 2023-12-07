@@ -10,7 +10,10 @@ class StoreOrderItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+
+            'book_id' => 'required',
+            'quantity' => 'required|numeric|min:1',
+            'price' => 'required|numeric|min:0',
         ];
     }
 }

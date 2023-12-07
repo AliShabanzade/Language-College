@@ -121,6 +121,27 @@ enum PermissionEnum: string
     case CART_RESTORE = "cart.restore";
 
 
+
+    case ORDER_ALL = "order.all";
+    case ORDER_INDEX = "order.index";
+    case ORDER_SHOW = "order.show";
+    case ORDER_STORE = "order.store";
+    case ORDER_UPDATE = "order.update";
+    case  ORDER_TOGGLE = "order.toggle";
+    case ORDER_DELETE = "order.delete";
+    case ORDER_RESTORE = "order.restore";
+
+
+
+    case ORDER_ITEM_ALL = "order-item.all";
+    case ORDER_ITEM_INDEX = "order-item.index";
+    case ORDER_ITEM_SHOW = "order-item.show";
+    case ORDER_ITEM_STORE = "order-item.store";
+    case ORDER_ITEM_UPDATE = "order-item.update";
+    case ORDER_ITEM_DELETE = "order-item.delete";
+    case ORDER_ITEM_RESTORE = "order-item.restore";
+
+
     case BLOG_ALL = "blog.all";
     case BLOG_INDEX = "blog.index";
     case BLOG_SHOW = "blog.show";
