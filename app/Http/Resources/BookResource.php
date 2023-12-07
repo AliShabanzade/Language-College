@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use App\Actions\Translation\GetTranslationAction;
+use App\ExtraAttributes\BookExtraEnum;
+use App\ExtraAttributes\ExtraEnum;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -27,17 +29,15 @@ class BookResource extends JsonResource
             'user'        => $this->whenLoaded('user', fn() => UserResource::make($this->resource->user)),
             'category'    => $this->whenloaded('category', fn() => CategoryResource::make($this->resource->category)),
             'publication' => $this->whenloaded('publication', fn() => PublicationResource::make($this->resource->publication)),
-            //            'extra_attributes' => collect($this->resource['extra_attributes'])->mapWithKeys(function ($value, $key) {
-            //                return [$key => $value ?? null];
-            //            })->all(),
-
-            'color'      => $this->extra_attributes->get('color'),
-            'weight'     => $this->extra_attributes->get('weight'),
-            'view_count' => $this->extra_attributes->get('view_count', 0),
+            'color'      => $this->extra_attributes->get(BookExtraEnum::COLOR->value,''),
+            'weight'     => $this->extra_attributes->get(BookExtraEnum::WEIGHT->value,0),
+            'view_count' => $this->extra_attributes->get(BookExtraEnum::VIEW_COUNT->value, 0),
 
             'created_at' => $this->resource->created_at,
             'updated_at' => $this->resource->updated_at,
-            'media'      => $this->resource->getMedia('book'),
+            'media'      => $this->whenLoaded('media',function (){
+                return $this->resource->getMedia('book');
+            }),
         ];
     }
 }

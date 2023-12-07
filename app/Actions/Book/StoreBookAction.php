@@ -15,12 +15,12 @@ class StoreBookAction
 {
     use AsAction;
 
-    public function __construct(private readonly BookRepositoryInterface     $repository,
-                                private readonly CategoryRepositoryInterface $categoryRepository)
+    public function __construct(private readonly BookRepositoryInterface $repository,
+        private readonly CategoryRepositoryInterface $categoryRepository)
     {
     }
 
-    public function handle(array $payload):Book
+    public function handle(array $payload): Book
     {
 
         return DB::transaction(function () use ($payload) {
@@ -29,14 +29,15 @@ class StoreBookAction
                 $payload['user_id'] = auth()->user()->id;
                 /** @var Book $model */
                 $model = $this->repository->store($payload);
+
                 if (request()->hasFile('media')) {
                     $model->addMediaFromRequest('media')
-                        ->toMediaCollection('book');
+                          ->toMediaCollection('book');
                 }
                 SetTranslationAction::run($model, $payload['translations']);
                 return $model;
             }
-            abort(Response::HTTP_UNPROCESSABLE_ENTITY,"نوع دسته بندی به بخش کتاب ها مربوط نمی باشد");
+            abort(Response::HTTP_UNPROCESSABLE_ENTITY, "aaaaa");
         });
     }
 }

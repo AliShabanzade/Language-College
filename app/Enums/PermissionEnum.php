@@ -131,4 +131,12 @@ enum PermissionEnum: string
     case BLOG_RESTORE = "blog.restore";
 
 
+    case GALLERY_ALL = "gallery.all";
+    case GALLERY_INDEX = "gallery.index";
+    case GALLERY_SHOW = "gallery.show";
+    case GALLERY_STORE = "gallery.store";
+    case GALLERY_UPDATE = "gallery.update";
+    case GALLERY_TOGGLE = "gallery.toggle";
+    case GALLERY_DELETE = "gallery.delete";
+    case GALLERY_RESTORE = "gallery.restore";
 }
