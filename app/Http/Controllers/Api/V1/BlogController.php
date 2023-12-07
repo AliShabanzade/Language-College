@@ -40,7 +40,7 @@ class BlogController extends ApiBaseController
     {
         AddView::run($blog);
         return $this->successResponse(BlogResource::make($blog
-            ->load(['likes', 'comments', 'views'])));
+            ->load(['user','category','likes', 'comments', 'views', 'translations'])));
     }
 
     public function store(StoreBlogRequest $request): JsonResponse
@@ -48,7 +48,7 @@ class BlogController extends ApiBaseController
         $this->authorize('create', Blog::class);
         $model = StoreBlogAction::run($request->validated());
         return $this->successResponse(BlogResource::make($model
-            ->lode('user', 'category', '')),
+            ->load('user', 'category')),
             trans('general.model_has_stored_successfully', ['model' => trans('blog.model')]));
     }
 
