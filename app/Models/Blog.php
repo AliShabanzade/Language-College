@@ -47,5 +47,15 @@ class Blog extends Model implements HasMedia
         'extra_attributes' => 'array',
     ];
 
+    public function registerMediaCollections(Media $media = null): void
+    {
+        $this->addMediaCollection('blog')
+             ->singleFile()
+            ->registerMediaConversions(
+                function (Media $media){
+                    $this->addMediaConversion('1200-760')->width(1200)->height(760);
+                    $this->addMediaConversion('200-200')->width(200)->height(200);
+                });
+    }
 
 }
