@@ -10,7 +10,10 @@ class UpdateOrderItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'book_id'  => 'required',
+            'order_id' => 'required',
+            'quantity' => 'required',
+            'price'    => 'required',
         ];
     }
 }

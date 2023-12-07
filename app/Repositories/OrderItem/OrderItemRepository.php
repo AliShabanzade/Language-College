@@ -17,4 +17,9 @@ class OrderItemRepository extends BaseRepository implements OrderItemRepositoryI
    {
        return parent::getModel();
    }
+
+    public function getItemsForOrder(int $orderId)
+    {
+        return parent::query()->where('order_id', $orderId)->get();
+    }
 }

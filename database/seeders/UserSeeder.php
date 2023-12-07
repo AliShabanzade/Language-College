@@ -12,6 +12,7 @@ use App\Models\Like;
 use App\Models\Opinion;
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\User;
 use App\Models\View;
 use Illuminate\Database\Seeder;
@@ -48,9 +49,18 @@ class UserSeeder extends Seeder
                 'user_id' => $user->id,
             ]);
 
+
             Cart::factory(3)->create([
                 'user_id' => $user->id,
                 'book_id' => book::factory(),
+            ]);
+            Order::factory(5)->afterCreating(function (Order $order){
+                OrderItem::factory(3)->create([
+                   'order_id' => $order->id,
+                ]);
+            })->create([
+                'user_id' => $user->id,
+
             ]);
 
             Blog::factory(2)->create([
@@ -80,7 +90,7 @@ class UserSeeder extends Seeder
             });
 
 
-            Order::factory(5)->create();
+
         });
 
 

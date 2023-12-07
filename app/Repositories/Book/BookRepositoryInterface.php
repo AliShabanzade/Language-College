@@ -8,4 +8,8 @@ use App\Models\Book;
 interface BookRepositoryInterface extends BaseRepositoryInterface
 {
     public function getModel(): Book;
+
+    public function subtractBookInventory($bookId, $quantity);
+
+
 }

@@ -20,6 +20,10 @@ use App\Repositories\Notice\NoticeRepository;
 use App\Repositories\Notice\NoticeRepositoryInterface;
 use App\Repositories\Opinion\OpinionRepository;
 use App\Repositories\Opinion\OpinionRepositoryInterface;
+use App\Repositories\Order\OrderRepository;
+use App\Repositories\Order\OrderRepositoryInterface;
+use App\Repositories\OrderItem\OrderItemRepository;
+use App\Repositories\OrderItem\OrderItemRepositoryInterface;
 use App\Repositories\SmsConfig\SmsConfigRepository;
 use App\Repositories\SmsConfig\SmsConfigRepositoryInterface;
 use App\Repositories\User\UserRepository;
@@ -40,6 +44,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(BookRepositoryInterface::class, BookRepository::class);
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->bind(CartRepositoryInterface::class, CartRepository::class);
+        $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
+        $this->app->bind(OrderItemRepositoryInterface::class, OrderItemRepository::class);
         $this->app->bind(UserRepositoryInterface::class,UserRepository::class);
         $this->app->bind(ActivationCodeRepositoryInterface::class,ActivationCodeRepository::class);
         $this->app->bind(SmsConfigRepositoryInterface::class,SmsConfigRepository::class);
@@ -48,6 +54,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(NoticeRepositoryInterface::class,NoticeRepository::class);
         $this->app->bind(NoticeRepositoryInterface::class , NoticeRepository::class);
         $this->app->bind(BlogRepositoryInterface::class , BlogRepository::class);
+
+
     }
 
     /**

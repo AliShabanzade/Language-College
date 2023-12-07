@@ -13,8 +13,18 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
         parent::__construct($model);
     }
 
-   public function getModel(): Book
-   {
-       return parent::getModel();
-   }
+    public function getModel(): Book
+    {
+        return parent::getModel();
+    }
+
+    public function subtractBookInventory($bookId, $quantity): void
+    {
+        $book = $this->getModel()->find($bookId);
+
+        if ($book) {
+            $newInventory = max(0, $book->inventory - $quantity);
+            $book->update(['inventory' => $newInventory]);
+        }
+    }
 }
