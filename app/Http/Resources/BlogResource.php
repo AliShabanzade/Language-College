@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Actions\Translation\GetTranslationAction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,12 +17,12 @@ class BlogResource extends JsonResource
     {
         return [
             'id'           => $this->resource->id,
-            'title'        => $this->resource->title,
-            'description'  => $this->resource->description,
-            'media'        => $this->resource->getMedia('blog'),
+            'title'        => $this->whenLoaded('translations', fn() => GetTranslationAction::run($this->resource, 'title')),
+            'description'  => $this->whenLoaded('translations', fn() => GetTranslationAction::run($this->resource, 'description')),
             'reading_time' => $this->resource->reading_time,
             'published'    => $this->resource->published,
             'created_at'   => $this->resource->created_at,
+            'media'        => $this->resource->getMedia('blog'),
             'user_id'      => $this->whenLoaded('user', fn() => UserResource::make($this->resource->user)),
             'category_id'  => $this->whenLoaded('category', fn() => CategoryResource::make($this->resource->category)),
             'like'         => $this->whenLoaded('likes', fn() => LikeResource::collection($this->resource->likes)),

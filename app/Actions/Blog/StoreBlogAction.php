@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
-class StoreBlogAction
+class  StoreBlogAction
 {
     use AsAction;
 
@@ -20,7 +20,7 @@ class StoreBlogAction
     )
     {
     }
-
+// lode
     public function handle(array $payload): Blog|null
     {
         return DB::transaction(function () use ($payload) {
