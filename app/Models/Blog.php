@@ -37,4 +37,8 @@ class Blog extends Model implements HasMedia
         'title',
         'description'
     ];
+
+
+
+
 }

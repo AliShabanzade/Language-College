@@ -12,6 +12,7 @@ use App\Traits\HasView;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -39,12 +40,7 @@ class Book extends Model implements HasMedia
     {
         return $this->belongsTo(Publication::class);
     }
-    public function orders(): BelongsToMany
-    {
-        return $this->belongsToMany(Order::class, 'order_items')
-                    ->using(OrderItem::class)
-                    ->withPivot(['quantity', 'price', 'uuid']);
-    }
+
 
     public function items():HasMany
     {

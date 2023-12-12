@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Order;
+use Illuminate\Database\Eloquent\Builder;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
@@ -12,8 +14,14 @@ class ExampleTest extends TestCase
      */
     public function test_the_application_returns_a_successful_response(): void
     {
-        $response = $this->get('/');
+       Order::whereHas("items", function (Builder $query){
 
-        $response->assertStatus(200);
+            $query->whereHas("book", function (Builder $query){
+                $query->where("price", '>=',10000)->orWhere('price','<',2000);
+            })->where("quantity", ">=", 5);
+        })->where("total", ">=", 100000)->get();
+
+
+
     }
 }
