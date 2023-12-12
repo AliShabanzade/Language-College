@@ -63,7 +63,6 @@ class UserSeeder extends Seeder
                 ]);
             })->create([
                 'user_id' => $user->id,
-
             ]);
 
             Blog::factory(2)->create([
