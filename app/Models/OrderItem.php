@@ -11,7 +11,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Concerns\HasUuid;
 
 class OrderItem extends pivot
 {
-    use HasFactory;
+    use HasFactory , SoftDeletes;
 
     protected $table = 'order_items';
 
