@@ -48,7 +48,7 @@ class BlogController extends ApiBaseController
         $this->authorize('create', Blog::class);
         $model = StoreBlogAction::run($request->validated());
         return $this->successResponse(BlogResource::make($model
-            ->load('user', 'category')),
+            ->load('user', 'category', 'translations')),
             trans('general.model_has_stored_successfully', ['model' => trans('blog.model')]));
     }
 

@@ -21,6 +21,6 @@ class BlogRepository extends BaseRepository implements BlogRepositoryInterface
 
     public function query(array $payload = []): Builder|QueryBuilder
     {
-        return parent::query($payload)->with(['category', 'user', 'media']);
+        return parent::query($payload)->with(['category', 'user', 'media','translations']);
     }
 }
