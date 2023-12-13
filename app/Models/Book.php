@@ -4,6 +4,7 @@ namespace App\Models;
 
 
 use App\Traits\HasCategory;
+use App\Traits\HasComment;
 use App\Traits\HasSchemalessAttributes;
 use App\Traits\HasSlug;
 use App\Traits\HasUser;
@@ -25,6 +26,7 @@ class Book extends Model implements HasMedia
     use HasSchemalessAttributes;
     use InteractsWithMedia,HasFactory, SoftDeletes, HasSlug,
         HasView,
+        HasComment,
         HasTranslationAuto, HasUser, HasCategory;
 
     private array $translatable = ['name',  'writer'];

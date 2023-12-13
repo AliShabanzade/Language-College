@@ -34,10 +34,8 @@ class LearningQueryTest extends TestCase
         $response = $this->get('/');
 
         $orders = Order::whereHas('user', function (Builder $query) {
-            $query->where('deleted_at', '=', null);
+            $query->whereNotNull('deleted_at');
         })->get();
-        dd($orders->toArray());
-
 
         $response->assertStatus(200);
     }
@@ -49,14 +47,10 @@ class LearningQueryTest extends TestCase
         $response = $this->get('/');
 
         $orders = Order::whereHas('items', function (Builder $query) {
-//            dd($query);
             $query->whereHas('book', function (Builder $query2) {
-                $query2->where('category_id', '=', 1);
+                $query2->where('category_id', 1);
             });
         })->get();
-
-        dd($orders->toArray());
-
 
         $response->assertStatus(200);
     }
@@ -65,38 +59,26 @@ class LearningQueryTest extends TestCase
     public function test_example4(): void
     {
 
-        $response = $this->get('/');
-
         $orders = Order::whereHas('items', function (Builder $query) {
             $query->whereHas('book', function (Builder $query2) {
                 $query2->where('published', '=', 0)
                        ->orWhere('published', '=', 1);
             });
         })->get();
-        dd($orders->toArray());
-
-
-        $response->assertStatus(200);
     }
 
 
     public function test_example5(): void
     {
 
-        $response = $this->get('/');
         $orders = Order::whereHas('items.book', function (Builder $query) {
             $query->whereIn('published', [1, 2]);
         })->get();
-
-        dd($orders->toArray());
-        $response->assertStatus(200);
     }
 
     public function test_example6(): void
     {
-
         $response = $this->get('/');
-
         $orders = Order::whereHas('items.book', function (Builder $query) {
             $query->where('category_id', '=', 1);
         })->get();
