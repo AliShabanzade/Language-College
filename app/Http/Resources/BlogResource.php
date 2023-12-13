@@ -6,6 +6,9 @@ use App\Actions\Translation\GetTranslationAction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @method relationLoaded(string $string)
+ */
 class BlogResource extends JsonResource
 {
     /**
@@ -18,7 +21,9 @@ class BlogResource extends JsonResource
         return [
             'id'           => $this->resource->id,
             'title'        => $this->whenLoaded('translations', fn() => GetTranslationAction::run($this->resource, 'title')),
-            'description'  => $this->whenLoaded('translations', fn() => GetTranslationAction::run($this->resource, 'description')),
+            'description'  => $this->when(request()?->route()?->getName() !== 'blog.index' && $this->relationLoaded('translations'), function () {
+                return GetTranslationAction::run($this->resource, 'description');
+            }),
             'reading_time' => $this->resource->reading_time,
             'published'    => $this->resource->published,
             'created_at'   => $this->resource->created_at,
