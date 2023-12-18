@@ -16,8 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\SchemalessAttributes\SchemalessAttributesTrait;
-use Spatie\SchemalessAttributes\Casts\SchemalessAttributes;
+
 
 class Book extends Model implements HasMedia
 {

@@ -2,7 +2,10 @@
 
 namespace Tests\Unit;
 
+use App\Models\Blog;
 use App\Models\Book;
+use App\Models\Order;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -18,4 +21,5 @@ class ExampleTest extends TestCase
        )->get()->toArray();
        dd($data);
     }
+
 }
