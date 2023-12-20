@@ -26,6 +26,7 @@ class StoreOrderAction
     {
         return DB::transaction(function () use ($payload) {
             $order = $this->orderRepository->store($payload);
+//            dd($order);
             StoreOrderItemAction::run($order->toArray());
             $this->orderRepository->update($order, ['payment' => true]);
             $this->updateOrderTotal($order);

@@ -34,18 +34,19 @@ class CartController extends ApiBaseController
     public function index(CartRepositoryInterface $repository): JsonResponse
     {
         $user = auth()->user();
-
         $roles = $user->roles;
 
-        if ($roles->contains('name', 'admin') || $roles->contains('name')) {
+        if ($roles->pluck('name')->contains('admin')) {
             return $this->successResponse(CartResource::collection($repository->paginate()));
-        } else {
-            $shoppingCart = $repository->userOwnCart($user);
-            return $this->successResponse(UserCartResource::make($shoppingCart));
         }
 
-
+        $shoppingCart = $repository->userOwnCart($user);
+        return $this->successResponse(UserCartResource::make($shoppingCart));
     }
+
+
+
+
 
     /**
      * Display the specified resource.

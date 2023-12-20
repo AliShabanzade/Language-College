@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Cart;
 
+use App\Enums\OrderStatusEnum;
 use App\Models\Cart;
 use App\Models\User;
 use App\Repositories\BaseRepository;
@@ -64,7 +65,7 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
         $user = User::find($userId);
         if ($user) {
             foreach ($user->orders as $order) {
-                if ($order['status'] == 1) {
+                if ($order['status'] == OrderStatusEnum::PAID->value) {
                     $user->carts()->delete();
                 }
             }

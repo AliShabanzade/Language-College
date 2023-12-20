@@ -24,13 +24,15 @@ class UpdateCartAction
      */
     public function handle(Cart $cart, array $payload): Cart|null
     {
+
+
         $userId = auth()->user()->id;
         $user = auth()->user();
         $roles = $user->roles;
 
         return DB::transaction(function () use ($cart, $payload, $userId, $roles) {
-            if ($userId == $cart->user_id || $roles->contains('name', 'admin') || $roles->contains('name')) {
-                $payload = array_merge($payload, ['user_id' => $userId]);
+            if ($userId == $cart->user_id || $roles->contains('name', 'admin')) {
+                $payload['user_id'] = $payload['user_id'] ?? $userId;
                 $this->repository->update($cart, $payload);
             }
             return $cart;

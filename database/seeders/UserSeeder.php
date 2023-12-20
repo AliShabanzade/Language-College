@@ -96,11 +96,13 @@ class UserSeeder extends Seeder
                            ->create([
                                'commentable_type' => Gallery::class,
                                'commentable_id'   => $gallery->id,
+                               'user_id' => User::factory(),
                            ]);
-                })->each(function (Gallery $gallery) {
+                })->each(function (Gallery $gallery) use ($user) {
                     Like::factory(1)->create([
                         'likeable_id'   => $gallery->id,
                         'likeable_type' => Gallery::class,
+                        'user_id' => $user->id,
                     ]);
                 });
                 Notice::factory(1)->create([
@@ -109,11 +111,14 @@ class UserSeeder extends Seeder
                     Comment::factory(1)->create([
                         'commentable_type' => Notice::class,
                         'commentable_id'   => $notice->id,
+                        'user_id' => User::factory(),
+
                     ]);
-                })->each(function (Notice $notice) {
+                })->each(function (Notice $notice) use ($user) {
                     Like::factory(1)->create([
                         'likeable_id'   => $notice->id,
                         'likeable_type' => Notice::class,
+                        'user_id' => $user->id,
 
                     ]);
                 });

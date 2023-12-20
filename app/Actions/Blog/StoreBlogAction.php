@@ -27,7 +27,7 @@ class StoreBlogAction
             if ($category->type === Blog::class) {
                 $payload['user_id'] = auth()->id();
                 $blog = $this->repository->store($payload);
-                SetTranslationAction::translate($blog, $payload['translations']);
+                SetTranslationAction::run($blog, $payload['translations']);
                 if (request()->hasFile('media')) {
                     $blog->addMediaFromRequest('media')
                          ->toMediaCollection('blog');

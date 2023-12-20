@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\OrderStatusEnum;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,7 +20,7 @@ class OrderFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'status' => fake()->boolean,
+            'status' => fake()->randomElement(OrderStatusEnum::values()),
             'total' => rand(2000, 4000),
         ];
     }
