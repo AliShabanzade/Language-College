@@ -6,7 +6,8 @@ use App\Traits\EnumToArray;
 
 enum OrderStatusEnum: string
 {
-use EnumToArray;
+    use EnumToArray;
+
     case PENDING = "pending";
     case PAID = "paid";
     case EXPIRED = "expired";

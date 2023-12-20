@@ -14,7 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('book_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->integer('quantity')->default(1);
+            $table->unsignedInteger('quantity')->default(1);
+            $table->unsignedBigInteger('price');
             $table->timestamps();
             $table->unique([
                'user_id',

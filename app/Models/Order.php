@@ -21,12 +21,9 @@ class Order extends Model
         'extra_attributes' => 'array' //OrderExtraEnum
     ];
 
-
-
     public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class, 'order_id', 'id');
     }
-
 
 }

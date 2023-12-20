@@ -27,16 +27,12 @@ class CheckoutCartAction
 //    public function handle(array $payload)
     public function handle()
     {
-        $user = auth()->user();
-        $userId = $user->id;
+        $userId = auth()->user()->id;
         $result = $this->cartRepository->findAnyUserCart($userId);
         if (!empty($result)) {
-            return DB::transaction(function () use ($user, $userId) {
+            return DB::transaction(function () use ($userId) {
                 $orderPayload = ['user_id' => $userId];
-
                 $order = StoreOrderAction::run($orderPayload);
-
-
                 if (!$order) {
                     return null;
                 }

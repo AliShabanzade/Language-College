@@ -22,7 +22,7 @@ class OrderItemFactory extends Factory
             'book_id'  => Book::factory(),
             'order_id' => Order::factory(),
             'quantity' => rand(1, 2),
-            'price'    => rand(2000, 4000),
+            'price'    => fake()->randomElement([1000,2000]),
 
         ];
     }

@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
 
 
         $admin->syncRoles(RoleEnum::ADMIN->value);
-        User::factory(5)->create()->each(function (User $user) {
+        User::factory(1)->create()->each(function (User $user) {
             ActivationCode::factory(3)->create([
                 'user_id' => $user->id,
             ]);
@@ -57,10 +57,15 @@ class UserSeeder extends Seeder
                 'user_id' => $user->id,
                 'book_id' => book::factory(),
             ]);
-            Order::factory(5)->afterCreating(function (Order $order){
-                OrderItem::factory(3)->create([
+
+            Order::factory(1)->afterCreating(function (Order $order){
+                $price = 0;
+                OrderItem::factory(2)->create([
                    'order_id' => $order->id,
-                ]);
+                ])->each(function (OrderItem $orderItem) use (&$price){
+                    $price += $orderItem->price*$orderItem->quantity;
+                });
+                $order->update(['total' => $price]);
             })->create([
                 'user_id' => $user->id,
             ]);

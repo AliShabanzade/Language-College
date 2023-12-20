@@ -27,7 +27,7 @@ class OrderController extends ApiBaseController
     /**
      * Display a listing of the resource.
      */
-    public function index(OrderRepositoryInterface $repository): JsonResponse
+    public function index(OrderRepositoryInterface $repository)
     {
         return $this->successResponse(OrderResource::collection($repository->paginate()));
     }

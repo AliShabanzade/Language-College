@@ -12,8 +12,6 @@ interface CartRepositoryInterface extends BaseRepositoryInterface
 {
     public function getModel(): Cart;
 
-    public function userOwnCart($user);
-
     public function getItemsForOrder(int $userId);
 
     public function clearPaidUserCart(int $userId);
@@ -22,6 +20,5 @@ interface CartRepositoryInterface extends BaseRepositoryInterface
 
     public function findAnyUserCart(int $userId):bool;
 
-
-
+    public function getTotal():int;
 }
