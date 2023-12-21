@@ -21,15 +21,16 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
        return parent::getModel();
    }
 
-    public function query(array $payload=[]):Builder
+    public function query(array $payload=[]):Builder|QueryBuilder
     {
         return QueryBuilder::for($this->model)
             ->with(['category','user','publication'])
+            ->allowedSorts('extra_attributes->view_count')
             ->allowedFilters([
                 'published',
                 AllowedFilter::scope('with_relations'),
                 AllowedFilter::custom('search', new FiltersSearch([
-                    'key' => ['title']
+                    'key' => ['name']
                 ])),
             ]); // Execute the query and return the result
     }

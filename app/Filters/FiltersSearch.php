@@ -19,6 +19,7 @@ class FiltersSearch implements Filter
     {
 
         foreach ($this->params as $param) {
+
             foreach ($param as $item) {
                 $query->whereHas('translations', function (Builder $query) use ($value, $item) {
                     $query->where('value',  'LIKE' , '%' . $value . '%')
