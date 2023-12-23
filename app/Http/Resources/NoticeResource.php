@@ -24,12 +24,13 @@ class NoticeResource extends JsonResource
             'user'        => $this->whenLoaded('user', fn() => UserResource::make($this->resource->user)),
             'category'    => $this->whenLoaded('category', fn() => CategoryResource::make($this->resource->category)),
             'comment'     => $this->resource->extra_attributes->get(NoticeExtraEnum::COMMENT_COUNT->value, 0),
-            'like'        => $this->resource->extra_attributes->get(NoticeExtraEnum::LIKE_COUNT->value ,0),
+            'like'        => $this->resource->extra_attributes->get(NoticeExtraEnum::LIKE_COUNT->value, 0),
             'view'        => $this->resource->extra_attributes->get(NoticeExtraEnum::VIEW_COUNT->value, 0),
             'published'   => $this->resource->published,
-            'media'       => $this->when(Str::contains($request->route()->getName(), '480'), function () {
-                return $this->resource->getFirstMediaUrl('notice', '1080');
-            }, $this->resource->getFirstMediaUrl('notice', 'thumbnail')),
+            'media'       => $this->when($this->resource->relationLoaded('media') &&
+                Str::contains($request->route()->getName(), 'show'), function () {
+                return $this->resource->getFirstMediaUrl('notice', '480_480');
+            }, $this->resource->getFirstMediaUrl('notice', '100_100')),
             'view_count'  => $this->resource->extra_attributes->get('view_count', 0),
         ];
     }

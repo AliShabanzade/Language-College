@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Image\Exceptions\InvalidManipulation;
+use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -58,20 +59,18 @@ class Notice extends Model implements HasMedia
      * @param Media|null $media
      * @throws InvalidManipulation
      */
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaCollections(Media $media = null): void
     {
-        $this->addMediaConversion('thumbnail')
-             ->performOnCollections('gallery')
-             ->width(100)
-             ->height(100);
+        $this->addMediaCollection('media')
+        ->singleFile()
+            ->registerMediaConversions(
+              function (Media $media){
+               $this->addMediaConversion('100_100')
+                    ->crop(Manipulations::CROP_CENTER,100,100,);
+               $this->addMediaConversion(480_480)
+                   ->crop(Manipulations::CROP_CENTER, 480  , 480,);
+              });
 
-        $this->addMediaConversion('480')
-             ->width(480)
-             ->height(480);
-
-        $this->addMediaConversion('1080')
-             ->width(1080)
-             ->height(1080);
     }
 
     public function scopeSearch(Builder $query,string $data)

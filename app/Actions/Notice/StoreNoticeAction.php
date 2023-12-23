@@ -38,7 +38,7 @@ class StoreNoticeAction
 
                 return $notice;
             }
-            abort(Response::HTTP_UNPROCESSABLE_ENTITY, "");
+            abort(Response::HTTP_UNPROCESSABLE_ENTITY, "Please select your correct category");
         });
     }
 }

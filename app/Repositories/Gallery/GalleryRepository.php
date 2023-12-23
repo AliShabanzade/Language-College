@@ -5,10 +5,7 @@ namespace App\Repositories\Gallery;
 use App\Filters\FiltersCategoryTranslation;
 use App\Models\Gallery;
 use App\Repositories\BaseRepository;
-use DB;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 

@@ -49,19 +49,10 @@ class Gallery extends Model implements HasMedia
     /**
      * @throws InvalidManipulationAlias
      */
-    public function registerMediaConversions(Media $media = null): void
-    {
-        $this->addMediaConversion('thumbnail')
-             ->performOnCollections('gallery')
-             ->width(100)
-             ->height(100);
-
-        $this->addMediaConversion('480')
-             ->width(480)
-             ->height(480);
-
-        $this->addMediaConversion('1080')
-             ->width(1080)
-             ->height(1080);
-    }
+//    public function registerMediaCollections(Media $media = null): void
+//    {
+//       $this->addMediaCollection('media')
+//           ->singleFile()
+//           ->registerMediaConversions(fa);
+//    }
 }

@@ -55,9 +55,12 @@ class User extends Authenticatable implements HasMedia
              ->singleFile()
              ->registerMediaConversions(
                  function (Media $media) {
-                     $this->addMediaConversion('100_100')->crop(Manipulations::CROP_CENTER, 400, 400);
-                     $this->addMediaConversion('200_200')->crop(Manipulations::CROP_BOTTOM_LEFT, 400, 400);
-                     $this->addMediaConversion('512_512')->crop(Manipulations::CROP_TOP, 400, 400);
+                     $this->addMediaConversion('100_100')
+                          ->crop(Manipulations::CROP_CENTER, 400, 400);
+                     $this->addMediaConversion('200_200')
+                          ->crop(Manipulations::CROP_BOTTOM_LEFT, 400, 400);
+                     $this->addMediaConversion('512_512')
+                          ->crop(Manipulations::CROP_TOP, 400, 400);
                  });
 
         $this->addMediaCollection('cart_melli')

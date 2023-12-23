@@ -29,29 +29,30 @@ class UserResource extends JsonResource
             }, $this->getFirstMediaUrl('avatar', '512')),
 
             'cart_melli' => $this->when(
-                $this->relationLoaded('media') && Str::contains($request->route()->getName(), 'show'), function () {
-                return $this->getFirstMediaUrl('cart_melli','100_150');
+                $this->relationLoaded('media') && Str::contains($request->route()->getName(), 'show'),
+                function () {
+                return $this->getFirstMediaUrl('cart_melli', '100_150');
             }),
 
             'cart_melli_bigger' => $this->when(
                 $this->relationLoaded('media') && Str::contains($request->route()->getName(), 'show'), function () {
-                return $this->getFirstMediaUrl('cart_melli','400_500');
+                return $this->getFirstMediaUrl('cart_melli', '400_500');
             }),
 
-            'shenasname' => $this->when(
+            'shenasname'        => $this->when(
                 $this->relationLoaded('media')
                 && Str::contains($request->route()->getName(), 'show'), function () {
-                return $this->getFirstMediaUrl('shenasname','100_150');
+                return $this->getFirstMediaUrl('shenasname', '100_150');
             }),
             'shenasname_bigger' => $this->when(
                 $this->relationLoaded('media')
                 && Str::contains($request->route()->getName(), 'show'), function () {
-                return $this->getFirstMediaUrl('shenasname','400_500');
+                return $this->getFirstMediaUrl('shenasname', '400_500');
             }),
 
             'cover' => $this->when($this->relationLoaded('media')
                 && Str::contains($request->route()->getName(), 'show'), function () {
-                return $this->getFirstMediaUrl('cover','1080');
+                return $this->getFirstMediaUrl('cover', '1080');
             }),
 
         ];

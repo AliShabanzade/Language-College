@@ -30,7 +30,7 @@ class NoticeRepository extends BaseRepository implements NoticeRepositoryInterfa
 //        $startOfWeek = Carbon::now()->startOfWeek();
 //        $endOfWeek = Carbon::now();
 
-        return QueryBuilder::for($this->model)
+        return QueryBuilder::for($this->getModel())
                            ->with(['media', 'user'])
                            ->allowedFilters([
                                'published',
