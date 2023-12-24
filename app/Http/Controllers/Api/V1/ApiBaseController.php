@@ -17,9 +17,15 @@ class ApiBaseController extends BaseController
         return response()->json(compact('data', 'message'), $statusCode);
     }
 
+    public function successResponseWithAdditional($data = [], string $message = null, $status = 200, $additional = []): JsonResponse
+    {
+        return $data->additional(array_merge([
+            'message' => $message??''
+        ], $additional))->response()->setStatusCode($status);
+    }
+
     public function errorResponse($message = "", $statusCode = 404): JsonResponse
     {
-
         return response()->json(compact('message'), $statusCode);
     }
 

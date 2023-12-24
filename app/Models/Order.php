@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasSchemalessAttributes;
 use App\Traits\HasSlug;
 use App\Traits\HasUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,21 +13,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use HasFactory, HasUser, SoftDeletes, HasSlug;
+    use HasFactory, HasUser, SoftDeletes, HasSchemalessAttributes;
 
-    protected $fillable = ['slug', 'user_id', 'status', 'total'];
+    protected $fillable = ['user_id', 'status', 'total', 'extra_attributes'];
 
-    public function books(): BelongsToMany
-    {
-        return $this->belongsToMany(Book::class, 'order_items')
-                    ->using(OrderItem::class)
-                    ->withPivot(['quantity', 'price', 'uuid']);
-    }
+    protected $casts = [
+        'extra_attributes' => 'array' //OrderExtraEnum
+    ];
 
     public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class, 'order_id', 'id');
     }
-
 
 }

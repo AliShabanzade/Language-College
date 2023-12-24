@@ -4,14 +4,13 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCartRequest extends FormRequest
+class CheckoutRequest extends FormRequest
 {
 
     public function rules(): array
     {
         return [
-
-            'quantity' => 'required|numeric|min:1',
+           "id" => 'required',
         ];
     }
 }

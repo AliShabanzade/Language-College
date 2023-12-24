@@ -12,11 +12,15 @@ return new class extends Migration {
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('book_id')->constrained();
-            $table->integer('quantity')->default(1);
-            $table->boolean('payment')->default(false)->comment('true= paid , false= unpaid  ');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('book_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->unsignedInteger('quantity')->default(1);
+            $table->unsignedBigInteger('price');
             $table->timestamps();
+            $table->unique([
+               'user_id',
+               'book_id',
+            ]);
         });
     }
 

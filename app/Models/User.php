@@ -125,4 +125,24 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Gallery::class);
     }
 
+    public function orders():HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function views():HasMany
+    {
+        return $this->hasMany(View::class);
+    }
+
+    public function comments():HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function likes():HasMany
+    {
+        return $this->hasMany(Like::class);
+    }
+
 }
