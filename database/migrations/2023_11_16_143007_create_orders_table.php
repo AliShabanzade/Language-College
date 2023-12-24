@@ -13,10 +13,12 @@ return new class extends Migration {
         Schema::create('orders', static function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-            $table->boolean('status')->comment('true=paid , false= unpaid');
-            $table->decimal('total');
+            $table->string('status')->default('pending'); //OrderStatusEnum::class
+            $table->unsignedBigInteger('total')->default(0);
+            $table->schemalessAttributes('extra_attributes');
             $table->softDeletes();
             $table->timestamps();
+
         });
 
 
