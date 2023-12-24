@@ -29,7 +29,7 @@ class NoticeController extends ApiBaseController
      */
     public function index(NoticeRepositoryInterface $repository): JsonResponse
     {
-        return $this->successResponse(NoticeResource::collection($repository->query(request()->all())->paginate()));
+        return $this->successResponse(NoticeResource::collection($repository->paginate()));
     }
 
     /**

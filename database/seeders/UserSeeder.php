@@ -80,27 +80,31 @@ class UserSeeder extends Seeder
                 });
                 Gallery::factory(1)->create([
                     'user_id' => $user->id,
-                ])->each(function (Gallery $gallery) {
+                ])->each(function (Gallery $gallery) use ($user){
                     Comment::factory(1)
                            ->create([
+                               'user_id'       => $user->id,
                                'commentable_type' => Gallery::class,
                                'commentable_id'   => $gallery->id,
                            ]);
-                })->each(function (Gallery $gallery) {
+                })->each(function (Gallery $gallery) use ($user){
                     Like::factory(1)->create([
+                        'user_id'       => $user->id,
                         'likeable_id'   => $gallery->id,
                         'likeable_type' => Gallery::class,
                     ]);
                 });
                 Notice::factory(1)->create([
                     'user_id' => $user->id,
-                ])->each(function (Notice $notice) {
+                ])->each(function (Notice $notice) use ($user){
                     Comment::factory(1)->create([
+                        'user_id'       => $user->id,
                         'commentable_type' => Notice::class,
                         'commentable_id'   => $notice->id,
                     ]);
-                })->each(function (Notice $notice) {
+                })->each(function (Notice $notice) use ($user){
                     Like::factory(1)->create([
+                        'user_id'       => $user->id,
                         'likeable_id'   => $notice->id,
                         'likeable_type' => Notice::class,
 
