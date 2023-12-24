@@ -24,8 +24,27 @@ class UpdateUserAction
      */
     public function handle(User $user, array $payload): User
     {
-        return DB::transaction(static function () use ($user, $payload) {
-            $user->update($payload);
+        return DB::transaction(function () use ($user, $payload) {
+
+            $this->repository->update($user, $payload);
+
+            if (request()->hasFile('avatar')) {
+                $user->addMediaFromRequest('avatar')->toMediaCollection('avatar');
+            }
+
+            if (request()->hasFile('cart_melli')) {
+                $user->addMediaFromRequest('cart_melli')->toMediaCollection('cart_melli');
+            }
+
+            if (request()->hasFile('shenasname')) {
+                $user->addMediaFromRequest('shenasname')->toMediaCollection('shenasname');
+            }
+
+            if (request()->hasFile('cover')) {
+//                $user->clearMediaCollection('cover');
+                $user->addMediaFromRequest('cover')->toMediaCollection('cover');
+            }
+
             return $user;
         });
     }

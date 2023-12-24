@@ -68,7 +68,7 @@ class BlogPolicy
      */
     public function restore(User $user, Blog $blog): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -76,6 +76,6 @@ class BlogPolicy
      */
     public function forceDelete(User $user, Blog $blog): bool
     {
-        return true;
+        return false;
     }
 }

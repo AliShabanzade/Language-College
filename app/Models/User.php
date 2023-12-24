@@ -9,11 +9,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, InteractsWithMedia, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -43,6 +47,42 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password'          => 'hashed',
     ];
+
+    public function registerMediaCollections(Media $media = null): void
+    {
+
+        $this->addMediaCollection('avatar')
+             ->singleFile()
+             ->registerMediaConversions(
+                 function (Media $media) {
+                     $this->addMediaConversion('100_100')->crop(Manipulations::CROP_CENTER, 400, 400);
+                     $this->addMediaConversion('200_200')->crop(Manipulations::CROP_BOTTOM_LEFT, 400, 400);
+                     $this->addMediaConversion('512_512')->crop(Manipulations::CROP_TOP, 400, 400);
+                 });
+
+        $this->addMediaCollection('cart_melli')
+             ->singleFile()
+             ->registerMediaConversions(
+                 function (Media $media) {
+                     $this->addMediaConversion('100_150')->crop(Manipulations::CROP_CENTER, 100, 150);
+                     $this->addMediaConversion('400_500')->crop(Manipulations::CROP_CENTER, 400, 500);
+                 });
+
+        $this->addMediaCollection('shenasname')
+             ->singleFile()
+             ->registerMediaConversions(
+                 function (Media $media) {
+                     $this->addMediaConversion('100_150')->crop(Manipulations::CROP_CENTER, 100, 150);
+                     $this->addMediaConversion('400_500')->crop(Manipulations::CROP_CENTER, 400, 500);
+                 });
+
+        $this->addMediaCollection('cover')
+             ->singleFile()
+             ->registerMediaConversions(
+                 function (Media $media) {
+                     $this->addMediaConversion('1080')->crop(Manipulations::CROP_CENTER, 1080, 400);
+                 });
+    }
 
 
     public function carts(): HasMany
@@ -75,6 +115,11 @@ class User extends Authenticatable
     public function order()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function galleries(): HasMany
+    {
+        return $this->hasMany(Gallery::class);
     }
 
 }

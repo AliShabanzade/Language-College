@@ -5,8 +5,12 @@ namespace App\Models;
 use App\Traits\HasCategory;
 use App\Traits\HasComment;
 use App\Traits\HasLike;
+use App\Traits\HasSchemalessAttributes;
+use App\Traits\HasTranslation;
+use App\Traits\HasTranslationAuto;
 use App\Traits\HasUser;
 use App\Traits\HasView;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,23 +26,33 @@ class Notice extends Model implements HasMedia
 
 {
     use InteractsWithMedia;
-    use HasFactory;
-    use HasUser;
+    use HasCategory;
     use SoftDeletes;
     use HasComment;
+    use HasFactory;
+    use HasUser;
     use HasLike;
     use HasView;
-
+    use HasTranslationAuto;
+    use HasSchemalessAttributes;
+//    use HasTranslation;
 //    use HasTag;
-    use HasCategory;
 
 
     protected $fillable = [
+//        'slug',
         'category_id',
         'user_id',
         'published',
+        'extra_attributes',
+    ];
+    protected $casts = [
+        'extra_attributes' => 'array',
     ];
 
+    // extra_attributes : ExtraEnum::class
+
+    protected array $translatable = ['title', 'description'];
 
     /**
      * @param Media|null $media
@@ -47,8 +61,25 @@ class Notice extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumbnail')
-             ->width((int)null)
-             ->height((int)null);
+             ->performOnCollections('gallery')
+             ->width(100)
+             ->height(100);
+
+        $this->addMediaConversion('480')
+             ->width(480)
+             ->height(480);
+
+        $this->addMediaConversion('1080')
+             ->width(1080)
+             ->height(1080);
     }
 
+    public function scopeSearch(Builder $query,string $data)
+    {
+        return $query->when(function (Builder $q) use ($data) {
+
+//            $q->where($this->translations()->whereKey('title'), 'like', '%' . $data . '%');
+//                ->orWhere($this->translations()->value('value'), 'like', '%' . $data . '%');
+        });
+    }
 }
