@@ -16,8 +16,6 @@ use App\Repositories\Faq\FaqRepository;
 use App\Repositories\Faq\FaqRepositoryInterface;
 use App\Repositories\Comment\CommentRepository;
 use App\Repositories\Comment\CommentRepositoryInterface;
-use App\Repositories\Gallery\GalleryRepository;
-use App\Repositories\Gallery\GalleryRepositoryInterface;
 use App\Repositories\Notice\NoticeRepository;
 use App\Repositories\Notice\NoticeRepositoryInterface;
 use App\Repositories\Opinion\OpinionRepository;
@@ -55,11 +53,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(OpinionRepositoryInterface::class,OpinionRepository::class);
         $this->app->bind(CommentRepositoryInterface::class,CommentRepository::class);
         $this->app->bind(NoticeRepositoryInterface::class,NoticeRepository::class);
+        $this->app->bind(NoticeRepositoryInterface::class , NoticeRepository::class);
         $this->app->bind(BlogRepositoryInterface::class , BlogRepository::class);
         $this->app->bind(PublicationRepositoryInterface::class,PublicationRepository::class);
         $this->app->bind(FavRepositoryInterface::class,FavRepository::class);
         $this->app->bind(SettingRepositoryInterface::class,FavRepository::class);
-        $this->app->bind(GalleryRepositoryInterface::class, GalleryRepository::class);
         $this->app->bind(RoleRepositoryInterface::class,RoleRepository::class);
 
 

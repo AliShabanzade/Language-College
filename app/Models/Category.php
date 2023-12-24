@@ -19,6 +19,10 @@ class Category extends Model
 
     protected $fillable = ['published', 'parent_id', 'slug', 'type'];
 
+    public function scopeWithRelations(Builder $query, ...$relations): Builder
+    {
+        return $query->with($relations);
+    }
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'parent_id');
@@ -32,16 +36,6 @@ class Category extends Model
     public function books(): HasMany
     {
         return $this->hasMany(Book::class);
-    }
-
-    public function scopeWithRelations(Builder $query, $relation1, $relation2): Builder
-    {
-        return $query->with([$relation1, $relation2]);
-    }
-
-    public function scopeOnlyRelation(Builder $query, $relation): Builder
-    {
-        return $query->with($relation);
     }
     public function faqs(): HasMany
     {

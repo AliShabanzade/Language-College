@@ -40,14 +40,14 @@ class BookController extends ApiBaseController
     public function show(Book $book): JsonResponse
     {
         AddView::run($book);
-        return $this->successResponse(BookResource::make($book->load(['user','category', 'media','publication'])));
+        return $this->successResponse(BookResource::make($book->load('user','category', 'media','publication')));
     }
 
 
     public function store(StoreBookRequest $request): JsonResponse
     {
         $model = StoreBookAction::run($request->validated());
-        return $this->successResponse(BookResource::make($model->load('user','category','publication')),
+        return $this->successResponse(BookResource::make($model->load('user','category','publication','media')),
             trans('general.model_has_stored_successfully', ['model' => trans('book.model')]));
     }
 
@@ -57,7 +57,7 @@ class BookController extends ApiBaseController
     public function update(UpdateBookRequest $request, Book $book): JsonResponse
     {
         $data = UpdateBookAction::run($book, $request->validated());
-        return $this->successResponse(BookResource::make($data->load('user','category','publication')),
+        return $this->successResponse(BookResource::make($data->load('user','category','publication','media')),
             trans('general.model_has_updated_successfully', ['model' => trans('book.model')]));
     }
 

@@ -56,6 +56,7 @@ class BaseRepository implements BaseRepositoryInterface
     {
         $model = $this->getModel()->with($with)->select($selected)->where($field, $value);
 
+
         if ($firstOrFail) {
             return $model->firstOrFail();
         }

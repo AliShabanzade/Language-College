@@ -25,7 +25,7 @@ class UpdateBlogAction
     /**
      * @param Blog                                          $blog
      * @param array{name:string,mobile:string,email:string} $payload
-     * @return Blog
+     * @return Blog|null
      */
     public function handle(Blog $blog, array $payload): Blog|null
     {
@@ -35,8 +35,8 @@ class UpdateBlogAction
                 $payload['user_id'] = auth()->id();
                 $blog->media()->delete();
                 $blog->update($payload);
-                SetTranslationAction::translate($blog, $payload['translations']);
-                if (request()->hasFile('media')) {
+                SetTranslationAction::run($blog, $payload['translations']);
+                if (request()?->hasFile('media')) {
                     $blog->addMediaFromRequest('media')
                          ->toMediaCollection('blog');
                 }

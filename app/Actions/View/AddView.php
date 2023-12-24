@@ -18,7 +18,7 @@ class AddView
             if (auth()->check()){
                 $model->views()->create([
                     'user_id' => auth()->id(),
-                    'ip'      => request()->ip(),
+                    'ip'      => request()?->ip(),
                 ]);
             }
         });

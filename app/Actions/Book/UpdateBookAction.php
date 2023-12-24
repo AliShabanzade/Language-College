@@ -8,6 +8,7 @@ use App\Enums\CategoryEnum;
 use App\Models\Book;
 use App\Repositories\Book\BookRepositoryInterface;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 
@@ -34,17 +35,17 @@ class UpdateBookAction
             $category = $this->categoryRepository->find($payload['category_id']);
             if ($category->type == Book::class) {
                 $payload['user_id'] = auth()->user()->id;
+                /** @var  $book */
                 $model=$this->repository->update($book,$payload);
-                $model->extra_attributes->set($payload['extra_attributes']);
-                $model->save();
-                SetTranslationAction::run($book,$payload['translations']);
+                SetTranslationAction::run($model,$payload['translations']);
                 if(request()->hasFile('media')){
-                    $book->media()->delete();
-                    $book->addMediaFromRequest('media')
+                    $model->media()->delete();
+                    $model->addMediaFromRequest('media')
                         ->toMediaCollection('book');
                 }
-                return $book;
+                return $model;
             }
+            abort(Response::HTTP_UNPROCESSABLE_ENTITY,"نوع دسته بندی به بخش کتاب ها مربوط نمی باشد");
 
         });
     }

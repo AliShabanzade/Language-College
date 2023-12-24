@@ -24,8 +24,8 @@ class UpdateRoleAction
     public function handle(Role $role, array $payload): Role
     {
         return DB::transaction(function () use ($role, $payload) {
-            $model=$this->repository->update($role,$payload);
-            $model->syncPermissions($payload['permissions']);
+            $role->syncPermissions($payload['permissions'])->update(['name' => $payload['name']]);
+           // $this->repository->update($role,$payload);
             return $role;
         });
     }
