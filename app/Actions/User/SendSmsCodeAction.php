@@ -22,7 +22,6 @@ class SendSmsCodeAction
         private readonly UserRepositoryInterface $userRepository
     ) {
     }
-
     /**
      * @param int $codeLength
      * @return int
@@ -34,7 +33,6 @@ class SendSmsCodeAction
         $min = $max / 10 - 1;
         return random_int($min, $max);
     }
-
     /**
      * @throws Exception
      */
