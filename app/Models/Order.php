@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\OrderStatusEnum;
 use App\Traits\HasSchemalessAttributes;
 use App\Traits\HasSlug;
 use App\Traits\HasUser;
@@ -18,7 +19,8 @@ class Order extends Model
     protected $fillable = ['user_id', 'status', 'total', 'extra_attributes'];
 
     protected $casts = [
-        'extra_attributes' => 'array' //OrderExtraEnum
+        'extra_attributes' => 'array', //OrderExtraEnum,
+        'status' => OrderStatusEnum::class
     ];
 
     public function items(): HasMany

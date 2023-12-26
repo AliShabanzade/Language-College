@@ -15,10 +15,12 @@ class OrderResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'      => $this->id,
-            'user_id' => $this->user_id,
-            'status'  => $this->status,
-            'total'   => $this->total,
+            'id' => $this->id,
+            'user' => $this->whenLoaded('user', fn() => UserResource::make($this->user)),
+            'created_at' => $this->created_at,
+//            'status' => $this->status->title()??$this->status,
+            'total' => $this->total,
+            'items' => $this->whenLoaded('items', fn() => OrderItemResource::collection($this->items))
         ];
     }
 }

@@ -35,4 +35,8 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
             ]); // Execute the query and return the result
     }
 
+    public function subtractBookInventory($bookId, $quantity)
+    {
+        // TODO: Implement subtractBookInventory() method.
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Actions\OrderItem;
 
+use App\Models\Order;
 use App\Models\OrderItem;
 use App\Repositories\Book\BookRepositoryInterface;
 use App\Repositories\Cart\CartRepositoryInterface;
@@ -26,23 +27,7 @@ class StoreOrderItemAction
     {
 
         return DB::transaction(function () use ($payload) {
-            $cartItems = $this->cartRepository->getItemsForOrder($payload['user_id']);
-            foreach ($cartItems as $cartItem) {
-                $orderItemPayload = [
-                        'order_id' => $payload['id'],
-                        'book_id'  => $cartItem->book_id,
-                        'quantity' => $cartItem->quantity,
-                        'price'    => $cartItem->book->price,
-                    ];
-
-                    $this->orderItemRepository->store($orderItemPayload);
-
-                    $this->cartRepository->clearPaidUserCart($payload['user_id']);
-                    $bookId =$cartItem->book_id;
-                    $quantity =$cartItem->quantity;
-                    $this->bookRepository->subtractBookInventory($bookId , $quantity);
-
-            }
+            $this->orderItemRepository->store($payload);
             return true;
         });
     }

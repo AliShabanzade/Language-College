@@ -70,6 +70,7 @@ class OrderPolicy
      */
     public function forceDelete(User $user, Order $order): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ORDER_ALL->value, PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionEnum::ORDER_DELETE->value, PermissionEnum::ORDER_ALL->value,
+            PermissionEnum::ADMIN->value);
     }
 }

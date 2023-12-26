@@ -37,14 +37,14 @@ class OrderController extends ApiBaseController
      */
     public function show(Order $order): JsonResponse
     {
-        return $this->successResponse(OrderResource::make($order));
+        return $this->successResponse(OrderResource::make($order->load(['items.book','user'])));
     }
 
 
     public function store(StoreOrderRequest $request): JsonResponse
     {
         $model = StoreOrderAction::run($request->validated());
-        return $this->successResponse(OrderResource::make($model), trans('general.model_has_stored_successfully', ['model' => trans('order.model')]));
+        return $this->successResponse(OrderResource::make($model->load(['user','items.book'])), trans('general.model_has_stored_successfully', ['model' => trans('order.model')]));
     }
 
     /**
