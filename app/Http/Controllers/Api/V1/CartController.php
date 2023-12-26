@@ -47,12 +47,12 @@ class CartController extends ApiBaseController
         return $this->successResponse(message: trans('general.model_has_deleted_successfully', ['model' => trans('cart.model')]));
     }
 
-//    public function checkOut()
-//    {
-//        $order = CheckoutCartAction::run();
-//        if ($order) {
-//            return $this->successResponse(OrderResource::make($order), trans('general.model_has_stored_successfully', ['model' => trans('order.model')]));
-//        }
-//        return $this->errorResponse(trans('checkout.user_shopping_cart_has_no_products_that_have_been_checked_out'), 400);
-//    }
+    public function checkOut()
+    {
+        $order = CheckoutCartAction::run();
+        if ($order) {
+            return $this->successResponse(OrderResource::make($order), trans('general.model_has_stored_successfully', ['model' => trans('order.model')]));
+        }
+        return $this->errorResponse(trans('checkout.user_shopping_cart_has_no_products_that_have_been_checked_out'), 400);
+    }
 }

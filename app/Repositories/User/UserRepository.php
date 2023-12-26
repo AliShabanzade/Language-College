@@ -11,6 +11,13 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
+    public function __construct(User $model)
+    {
+        parent::__construct($model);
+    }
+
+
+
     public function query(array $payload = []): Builder|QueryBuilder
     {
         return QueryBuilder::for($this->getModel())
@@ -19,10 +26,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     }
 
 
-    public function __construct(User $model)
-    {
-        parent::__construct($model);
-    }
 
     public function toggle($model, string $field = 'published'): User
     {
