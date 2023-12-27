@@ -2,7 +2,7 @@
 
 namespace App\ExtraAttributes;
 
-enum GalleryExtraEnum:string
+enum BaseExtraEnum: string
 {
     case VIEW_COUNT = 'view_count';
     case COMMENT_COUNT = 'comment_count';

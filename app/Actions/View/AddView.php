@@ -15,7 +15,7 @@ class AddView
             $viewCount = $model->extra_attributes->get('view_count', 0) + 1;
             $model->extra_attributes->set('view_count', $viewCount);
             $model->save();
-            if (auth()->check()){
+            if (auth()->check()) {
                 $model->views()->create([
                     'user_id' => auth()->id(),
                     'ip'      => request()?->ip(),

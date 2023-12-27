@@ -6,6 +6,7 @@ use App\Traits\HasCategory;
 use App\Traits\HasComment;
 use App\Traits\HasLike;
 use App\Traits\HasSchemalessAttributes;
+use App\Traits\HasSlug;
 use App\Traits\HasTranslationAuto;
 use App\Traits\HasUser;
 use App\Traits\HasView;
@@ -14,7 +15,6 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Image\Exceptions\InvalidManipulation as InvalidManipulationAlias;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Gallery extends Model implements HasMedia
 {
@@ -27,24 +27,27 @@ class Gallery extends Model implements HasMedia
     use HasCategory;
     use HasTranslationAuto;
     use HasSchemalessAttributes;
+    use HasSlug;
+
+
 
     protected $casts = [
         'extra_attributes' => 'array',
     ];
 
     protected $fillable = [
-//        'slug',
-'user_id',
-'category_id',
-'published',
-'extra_attributes',
+        'slug',
+        'user_id',
+        'category_id',
+        'published',
+        'extra_attributes',
 
     ];
 
     // extra_attributes : ExtraEnum::class
 
 
-    protected array $translatable = ['title', 'description'];
+    protected  array $translatable = ['title', 'description'];
 
     /**
      * @throws InvalidManipulationAlias

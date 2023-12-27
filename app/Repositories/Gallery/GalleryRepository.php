@@ -2,11 +2,13 @@
 
 namespace App\Repositories\Gallery;
 
-use App\Filters\FiltersCategoryTranslation;
+
 use App\Models\Gallery;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class GalleryRepository extends BaseRepository implements GalleryRepositoryInterface
@@ -23,24 +25,19 @@ class GalleryRepository extends BaseRepository implements GalleryRepositoryInter
 
     public function query(array $payload = []): Builder|QueryBuilder
     {
-//        $startOfWeek = Carbon::now()->startOfWeek();
-//        $endOfWeek = Carbon::now();
-        return QueryBuilder::for($this->model)
+
+
+        $last_week = Carbon::now()->subWeeks(1)->toDateString();
+
+        return QueryBuilder::for($this->getModel())
                            ->with(['media', 'user'])
-                           ->allowedFilters([
-                               'published',
-                               AllowedFilter::custom('search', new FiltersCategoryTranslation([
-                                   'key'         => ['title'],
-                                   'value'       => ['description'],
-                                   'description' => ['description'],
-                               ])),
-                           ]);
-//                           ->orderByDesc(DB::raw('JSON_UNQUOTE(JSON_EXTRACT(galleries.extra_attributes, "$.view_count"))'));
+                           ->whereDate('created_at', '=', $last_week)
+                           ->allowedSorts([
+                               AllowedSort::field('view_count', 'extra_attributes->view_count'),
+                               AllowedSort::field('like_count', 'extra_attributes->like_count'),
+                               AllowedSort::field('comment_count', 'extra_attributes->comment_count')
+                           ])
+                           ->defaultSort('-id');
 
-//                          ->orderByDesc('comments_count')
-
-//                          ->orderByDesc('likes_count')
-
-//                           ->whereBetween('created_at', [$startOfWeek, $endOfWeek]);
     }
 }

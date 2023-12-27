@@ -35,12 +35,11 @@ class Notice extends Model implements HasMedia
     use HasView;
     use HasTranslationAuto;
     use HasSchemalessAttributes;
-//    use HasTranslation;
 //    use HasTag;
 
 
     protected $fillable = [
-//        'slug',
+        'slug',
         'category_id',
         'user_id',
         'published',

@@ -46,7 +46,7 @@ class GalleryController extends ApiBaseController
     {
         $this->authorize('create', Gallery::class);
         $model = StoreGalleryAction::run($request->validated());
-        return $this->successResponse($model,
+        return $this->successResponse(GalleryResource::make($model),
             trans('general.model_has_stored_successfully',
                 ['model' => trans('gallery.model')]));
     }

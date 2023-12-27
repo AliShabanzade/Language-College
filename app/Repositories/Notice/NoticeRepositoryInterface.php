@@ -9,4 +9,6 @@ use App\Repositories\BaseRepositoryInterface;
 interface NoticeRepositoryInterface extends BaseRepositoryInterface
 {
     public function getModel(): Notice;
+
+
 }

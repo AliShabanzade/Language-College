@@ -2,13 +2,13 @@
 
 namespace App\Repositories\Notice;
 
-use App\Filters\FiltersCategoryTranslation;
+
 use App\Models\Notice;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
-use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedSort;
 
 class NoticeRepository extends BaseRepository implements NoticeRepositoryInterface
 {
@@ -27,24 +27,21 @@ class NoticeRepository extends BaseRepository implements NoticeRepositoryInterfa
 
     public function query(array $payload = []): QueryBuilder|Builder
     {
-//        $startOfWeek = Carbon::now()->startOfWeek();
-//        $endOfWeek = Carbon::now();
+
+        $yesterday = Carbon::yesterday()->toDateString();
+        $last_week = Carbon::now()->subWeeks(1)->toDateString();
 
         return QueryBuilder::for($this->getModel())
                            ->with(['media', 'user'])
-                           ->allowedFilters([
-                               'published',
-                               AllowedFilter::custom('search', new FiltersCategoryTranslation([
-                                   'key' => ['title']
-                               ])),
-                           ]);
-//
-//                           ->orderByDesc('views')
-//
-//                           ->orderByDesc('comments_count')
-//
-//                           ->orderByDesc('likes_count')
-//
-//                           ->whereBetween('created_at', [$startOfWeek, $endOfWeek]);
+                           ->whereDate('created_at', '=', $yesterday)
+                           ->orWhere('created_at', '=', $last_week)
+                           ->allowedSorts([
+                               AllowedSort::field('view_count', 'extra_attributes->view_count'),
+                               AllowedSort::field('like_count', 'extra_attributes->like_count'),
+                               AllowedSort::field('comment_count', 'extra_attributes->comment_count')
+                           ])
+                           ->defaultSort('-id');
+
+
     }
 }

@@ -46,7 +46,7 @@ class NoticeController extends ApiBaseController
     {
         $this->authorize('create', Notice::class);
         $model = StoreNoticeAction::run($request->validated());
-        return $this->successResponse($model, trans(
+        return $this->successResponse(NoticeResource::make($model), trans(
             'general.model_has_stored_successfully',
             ['model' => trans('notice.model')]));
     }
