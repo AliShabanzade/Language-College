@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Actions\Order\DeleteOrderAction;
 use App\Actions\Order\RestoreOrderAction;
-use App\Models\Order;
-use Illuminate\Http\JsonResponse;
-use App\Http\Requests\UpdateOrderRequest;
+use App\Actions\Order\StoreOrderAction;
+use App\Actions\Order\UpdateOrderAction;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Resources\OrderResource;
-use App\Actions\Order\StoreOrderAction;
-use App\Actions\Order\DeleteOrderAction;
-use App\Actions\Order\UpdateOrderAction;
+use App\Models\Order;
 use App\Repositories\Order\OrderRepositoryInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 
@@ -37,20 +36,20 @@ class OrderController extends ApiBaseController
      */
     public function show(Order $order): JsonResponse
     {
-        return $this->successResponse(OrderResource::make($order->load(['items.book','user'])));
+        return $this->successResponse(OrderResource::make($order->load(['items.book', 'user'])));
     }
 
 
     public function store(StoreOrderRequest $request): JsonResponse
     {
         $model = StoreOrderAction::run($request->validated());
-        return $this->successResponse(OrderResource::make($model->load(['user','items.book'])), trans('general.model_has_stored_successfully', ['model' => trans('order.model')]));
+        return $this->successResponse(OrderResource::make($model->load(['user', 'items.book'])), trans('general.model_has_stored_successfully', ['model' => trans('order.model')]));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOrderRequest $request, Order $order): JsonResponse
+    public function update(StoreOrderRequest $request, Order $order): JsonResponse
     {
         $data = UpdateOrderAction::run($order, $request->validated());
         return $this->successResponse(OrderResource::make($data), trans('general.model_has_updated_successfully', ['model' => trans('order.model')]));
@@ -61,7 +60,6 @@ class OrderController extends ApiBaseController
      */
     public function destroy(Order $order): JsonResponse
     {
-
         DeleteOrderAction::run($order);
         return $this->successResponse('', trans('general.model_has_deleted_successfully', ['model' => trans('order.model')]));
     }
@@ -69,8 +67,8 @@ class OrderController extends ApiBaseController
 
     public function restore(Request $request): JsonResponse
     {
-        $order=Order::onlyTrashed()->findOrFail($request->id);
-        $this->authorize('restore',$order );
+        $order = Order::onlyTrashed()->findOrFail($request->id);
+        $this->authorize('restore', $order);
 
         $restored = RestoreOrderAction::run($order);
 

@@ -79,7 +79,7 @@ class BaseRepository implements BaseRepositoryInterface
 
     public function updateOrCreate(array $data, array $conditions = [])
     {
-        return $this->model->updateOrCreate($conditions, $data);
+        return $this->model->updateOrCreate($data, $conditions);
     }
 
     public function data(array $payload = []): array

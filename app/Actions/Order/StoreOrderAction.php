@@ -38,12 +38,9 @@ class StoreOrderAction
                 $items->push($item);
             }
             $payload['total'] = $total;
-            $payload['user_id'] = Arr::get($payload,'user_id',auth()->id());
+            $payload['user_id'] = Arr::get($payload, 'user_id', auth()->id());
             $order = $this->orderRepository->store($payload);
-            $items->each(function ($item) use ($order) {
-                $item['order_id'] = $order->id;
-            });
-            StoreOrderItemsAction::run($order,$items->toArray());
+            StoreOrderItemsAction::run($order, $items->toArray());
             return $order;
         });
 
