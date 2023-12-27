@@ -13,7 +13,8 @@ class UpdateNoticeAction
 {
     use AsAction;
 
-    public function __construct(private readonly NoticeRepositoryInterface $repository ,
+    public function __construct(
+        private readonly NoticeRepositoryInterface $repository,
         private readonly CategoryRepositoryInterface $categoryRepository)
     {
     }

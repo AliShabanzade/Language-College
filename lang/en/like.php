@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'model' => '',
+    'like'    => 'like',
+    'dislike' => 'dislike'
+
 ];

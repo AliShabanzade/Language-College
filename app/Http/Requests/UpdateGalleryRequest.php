@@ -19,7 +19,7 @@ class UpdateGalleryRequest extends FormRequest
             'translations.en.*.key'   => 'string',
             'translations.en.*.value' => 'string',
             'category_id'             => 'required|int|exists:categories,id',
-            'media'                   => ''
+            'media'                   => 'file'
         ];
     }
 }

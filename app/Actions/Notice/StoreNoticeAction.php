@@ -15,7 +15,8 @@ class StoreNoticeAction
 {
     use AsAction;
 
-    public function __construct(private readonly NoticeRepositoryInterface $repository,
+    public function __construct(
+        private readonly NoticeRepositoryInterface $repository,
         private readonly CategoryRepositoryInterface $categoryRepository)
     {
     }
@@ -38,7 +39,8 @@ class StoreNoticeAction
 
                 return $notice;
             }
-            abort(Response::HTTP_UNPROCESSABLE_ENTITY, trans('general.model_has_Select_a_category',
+            abort(Response::HTTP_UNPROCESSABLE_ENTITY,
+                trans('general.model_has_Select_a_category',
                 ['model' => trans('notice.model')]));
         });
     }

@@ -10,7 +10,6 @@ class StoreNoticeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'published'                 => 'boolean|required',
             'translations'              => 'required|array',
             'translations.fa'           => 'required|array',
             'translations.*.fa.*.key'   => 'required|string',
@@ -19,7 +18,7 @@ class StoreNoticeRequest extends FormRequest
             'translations.*.en.*.key'   => 'string',
             'translations.*.en.*.value' => 'string',
             'category_id'               => 'required|int|exists:categories,id',
-            'media'                     => '',
+            'media'                     => 'file',
             'extra_attributes'        => 'array',
         ];
     }

@@ -25,19 +25,26 @@ trait HasLike
                 $likeCount = $this->extra_attributes->get('like_count', 0) - 1;
                 $this->extra_attributes->set('like_count', $likeCount);
                 $this->save();
-                abort(Response::HTTP_UNPROCESSABLE_ENTITY,"DISLIKE");
+                abort(Response::HTTP_UNPROCESSABLE_ENTITY,
+                    0
+//                    trans('like.dislike')
+                );
 
             } else {
                 $likeCount = $this->extra_attributes->get('like_count', 0) + 1;
-                $likeModel=$this->extra_attributes->set('like_count', $likeCount);
+                $likeModel = $this->extra_attributes->set('like_count', $likeCount);
                 $this->save();
                 $this->Likes()->create([
                     'user_id' => auth()->id(),
                 ]);
-                abort(Response::HTTP_UNPROCESSABLE_ENTITY,"ADDLIKE");
+                abort(Response::HTTP_UNPROCESSABLE_ENTITY,
+                    1
+//                   trans('like.like')
+                );
             }
         } else {
-            echo "وارد سایت شوید";
+            abort(Response::HTTP_FORBIDDEN,
+                trans('authentication.please_sign_in_first'));
         }
     }
 }

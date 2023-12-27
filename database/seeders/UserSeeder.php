@@ -112,6 +112,7 @@ class UserSeeder extends Seeder
                     'user_id'       => $user->id,
                 ]);
             });
+
             Notice::factory(5)->create([
                 'user_id' => $user->id,
             ])->each(function (Notice $notice) {

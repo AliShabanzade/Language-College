@@ -21,7 +21,7 @@ class GalleryController extends ApiBaseController
 
     public function __construct()
     {
-        $this->middleware('auth:api')->except('index', 'show');
+        $this->middleware('auth:api')->except('index', 'show','addLike',);
     }
 
     /**
@@ -29,7 +29,7 @@ class GalleryController extends ApiBaseController
      */
     public function index(GalleryRepositoryInterface $repository): JsonResponse
     {
-        return $this->successResponse(GalleryResource::collection($repository->paginate(payload: request()->all())));
+        return $this->successResponse(GalleryResource::collection($repository->paginate()));
     }
 
     /**

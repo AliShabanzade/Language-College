@@ -18,6 +18,7 @@ class GalleryResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id'            => $this->resource->id,
             'title'         => GetTranslationAction::run($this->resource, 'title'),
             'slug'          => $this->resource->slug,
             'description'   => GetTranslationAction::run($this->resource, 'description'),
@@ -27,11 +28,12 @@ class GalleryResource extends JsonResource
             'like_count'    => $this->resource->extra_attributes->get(BaseExtraEnum::LIKE_COUNT->value, 0),
             'view_count'    => $this->resource->extra_attributes->get(BaseExtraEnum::VIEW_COUNT->value, 0),
             'published'     => $this->resource->published,
-            //            'media'       => $this->when(Str::contains($request->route()->getName(), 'show'), function () {
-            //                return $this->resource->getFirstMediaUrl('gallery', '1080');
-            //            }, $this->resource->getFirstMediaUrl('gallery', 'thumbnail')),
-
+            'media'         => $this->when($this->resource->relationLoaded('media') &&
+                Str::contains($request->route()->getName(), 'show'), function () {
+                return $this->resource->getFirstMediaUrl('gallery', '480');
+            }, $this->resource->getFirstMediaUrl('gallery', '100')),
 
         ];
+
     }
 }

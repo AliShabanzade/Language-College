@@ -10,7 +10,6 @@ class StoreGalleryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'published'                 => 'boolean|required',
             'translations'              => 'required|array',
             'translations.fa'           => 'required|array',
             'translations.*.fa.*.key'   => 'required|string',

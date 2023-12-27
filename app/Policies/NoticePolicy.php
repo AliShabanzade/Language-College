@@ -63,4 +63,11 @@ class NoticePolicy
         return $user->hasAnyPermission(
             PermissionEnum::ADMIN->value);
     }
+
+
+    public function toggle(User $user,Notice $notice): bool
+    {
+        return $user->hasAnyPermission(
+            PermissionEnum::ADMIN->value);
+    }
 }

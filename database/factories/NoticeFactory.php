@@ -30,10 +30,27 @@ class NoticeFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (Notice $notice) {
+
             SetTranslationAction::run($notice, [
                 'fa' => [
-                    'key' => 'title',
-                    'value' =>fake()->title(),
+                    [
+                        'key'   => 'title',
+                        'value' => fake()->sentence,
+                    ],
+                    [
+                        'key'   => 'description',
+                        'value' => fake()->text(),
+                    ],
+                ],
+                'en' => [
+                    [
+                        'key'   => 'title',
+                        'value' => fake()->sentence,
+                    ],
+                    [
+                        'key'   => 'description',
+                        'value' => fake()->text(),
+                    ],
                 ]
 
             ]);

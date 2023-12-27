@@ -35,7 +35,8 @@ class StoreGalleryAction
                 }
                 return $gallery;
             }
-            abort(Response::HTTP_UNPROCESSABLE_ENTITY,  trans('general.model_has_Select_a_category',
+            abort(Response::HTTP_UNPROCESSABLE_ENTITY,
+                trans('general.model_has_Select_a_category',
                 ['model' => trans('gallery.model')]));
         });
     }

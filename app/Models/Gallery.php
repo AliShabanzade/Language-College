@@ -13,8 +13,10 @@ use App\Traits\HasView;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Image\Exceptions\InvalidManipulation as InvalidManipulationAlias;
+use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Gallery extends Model implements HasMedia
 {
@@ -52,10 +54,19 @@ class Gallery extends Model implements HasMedia
     /**
      * @throws InvalidManipulationAlias
      */
-//    public function registerMediaCollections(Media $media = null): void
-//    {
-//       $this->addMediaCollection('media')
-//           ->singleFile()
-//           ->registerMediaConversions(fa);
-//    }
+    public function registerMediaCollections(Media $media = null): void
+    {
+        $this->addMediaCollection('media')
+             ->singleFile()
+             ->registerMediaConversions(
+                 function (Media $media){
+                     $this->addMediaConversion('100')
+                          ->crop(Manipulations::CROP_CENTER,100,100,);
+                     $this->addMediaConversion(480)
+                          ->crop(Manipulations::CROP_CENTER, 480  , 480,);
+                     $this->addMediaConversion(1080)
+                          ->crop(Manipulations::CROP_CENTER, 1080  , 1080,);
+                 });
+
+    }
 }

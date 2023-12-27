@@ -1,5 +1,8 @@
 <?php
 
 return [
- 'model'=>'',
+    'like'    => 'لایک',
+    'dislike' => 'دیس لایک'
+
+
 ];

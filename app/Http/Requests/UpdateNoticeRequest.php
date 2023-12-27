@@ -11,7 +11,6 @@ class UpdateNoticeRequest extends FormRequest
     {
         return [
 
-            'published'               => 'boolean|required',
             'translations'            => 'required|array',
             'translations.fa'         => 'required|array',
             'translations.fa.*.key'   => 'required|string',
@@ -21,7 +20,7 @@ class UpdateNoticeRequest extends FormRequest
             'translations.en.*.value' => 'string',
             'category_id'             => 'required|int|exists:categories,id',
             'extra_attributes'        => 'array',
-            'media'                   => ''
+            'media'                   => 'file'
         ];
     }
 }

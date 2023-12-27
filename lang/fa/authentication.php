@@ -11,6 +11,7 @@ return [
     'mobile_or_password_not_match'                 => 'نام کاربری یا رمز عبور صحیح نمی باشد',
     'verification_code_has_been_successfully_sent' => 'کد تایید با موفقیت ارسال شد',
     'You_have_successfully_logged_out'             => 'شما با موفقیت از سیستم خارج شدید',
-    'No_authenticated_user_detected'               => 'کاربر احراز شده ای وجود ندارد'
+    'No_authenticated_user_detected'               => 'کاربر احراز شده ای وجود ندارد',
+    'please_sign_in_first'                         => 'لطفا وارد سایت شوید',
 ];
 

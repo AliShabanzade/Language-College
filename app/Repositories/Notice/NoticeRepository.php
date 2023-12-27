@@ -37,7 +37,7 @@ class NoticeRepository extends BaseRepository implements NoticeRepositoryInterfa
                                AllowedSort::field('like_count', 'extra_attributes->like_count'),
                                AllowedSort::field('comment_count', 'extra_attributes->comment_count')
                            ])
-                           ->defaultSort('created_at');
+                           ->defaultSort('-created_at');
 
 
     }
