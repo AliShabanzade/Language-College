@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Actions\Translation\SetTranslationAction;
 use App\Models\Category;
+use App\Models\Notice;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,10 +21,23 @@ class NoticeFactory extends Factory
     public function definition(): array
     {
         return [
-//            'slug'        => fake()->slug,
             'user_id'     => User::factory(),
             'category_id' => Category::factory(),
             'published'   => $this->faker->boolean(),
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Notice $notice) {
+            SetTranslationAction::run($notice, [
+                'fa' => [
+                    'key' => 'title',
+                    'value' =>fake()->title(),
+                ]
+
+            ]);
+
+        });
     }
 }

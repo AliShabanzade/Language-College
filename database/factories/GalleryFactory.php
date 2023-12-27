@@ -20,7 +20,6 @@ class GalleryFactory extends Factory
     public function definition(): array
     {
         return [
-//            'slug'        => \Str::random(),
             'user_id'     => User::factory(),
             'published'   => fake()->boolean(),
             'category_id' => Category::factory(),

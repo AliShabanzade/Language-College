@@ -96,7 +96,7 @@ class UserSeeder extends Seeder
                 });
             });
 
-            Gallery::factory(1)->create([
+            Gallery::factory(5)->create([
                 'user_id' => $user->id,
             ])->each(function (Gallery $gallery) {
                 Comment::factory(1)
@@ -112,7 +112,7 @@ class UserSeeder extends Seeder
                     'user_id'       => $user->id,
                 ]);
             });
-            Notice::factory(1)->create([
+            Notice::factory(5)->create([
                 'user_id' => $user->id,
             ])->each(function (Notice $notice) {
                 Comment::factory(1)->create([

@@ -28,19 +28,16 @@ class NoticeRepository extends BaseRepository implements NoticeRepositoryInterfa
     public function query(array $payload = []): QueryBuilder|Builder
     {
 
-        $yesterday = Carbon::yesterday()->toDateString();
-        $last_week = Carbon::now()->subWeeks(1)->toDateString();
+
 
         return QueryBuilder::for($this->getModel())
                            ->with(['media', 'user'])
-                           ->whereDate('created_at', '=', $yesterday)
-                           ->orWhere('created_at', '=', $last_week)
                            ->allowedSorts([
                                AllowedSort::field('view_count', 'extra_attributes->view_count'),
                                AllowedSort::field('like_count', 'extra_attributes->like_count'),
                                AllowedSort::field('comment_count', 'extra_attributes->comment_count')
                            ])
-                           ->defaultSort('-id');
+                           ->defaultSort('created_at');
 
 
     }

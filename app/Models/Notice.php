@@ -6,6 +6,7 @@ use App\Traits\HasCategory;
 use App\Traits\HasComment;
 use App\Traits\HasLike;
 use App\Traits\HasSchemalessAttributes;
+use App\Traits\HasSlug;
 use App\Traits\HasTranslation;
 use App\Traits\HasTranslationAuto;
 use App\Traits\HasUser;
@@ -35,6 +36,7 @@ class Notice extends Model implements HasMedia
     use HasView;
     use HasTranslationAuto;
     use HasSchemalessAttributes;
+    use HasSlug;
 //    use HasTag;
 
 

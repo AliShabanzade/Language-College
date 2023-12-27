@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('galleries', function (Blueprint $table) {
             $table->id();
-            $table->string('slug')->unique();
+            $table->string('slug')->nullable()->unique();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete()->cascadeOnUpdate();
             $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete()->cascadeOnUpdate();
             $table->boolean('published')->default(false);
