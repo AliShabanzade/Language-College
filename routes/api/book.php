@@ -7,5 +7,8 @@ Route::group(['prefix' => 'book', 'as' => 'api.book.'], function () {
 
 });
 Route::apiResource('book', BookController::class);
+Route::get('comment/book/{book}',[BookController::class,'comment']);
+Route::get('like/book/{book}',[BookController::class,'addLike']);
+
 
 

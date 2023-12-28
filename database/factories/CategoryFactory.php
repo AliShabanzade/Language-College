@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\TableCategoryFieldTypeEnum;
 use App\Models\Blog;
 use App\Models\Book;
 use App\Models\Faq;
@@ -22,7 +23,7 @@ class CategoryFactory extends Factory
 
         return [
             'published' => fake()->boolean(),
-            'type'      => fake()->randomElement([Book::class, Faq::class, Blog::class]),
+            'type'      => fake()->randomElement([TableCategoryFieldTypeEnum::BLOG->value, TableCategoryFieldTypeEnum::BOOK->value, TableCategoryFieldTypeEnum::FAQ->value]),
         ];
     }
 }

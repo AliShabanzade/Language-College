@@ -25,9 +25,9 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     {
 
         return QueryBuilder::for($this->model)
+            ->with('parent','children')
             ->allowedFilters([
                 'published',
-                AllowedFilter::scope('with_relations'),
                 AllowedFilter::custom('search', new FiltersSearch([
                     'key' => ['title']
                 ])),

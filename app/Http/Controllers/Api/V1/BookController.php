@@ -46,6 +46,7 @@ class BookController extends ApiBaseController
 
     public function store(StoreBookRequest $request): JsonResponse
     {
+
         $model = StoreBookAction::run($request->validated());
         return $this->successResponse(BookResource::make($model->load('user','category','publication','media')),
             trans('general.model_has_stored_successfully', ['model' => trans('book.model')]));
@@ -76,4 +77,16 @@ class BookController extends ApiBaseController
         return $this->successResponse($book, trans('general.model_has_toggled_successfully',
             ['model' => trans('book.model')]));
     }
+    public function addLike(Book $book): bool
+    {
+        dd(10);
+        $book->like();
+        return true;
+    }
+    public function comment(StoreCommentRequest $request, Book $book)
+    {
+        $data = StoreCommentAction::run($book, $request->validated());
+        return $this->successResponse($data,'sss');
+    }
+
 }

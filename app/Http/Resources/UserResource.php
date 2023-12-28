@@ -22,10 +22,6 @@ class UserResource extends JsonResource
             'email'            => $this->email,
             'mobile_verify_at' => $this->mobile_verify_at,
 
-            'avatar' => $this->when($this->relationLoaded('media') && Str::contains($request->route()->getName(), 'index'), function () {
-                return $this->getFirstMediaUrl('avatar', '100_100');
-            }, $this->getFirstMediaUrl('avatar', '512')),
-
         ];
     }
 }
