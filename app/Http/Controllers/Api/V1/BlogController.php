@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Actions\Comment\StoreCommentAction;
+use App\Actions\Like\AddLike;
 use App\Actions\View\AddView;
 use App\Http\Requests\StoreCommentRequest;
 use App\Models\Blog;
@@ -39,20 +40,18 @@ class BlogController extends ApiBaseController
     {
         AddView::run($blog);
         return $this->successResponse(BlogResource::make($blog
-            ->load(['likes', 'comments', 'views'])));
+            ->load(['user','category','likes', 'comments', 'views', 'translations'])));
     }
 
     public function store(StoreBlogRequest $request): JsonResponse
     {
         $this->authorize('create', Blog::class);
         $model = StoreBlogAction::run($request->validated());
-        if ($model) {
-            return $this->successResponse(BlogResource::make($model),
-                trans('general.model_has_stored_successfully',
-                    ['model' => trans('blog.model')]));
-        }
-        return $this->errorResponse('category not found');
+        return $this->successResponse(BlogResource::make($model
+            ->load('user', 'category', 'translations')),
+            trans('general.model_has_stored_successfully', ['model' => trans('blog.model')]));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -79,13 +78,13 @@ class BlogController extends ApiBaseController
 
     public function addLike(Blog $blog): bool
     {
-        $blog->like();
+        AddLike::run($blog);
         return true;
     }
 
     public function comment(StoreCommentRequest $request, Blog $blog)
     {
         $data = StoreCommentAction::run($blog, $request->validated());
-        return $this->successResponse($data,'sss');
+        return $this->successResponse($data, 'sss');
     }
 }

@@ -12,11 +12,10 @@ return new class extends Migration {
     {
         Schema::create('order_items', static function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('book_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('order_id')->constrained()->cascadeOnDelete();
-            $table->integer('quantity')->default(1);
-            $table->decimal('price');
-            $table->softDeletes();
+            $table->unsignedInteger('quantity')->default(1);
+            $table->unsignedBigInteger('price')->default(0);
             $table->timestamps();
         });
     }

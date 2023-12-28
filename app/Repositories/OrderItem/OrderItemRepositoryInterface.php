@@ -8,4 +8,6 @@ use App\Models\OrderItem;
 interface OrderItemRepositoryInterface extends BaseRepositoryInterface
 {
     public function getModel(): OrderItem;
+
+    public function getItemsForOrder(int $orderId);
 }

@@ -3,9 +3,6 @@
 namespace Database\Factories;
 
 use App\Enums\TableCategoryFieldTypeEnum;
-use App\Models\Blog;
-use App\Models\Book;
-use App\Models\Faq;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

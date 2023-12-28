@@ -22,6 +22,7 @@ class CartFactory extends Factory
             'user_id'  => User::factory(),
             'book_id'  => Book::factory(),
             'quantity' => rand(1, 2),
+            'price' => fake()->randomElement([10000, 20000]),
 
         ];
     }

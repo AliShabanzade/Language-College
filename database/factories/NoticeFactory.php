@@ -19,6 +19,7 @@ class NoticeFactory extends Factory
     public function definition(): array
     {
         return [
+//            'slug'        => fake()->slug,
             'user_id'     => User::factory(),
             'category_id' => Category::factory(),
             'published'   => $this->faker->boolean(),

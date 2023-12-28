@@ -25,7 +25,7 @@ class CommentController extends ApiBaseController
         return $this->successResponse(CommentResource::collection($repository->paginate()));
     }
 
-     /**
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Comment $comment): JsonResponse

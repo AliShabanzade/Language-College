@@ -16,6 +16,7 @@ return new class extends Migration{
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->unsignedInteger('reading_time')->nullable();
             $table->boolean('published')->default(0);
+            $table->schemalessAttributes('extra_attributes');
             $table->softDeletes();
             $table->timestamps();
         });

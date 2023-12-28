@@ -2,13 +2,12 @@
 
 namespace App\Traits;
 
-use App\Actions\Translation\GetTranslationAction;
-use App\Actions\Translation\SetTranslationAction;
 use App\Models\Translation;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait HasTranslationAuto
 {
-    public function translations()
+    public function translations(): MorphMany
     {
         return $this->morphMany(Translation::class, 'translatable');
 

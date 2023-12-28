@@ -24,8 +24,9 @@ class UpdateOrderItemAction
      */
     public function handle(OrderItem $orderItem, array $payload): OrderItem
     {
+//        dd(11);
         return DB::transaction(function () use ($orderItem, $payload) {
-            $orderItem->update($payload);
+            $this->repository->update($orderItem, $payload);
             return $orderItem;
         });
     }

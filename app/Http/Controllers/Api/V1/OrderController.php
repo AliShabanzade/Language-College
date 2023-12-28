@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Actions\Order\RestoreOrderAction;
 use App\Models\Order;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UpdateOrderRequest;
@@ -11,6 +12,7 @@ use App\Actions\Order\StoreOrderAction;
 use App\Actions\Order\DeleteOrderAction;
 use App\Actions\Order\UpdateOrderAction;
 use App\Repositories\Order\OrderRepositoryInterface;
+use Illuminate\Http\Request;
 
 
 class OrderController extends ApiBaseController
@@ -25,7 +27,7 @@ class OrderController extends ApiBaseController
     /**
      * Display a listing of the resource.
      */
-    public function index(OrderRepositoryInterface $repository): JsonResponse
+    public function index(OrderRepositoryInterface $repository)
     {
         return $this->successResponse(OrderResource::collection($repository->paginate()));
     }
@@ -42,7 +44,7 @@ class OrderController extends ApiBaseController
     public function store(StoreOrderRequest $request): JsonResponse
     {
         $model = StoreOrderAction::run($request->validated());
-        return $this->successResponse($model, trans('general.model_has_stored_successfully',['model'=>trans('order.model')]));
+        return $this->successResponse(OrderResource::make($model), trans('general.model_has_stored_successfully', ['model' => trans('order.model')]));
     }
 
     /**
@@ -50,8 +52,8 @@ class OrderController extends ApiBaseController
      */
     public function update(UpdateOrderRequest $request, Order $order): JsonResponse
     {
-        $data = UpdateOrderAction::run($order, $request->all());
-        return $this->successResponse(OrderResource::make($data),trans('general.model_has_updated_successfully',['model'=>trans('order.model')]));
+        $data = UpdateOrderAction::run($order, $request->validated());
+        return $this->successResponse(OrderResource::make($data), trans('general.model_has_updated_successfully', ['model' => trans('order.model')]));
     }
 
     /**
@@ -59,7 +61,24 @@ class OrderController extends ApiBaseController
      */
     public function destroy(Order $order): JsonResponse
     {
+
         DeleteOrderAction::run($order);
-        return $this->successResponse('', trans('general.model_has_deleted_successfully',['model'=>trans('order.model')]));
+        return $this->successResponse('', trans('general.model_has_deleted_successfully', ['model' => trans('order.model')]));
     }
+
+
+    public function restore(Request $request): JsonResponse
+    {
+        $order=Order::onlyTrashed()->findOrFail($request->id);
+        $this->authorize('restore',$order );
+
+        $restored = RestoreOrderAction::run($order);
+
+        if ($restored) {
+            return $this->successResponse('', trans('general.model_has_restored_successfully', ['model' => trans('order.model')]));
+        } else {
+            return $this->errorResponse(trans('general.model_restore_failed'));
+        }
+    }
+
 }
