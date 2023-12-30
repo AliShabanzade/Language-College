@@ -33,6 +33,8 @@ use App\Repositories\OrderItem\OrderItemRepository;
 use App\Repositories\OrderItem\OrderItemRepositoryInterface;
 use App\Repositories\SmsConfig\SmsConfigRepository;
 use App\Repositories\SmsConfig\SmsConfigRepositoryInterface;
+use App\Repositories\Ticket\TicketRepository;
+use App\Repositories\Ticket\TicketRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -65,6 +67,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(FavRepositoryInterface::class,FavRepository::class);
         $this->app->bind(SettingRepositoryInterface::class,FavRepository::class);
         $this->app->bind(RoleRepositoryInterface::class,RoleRepository::class);
+        $this->app->bind(TicketRepositoryInterface::class, TicketRepository::class);
 
 
 

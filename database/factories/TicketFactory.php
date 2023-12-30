@@ -17,7 +17,12 @@ class TicketFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "name" => fake()->name,
+            "mobile" => fake()->phoneNumber,
+            "company" => null,
+            "subject" => fake()->title,
+            "message" => fake()->sentence,
+            "status" => false,
         ];
     }
 }

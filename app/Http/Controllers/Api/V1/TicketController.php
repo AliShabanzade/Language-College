@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Actions\Ticket\SeenTicketAction;
 use App\Models\Ticket;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UpdateTicketRequest;
@@ -35,6 +36,7 @@ class TicketController extends ApiBaseController
      */
     public function show(Ticket $ticket): JsonResponse
     {
+        $ticket = SeenTicketAction::run($ticket);
         return $this->successResponse(TicketResource::make($ticket));
     }
 
@@ -42,7 +44,9 @@ class TicketController extends ApiBaseController
     public function store(StoreTicketRequest $request): JsonResponse
     {
         $model = StoreTicketAction::run($request->validated());
-        return $this->successResponse($model, trans('general.model_has_stored_successfully',['model'=>trans('ticket.model')]));
+        return $this->successResponse(
+            TicketResource::make($model),
+            trans('general.model_has_stored_successfully',['model'=>trans('ticket.model')]));
     }
 
     /**
@@ -51,7 +55,9 @@ class TicketController extends ApiBaseController
     public function update(UpdateTicketRequest $request, Ticket $ticket): JsonResponse
     {
         $data = UpdateTicketAction::run($ticket, $request->all());
-        return $this->successResponse(TicketResource::make($data),trans('general.model_has_updated_successfully',['model'=>trans('ticket.model')]));
+        return $this->successResponse(
+            TicketResource::make($data),
+            trans('general.model_has_updated_successfully',['model'=>trans('ticket.model')]));
     }
 
     /**
@@ -60,6 +66,8 @@ class TicketController extends ApiBaseController
     public function destroy(Ticket $ticket): JsonResponse
     {
         DeleteTicketAction::run($ticket);
-        return $this->successResponse('', trans('general.model_has_deleted_successfully',['model'=>trans('ticket.model')]));
+        return $this->successResponse(
+            '',
+            trans('general.model_has_deleted_successfully',['model'=>trans('ticket.model')]));
     }
 }

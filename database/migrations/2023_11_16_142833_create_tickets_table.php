@@ -12,6 +12,12 @@ return new class extends Migration {
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
+            $table->string("name");
+            $table->string("mobile");
+            $table->string("company")->nullable()->default(null);
+            $table->string("subject");
+            $table->text("message");
+            $table->boolean("status")->default(false);
             $table->timestamps();
         });
     }

@@ -19,8 +19,8 @@ class UpdateUserRequest extends FormRequest
             'mobile'     => 'required|size:11|string|unique:users,mobile,' . $this->user->id,
             'email'      => 'string|email|unique:users,email,' . $this->user->id,
             'avatar'     => 'file',
-            'cart_melli' => 'file',
-            'shenasname' => 'file',
+            'national_card' => 'file',
+            'passport' => 'file',
             'cover'      => 'file',
         ];
     }
