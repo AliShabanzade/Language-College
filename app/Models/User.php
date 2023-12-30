@@ -60,7 +60,7 @@ class User extends Authenticatable implements HasMedia
                      $this->addMediaConversion('512_512')->crop(Manipulations::CROP_TOP, 400, 400);
                  });
 
-        $this->addMediaCollection('cart_melli')
+        $this->addMediaCollection('national_card')
              ->singleFile()
              ->registerMediaConversions(
                  function (Media $media) {
@@ -68,7 +68,7 @@ class User extends Authenticatable implements HasMedia
                      $this->addMediaConversion('400_500')->crop(Manipulations::CROP_CENTER, 400, 500);
                  });
 
-        $this->addMediaCollection('shenasname')
+        $this->addMediaCollection('passport')
              ->singleFile()
              ->registerMediaConversions(
                  function (Media $media) {

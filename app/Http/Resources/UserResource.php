@@ -28,25 +28,25 @@ class UserResource extends JsonResource
                 return $this->getFirstMediaUrl('avatar', '100_100');
             }, $this->getFirstMediaUrl('avatar', '512')),
 
-            'cart_melli' => $this->when(
+            'national_card' => $this->when(
                 $this->relationLoaded('media') && Str::contains($request->route()->getName(), 'show'), function () {
-                return $this->getFirstMediaUrl('cart_melli','100_150');
+                return $this->getFirstMediaUrl('national_card','100_150');
             }),
 
-            'cart_melli_bigger' => $this->when(
+            'national_card_bigger' => $this->when(
                 $this->relationLoaded('media') && Str::contains($request->route()->getName(), 'show'), function () {
-                return $this->getFirstMediaUrl('cart_melli','400_500');
+                return $this->getFirstMediaUrl('national_card','400_500');
             }),
 
-            'shenasname' => $this->when(
+            'passport' => $this->when(
                 $this->relationLoaded('media')
                 && Str::contains($request->route()->getName(), 'show'), function () {
-                return $this->getFirstMediaUrl('shenasname','100_150');
+                return $this->getFirstMediaUrl('passport','100_150');
             }),
-            'shenasname_bigger' => $this->when(
+            'passport_bigger' => $this->when(
                 $this->relationLoaded('media')
                 && Str::contains($request->route()->getName(), 'show'), function () {
-                return $this->getFirstMediaUrl('shenasname','400_500');
+                return $this->getFirstMediaUrl('passport','400_500');
             }),
 
             'cover' => $this->when($this->relationLoaded('media')

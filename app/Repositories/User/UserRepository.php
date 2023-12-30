@@ -24,13 +24,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         parent::__construct($model);
     }
 
-    public function toggle($model, string $field = 'published'): User
-    {
-        $model->block = !$model->block;
-        $model->save();
-        return $model;
-    }
-
     public function verifyUser(User $user): User
     {
         $user->mobile_verify_at = now();
