@@ -3,6 +3,7 @@
 namespace App\Repositories\Gallery;
 
 
+use App\Actions\Fav\AddFav;
 use App\Models\Gallery;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Builder;
@@ -25,9 +26,6 @@ class GalleryRepository extends BaseRepository implements GalleryRepositoryInter
 
     public function query(array $payload = []): Builder|QueryBuilder
     {
-
-
-
 
         return QueryBuilder::for($this->getModel())
                            ->with(['media', 'user'])

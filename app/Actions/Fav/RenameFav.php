@@ -7,7 +7,7 @@ use App\Repositories\Fav\FavRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class DeleteFavAction
+class RenameFav
 {
     use AsAction;
 
@@ -18,8 +18,6 @@ class DeleteFavAction
     public function handle(Fav $fav): bool
     {
         return DB::transaction(function () use ($fav) {
-            $fav->translations()->delete();
-            $fav->media()->delete();
             return $this->repository->delete($fav);
         });
     }

@@ -11,6 +11,7 @@ use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\StoreGalleryRequest;
 use App\Http\Requests\UpdateGalleryRequest;
 use App\Http\Resources\GalleryResource;
+use App\Models\Fav;
 use App\Models\Gallery;
 use App\Repositories\Gallery\GalleryRepositoryInterface;
 use Illuminate\Http\JsonResponse;
@@ -21,7 +22,7 @@ class GalleryController extends ApiBaseController
 
     public function __construct()
     {
-        $this->middleware('auth:api')->except('index', 'show','addLike',);
+        $this->middleware('auth:api')->except('index', 'show', 'addLike',);
     }
 
     /**
@@ -29,6 +30,7 @@ class GalleryController extends ApiBaseController
      */
     public function index(GalleryRepositoryInterface $repository): JsonResponse
     {
+
         return $this->successResponse(GalleryResource::collection($repository->paginate()));
     }
 
@@ -38,7 +40,8 @@ class GalleryController extends ApiBaseController
     public function show(Gallery $gallery): JsonResponse
     {
         AddView::run($gallery);
-        return $this->successResponse(GalleryResource::make($gallery->load(['media','user'])));
+        return $this->successResponse(GalleryResource::
+        make($gallery->load(['media', 'user','favs'])));
     }
 
 
@@ -75,21 +78,27 @@ class GalleryController extends ApiBaseController
                 ['model' => trans('gallery.model')]));
     }
 
-    public function toggle(Gallery $gallery , GalleryRepositoryInterface $repository): JsonResponse
+    public function toggle(Gallery $gallery, GalleryRepositoryInterface $repository): JsonResponse
     {
-      $data = $repository->toggle($gallery);
-      return $this->successResponse(GalleryResource::make($data), '');
+        $data = $repository->toggle($gallery);
+        return $this->successResponse(GalleryResource::make($data), '');
     }
 
     public function addLike(Gallery $gallery): bool
     {
-       $gallery->like();
-       return true;
+        $gallery->like();
+        return true;
+    }
+
+    public function addFav(Gallery $gallery): bool
+    {
+        $gallery->fav();
+        return true;
     }
 
     public function comment(StoreCommentRequest $request, Gallery $gallery)
     {
         $data = StoreCommentAction::run($gallery, $request->validated());
-        return $this->successResponse($data,'');
+        return $this->successResponse($data, '');
     }
 }

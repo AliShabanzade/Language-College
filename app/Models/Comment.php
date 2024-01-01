@@ -45,13 +45,6 @@ class Comment extends Model
         return $this->belongsTo(Blog::class);
     }
 
-    public function notice(): BelongsTo
-    {
-        return $this->belongsTo(Notice::class);
-    }
 
-    public function gallery(): BelongsTo
-    {
-        return $this->belongsTo(Gallery::class);
-    }
 }
+

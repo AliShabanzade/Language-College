@@ -36,7 +36,7 @@ class UserController extends ApiBaseController
      */
     public function show(User $user): JsonResponse
     {
-        return $this->successResponse(UserResource::make($user->load('media')));
+        return $this->successResponse(UserResource::make($user->load('favs')));
     }
 
 
@@ -69,4 +69,11 @@ class UserController extends ApiBaseController
         $user = $repository->toggle($user, 'block');
         return $this->successResponse($user, trans('general.model_has_toggled_successfully', ['model' => trans('user.model')]));
     }
+
+//    public function favUser(User)
+//    {
+//
+//    }
+
+
 }

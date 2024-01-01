@@ -24,6 +24,7 @@ class UserResource extends JsonResource
             'email'            => $this->email,
             'mobile_verify_at' => $this->mobile_verify_at,
 
+
             'avatar' => $this->when($this->relationLoaded('media') && Str::contains($request->route()->getName(), 'index'), function () {
                 return $this->getFirstMediaUrl('avatar', '100_100');
             }, $this->getFirstMediaUrl('avatar', '512')),
@@ -31,8 +32,8 @@ class UserResource extends JsonResource
             'cart_melli' => $this->when(
                 $this->relationLoaded('media') && Str::contains($request->route()->getName(), 'show'),
                 function () {
-                return $this->getFirstMediaUrl('cart_melli', '100_150');
-            }),
+                    return $this->getFirstMediaUrl('cart_melli', '100_150');
+                }),
 
             'cart_melli_bigger' => $this->when(
                 $this->relationLoaded('media') && Str::contains($request->route()->getName(), 'show'), function () {
@@ -55,6 +56,11 @@ class UserResource extends JsonResource
                 return $this->getFirstMediaUrl('cover', '1080');
             }),
 
+            'fav' => $this->when(Str::contains($request->route()->getName(), 'fav.user.show'), function () {
+                return  $this->whenLoaded('favs', fn() => FavResource::collection($this->resource->favs));
+            }),
+//            'fav'   => $this->whenLoaded('favs', fn() => FavResource::collection($this->resource->favs))
         ];
     }
 }
+

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Traits\HasFav;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,7 +18,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, InteractsWithMedia, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, InteractsWithMedia, SoftDeletes ,HasFav;
 
     /**
      * The attributes that are mass assignable.
@@ -143,6 +144,10 @@ class User extends Authenticatable implements HasMedia
     public function likes():HasMany
     {
         return $this->hasMany(Like::class);
+    }
+    public function favs():HasMany
+    {
+        return $this->hasMany(Fav::class);
     }
 
 }

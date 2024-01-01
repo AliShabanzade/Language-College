@@ -32,7 +32,7 @@ trait HasLike
 
             } else {
                 $likeCount = $this->extra_attributes->get('like_count', 0) + 1;
-                $likeModel = $this->extra_attributes->set('like_count', $likeCount);
+                $this->extra_attributes->set('like_count', $likeCount);
                 $this->save();
                 $this->Likes()->create([
                     'user_id' => auth()->id(),

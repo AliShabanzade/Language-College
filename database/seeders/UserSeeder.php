@@ -2,22 +2,20 @@
 
 namespace Database\Seeders;
 
-use App\Actions\View\AddView;
 use App\Enums\RoleEnum;
 use App\Models\ActivationCode;
 use App\Models\Blog;
 use App\Models\Book;
 use App\Models\Cart;
 use App\Models\Comment;
+use App\Models\Fav;
 use App\Models\Gallery;
 use App\Models\Like;
 use App\Models\Notice;
 use App\Models\Opinion;
-use App\Models\Category;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
-use App\Models\View;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -98,42 +96,45 @@ class UserSeeder extends Seeder
 
             Gallery::factory(5)->create([
                 'user_id' => $user->id,
-            ])->each(function (Gallery $gallery) {
-                Comment::factory(1)
-                       ->create([
-                           'commentable_type' => Gallery::class,
-                           'commentable_id'   => $gallery->id,
-                           'user_id'          => User::factory(),
-                       ]);
-            })->each(function (Gallery $gallery) use ($user) {
+            ])->each(function (Gallery $gallery) use ($user) {
+                Comment::factory(1)->create([
+                    'commentable_type' => Gallery::class,
+                    'commentable_id'   => $gallery->id,
+                    'user_id'          => User::factory(),
+                ]);
                 Like::factory(1)->create([
                     'likeable_id'   => $gallery->id,
                     'likeable_type' => Gallery::class,
                     'user_id'       => $user->id,
                 ]);
-            });
+                Fav::factory(5)->create([
+                    'favable_id'   => $gallery->id,
+                    'favable_type' => Gallery::class,
+                    'user_id'      => $user->id,
 
+                ]);
+            });
             Notice::factory(5)->create([
                 'user_id' => $user->id,
-            ])->each(function (Notice $notice) {
+            ])->each(function (Notice $notice) use ($user) {
                 Comment::factory(1)->create([
                     'commentable_type' => Notice::class,
                     'commentable_id'   => $notice->id,
                     'user_id'          => User::factory(),
 
                 ]);
-            })->each(function (Notice $notice) use ($user) {
                 Like::factory(1)->create([
                     'likeable_id'   => $notice->id,
                     'likeable_type' => Notice::class,
                     'user_id'       => $user->id,
 
                 ]);
+                Fav::factory(5)->create([
+                    'favable_id'   => $notice->id,
+                    'favable_type' => Notice::class,
+                    'user_id'      => $user->id,
+                ]);
             });
-
-
         });
-
-
     }
 }

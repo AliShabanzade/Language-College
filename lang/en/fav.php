@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'model' => '',
+    'fav' => 'Added to favorites',
+    'unfav' => 'Removed from favorites',
 ];

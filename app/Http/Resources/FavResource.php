@@ -16,10 +16,8 @@ class FavResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'title' => GetTranslationAction::run($this->resource, 'title'),
-            'summery' => GetTranslationAction::run($this->resource, 'summery'),
-
+            'id' => $this->resource->id,
+            'user' => UserResource::make($this->resource->user),
         ];
     }
 }

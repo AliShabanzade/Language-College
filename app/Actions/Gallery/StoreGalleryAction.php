@@ -27,8 +27,10 @@ class StoreGalleryAction
         return DB::transaction(function () use ($payload) {
             $category = $this->categoryRepository->find($payload['category_id']);
             if ($category->type == Gallery::class) {
+                $payload['user_id'] = auth()->id();
                 $gallery = $this->repository->store($payload);
                 SetTranslationAction::run($gallery, $payload['translations']);
+                $gallery->save();
                 if (request()->hasFile('media')) {
                     $gallery->addMediaFromRequest('media')
                             ->toMediaCollection('gallery');

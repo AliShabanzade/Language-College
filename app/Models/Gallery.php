@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\HasCategory;
 use App\Traits\HasComment;
+use App\Traits\HasFav;
 use App\Traits\HasLike;
 use App\Traits\HasSchemalessAttributes;
 use App\Traits\HasSlug;
@@ -30,6 +31,7 @@ class Gallery extends Model implements HasMedia
     use HasTranslationAuto;
     use HasSchemalessAttributes;
     use HasSlug;
+    use HasFav;
 
 
 
@@ -43,6 +45,7 @@ class Gallery extends Model implements HasMedia
         'category_id',
         'published',
         'extra_attributes',
+
 
     ];
 
@@ -67,6 +70,5 @@ class Gallery extends Model implements HasMedia
                      $this->addMediaConversion(1080)
                           ->crop(Manipulations::CROP_CENTER, 1080  , 1080,);
                  });
-
     }
 }
