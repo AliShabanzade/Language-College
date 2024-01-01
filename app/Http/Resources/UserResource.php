@@ -37,7 +37,6 @@ class UserResource extends JsonResource
                 $this->relationLoaded('media') && Str::contains($request->route()->getName(), 'show'), function () {
                 return $this->getFirstMediaUrl('national_card','400_500');
             }),
-
             'passport' => $this->when(
                 $this->relationLoaded('media')
                 && Str::contains($request->route()->getName(), 'show'), function () {
@@ -48,7 +47,6 @@ class UserResource extends JsonResource
                 && Str::contains($request->route()->getName(), 'show'), function () {
                 return $this->getFirstMediaUrl('passport','400_500');
             }),
-
             'cover' => $this->when($this->relationLoaded('media')
                 && Str::contains($request->route()->getName(), 'show'), function () {
                 return $this->getFirstMediaUrl('cover','1080');
