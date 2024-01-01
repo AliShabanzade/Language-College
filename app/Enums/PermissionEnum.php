@@ -160,4 +160,31 @@ enum PermissionEnum: string
     case GALLERY_TOGGLE = "gallery.toggle";
     case GALLERY_DELETE = "gallery.delete";
     case GALLERY_RESTORE = "gallery.restore";
+
+    public function title()
+    {
+        return array_merge(
+            $this->generateDefaultGroupTitle("user"),
+
+
+            $this->generateDefaultGroupTitle("setting"),
+            [
+                "ADMIN"                           => trans('permissions.admin'),
+            ]
+        )[$this->value] ?? $this->name;
+    }
+
+    private function generateDefaultGroupTitle($TYPE): array
+    {
+        return [
+            "$TYPE.all"     => trans("permissions.$TYPE.all"),
+            "$TYPE.index"   => trans("permissions.$TYPE.index"),
+            "$TYPE.show"    => trans("permissions.$TYPE.show"),
+            "$TYPE.store"   => trans("permissions.$TYPE.store"),
+            "$TYPE.update"  => trans("permissions.$TYPE.update"),
+            "$TYPE.toggle"  => trans("permissions.$TYPE.toggle"),
+            "$TYPE.delete"  => trans("permissions.$TYPE.delete"),
+            "$TYPE.restore" => trans("permissions.$TYPE.restore"),
+        ];
+    }
 }
