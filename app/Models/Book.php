@@ -4,6 +4,7 @@ namespace App\Models;
 
 
 use App\Traits\HasCategory;
+use App\Traits\HasLike;
 use App\Traits\HasSchemalessAttributes;
 use App\Traits\HasSlug;
 use App\Traits\HasUser;
@@ -22,11 +23,10 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Book extends Model implements HasMedia
 {
-//    use SchemalessAttributesTrait;
+
     use HasSchemalessAttributes;
     use InteractsWithMedia,HasFactory, SoftDeletes, HasSlug,
-        HasView,
-        HasTranslationAuto, HasUser, HasCategory;
+        HasView,HasLike,HasTranslationAuto, HasUser, HasCategory;
 
     private array $translatable = ['name',  'writer'];
     protected     $fillable     = ['slug', 'user_id', 'category_id', 'inventory', 'published', 'price', 'pages', 'sales','publication_id','extra_attributes'];

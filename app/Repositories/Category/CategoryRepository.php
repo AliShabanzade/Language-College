@@ -23,7 +23,6 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 
     public function query(array $payload = []): Builder|QueryBuilder
     {
-
         return QueryBuilder::for($this->model)
             ->with('parent','children')
             ->allowedFilters([

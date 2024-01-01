@@ -23,7 +23,7 @@ class CategoryResource extends JsonResource
             'published' => $this->published,
             'type'      => $this->type,
             'children'  => $this->whenLoaded('children', function () {
-                return $this->children;
+                return CategoryResource::collection($this->children);
             }),
             'parent'    => $this->whenLoaded('parent', function () {
                 return CategoryResource::make($this->parent);

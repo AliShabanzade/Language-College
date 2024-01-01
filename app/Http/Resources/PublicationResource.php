@@ -17,7 +17,8 @@ class PublicationResource extends JsonResource
     {
         return[
             'id'=>$this->id,
-            'publication'=>GetTranslationAction::run($this->resource,'publication'),
+            'publication'        => $this->whenloaded('translations',
+                GetTranslationAction::run($this->resource, 'publication')),
         ];
     }
 }

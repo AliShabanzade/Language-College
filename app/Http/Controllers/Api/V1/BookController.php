@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Actions\Comment\StoreCommentAction;
+use App\Actions\Like\AddLike;
 use App\Actions\View\AddView;
 use App\Http\Requests\StoreCommentRequest;
 use App\Models\Book;
@@ -19,7 +20,6 @@ use App\Repositories\Book\BookRepositoryInterface;
 
 class BookController extends ApiBaseController
 {
-
     public function __construct()
     {
         $this->middleware('auth:api');
@@ -79,8 +79,7 @@ class BookController extends ApiBaseController
     }
     public function addLike(Book $book): bool
     {
-        dd(10);
-        $book->like();
+        AddLike::run($book);
         return true;
     }
     public function comment(StoreCommentRequest $request, Book $book)

@@ -38,26 +38,29 @@ class BookFactory extends Factory
     {
         return $this->afterCreating(function (Book $book) {
             SetTranslationAction::run($book, [
-                'fa' => [
+                'fa' =>
                     [
-                        'key' => 'title',
-                        'value' => fake()->name()
+                        [
+                            'key' => 'name',
+                            'value' => fake()->name()
+                        ],
+                        [
+                            'key' => 'writer',
+                            'value' => fake()->name()
+                        ]
                     ],
+                'en' =>
                     [
-                        'key' => 'writer',
-                        'value' => fake()->name()
+                        [
+                            'key' => 'name',
+                            'value' => fake()->name()
+                        ],
+                        [
+                            'key' => 'writer',
+                            'value' => fake()->name()
+                        ]
+
                     ]
-                ],
-                'en' => [
-                    [
-                        'key' => 'writer',
-                        'value' => fake()->name()
-                    ],
-                    [
-                        'key' => 'title',
-                        'value' => fake()->name()
-                    ]
-                ]
             ]);
 
         });
