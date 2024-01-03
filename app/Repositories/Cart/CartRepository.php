@@ -9,8 +9,6 @@ use App\Models\User;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -29,13 +27,14 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
     public function query(array $payload = []): Builder|QueryBuilder
     {
         return Cart::with('book')
-                   ->when(auth()->user()->hasRole(RoleEnum::ADMIN->value), function (Builder $query) {
+                   ->when(auth()->user()?->hasRole(RoleEnum::ADMIN->value), function (Builder $query) {
                        $query->with('user');
                    })
-                   ->when(!auth()->user()->hasRole(RoleEnum::ADMIN->value), function (Builder $query) {
-                       $query->where('user_id', auth()->user()->id);
+                   ->when(!auth()->user()?->hasRole(RoleEnum::ADMIN->value), function (Builder $query) {
+                       $query->where('user_id', auth()->id());
                    });
     }
+
 
     public function getItemsForOrder(int $userId)
     {
@@ -69,7 +68,6 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
 
     public function findAnyUserCart(int $userId): bool
     {
-
         $result = parent::query()->where('user_id', $userId)->first();
         if (!empty($result)) {
             return true;
@@ -80,7 +78,11 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
 
     public function getTotal(): int
     {
-      return $this->query()->sum(DB::raw('price * quantity'));
+        return $this->query()->sum(DB::raw('price * quantity'));
     }
 
+    public function getUserCart(int $userId): Collection
+    {
+        return Cart::where('user_id', $userId)->get();
+    }
 }

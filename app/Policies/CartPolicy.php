@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Enums\PermissionEnum;
 use App\Models\Cart;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class CartPolicy
 {
@@ -68,5 +67,10 @@ class CartPolicy
     public function forceDelete(User $user, Cart $cart): bool
     {
         return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::ADMIN->value);
+    }
+
+    public function checkout(User $user): bool
+    {
+        return true;
     }
 }

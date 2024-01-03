@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Actions\Cart\CheckoutCartAction;
 use App\Actions\Cart\DeleteCartAction;
 use App\Actions\Cart\StoreCartAction;
 use App\Http\Requests\StoreCartRequest;
 use App\Http\Resources\CartResource;
+use App\Http\Resources\OrderResource;
 use App\Models\Cart;
 use App\Repositories\Cart\CartRepositoryInterface;
 use Illuminate\Http\JsonResponse;
@@ -47,12 +49,10 @@ class CartController extends ApiBaseController
         return $this->successResponse(message: trans('general.model_has_deleted_successfully', ['model' => trans('cart.model')]));
     }
 
-    public function checkOut()
+    public function checkOut(): JsonResponse
     {
+        $this->authorize('checkout', Cart::class);
         $order = CheckoutCartAction::run();
-        if ($order) {
-            return $this->successResponse(OrderResource::make($order), trans('general.model_has_stored_successfully', ['model' => trans('order.model')]));
-        }
-        return $this->errorResponse(trans('checkout.user_shopping_cart_has_no_products_that_have_been_checked_out'), 400);
+        return $this->successResponse(OrderResource::make($order->load(['items', 'user'])), trans('general.model_has_stored_successfully', ['model' => trans('order.model')]));
     }
 }

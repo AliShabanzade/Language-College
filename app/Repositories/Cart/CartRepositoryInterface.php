@@ -2,11 +2,9 @@
 
 namespace App\Repositories\Cart;
 
-use App\Models\User;
-use App\Repositories\BaseRepositoryInterface;
 use App\Models\Cart;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Builder;
+use App\Repositories\BaseRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 interface CartRepositoryInterface extends BaseRepositoryInterface
 {
@@ -18,7 +16,9 @@ interface CartRepositoryInterface extends BaseRepositoryInterface
 
     public function findCartItem(int $userId, int $bookId): ?Cart;
 
-    public function findAnyUserCart(int $userId):bool;
+    public function findAnyUserCart(int $userId): bool;
 
-    public function getTotal():int;
+    public function getUserCart(int $userId): Collection;
+
+    public function getTotal(): int;
 }
