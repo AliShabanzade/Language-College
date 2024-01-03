@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Actions\Blog\DeleteBlogAction;
+use App\Actions\Blog\StoreBlogAction;
+use App\Actions\Blog\UpdateBlogAction;
 use App\Actions\Comment\StoreCommentAction;
 use App\Actions\Like\AddLike;
 use App\Actions\View\AddView;
-use App\Http\Requests\StoreCommentRequest;
-use App\Models\Blog;
-use Illuminate\Http\JsonResponse;
-use App\Http\Requests\UpdateBlogRequest;
 use App\Http\Requests\StoreBlogRequest;
+use App\Http\Requests\StoreCommentRequest;
+use App\Http\Requests\UpdateBlogRequest;
 use App\Http\Resources\BlogResource;
-use App\Actions\Blog\StoreBlogAction;
-use App\Actions\Blog\DeleteBlogAction;
-use App\Actions\Blog\UpdateBlogAction;
+use App\Models\Blog;
 use App\Repositories\Blog\BlogRepositoryInterface;
+use Illuminate\Http\JsonResponse;
 
 
 class BlogController extends ApiBaseController
@@ -23,6 +23,9 @@ class BlogController extends ApiBaseController
     public function __construct()
     {
         $this->middleware('auth:api')->except('index', 'show');
+        $this->authorizeResource(Blog::class, options: [
+            'except' => ['index', 'show']
+        ]);
     }
 
     /**
@@ -40,12 +43,11 @@ class BlogController extends ApiBaseController
     {
         AddView::run($blog);
         return $this->successResponse(BlogResource::make($blog
-            ->load(['user','category','likes', 'comments', 'views', 'translations'])));
+            ->load(['user', 'category', 'likes', 'comments', 'views', 'translations'])));
     }
 
     public function store(StoreBlogRequest $request): JsonResponse
     {
-        $this->authorize('create', Blog::class);
         $model = StoreBlogAction::run($request->validated());
         return $this->successResponse(BlogResource::make($model
             ->load('user', 'category', 'translations')),

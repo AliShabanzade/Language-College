@@ -10,15 +10,12 @@ class StoreBlogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id'             => 'required',
-            'reading_time'            => 'required',
-            'media'                   => '',
+            'category_id'             => 'required|exists:categories,id',
+            'reading_time'            => 'required|numeric|min:1',
+            //            'media'                   => '', dont need for files
             'translations'            => 'array',
             'translations.fa.*.key'   => 'required|string',
             'translations.fa.*.value' => 'required|string',
-            'translations.en.*.key'   => 'required|string',
-            'translations.en.*.value' => 'required|string',
-            'extra_attributes'        => 'array',
         ];
     }
 }

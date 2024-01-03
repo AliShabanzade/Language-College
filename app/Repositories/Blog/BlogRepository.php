@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Blog;
 
+use App\Enums\RoleEnum;
 use App\Models\Blog;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Builder;
@@ -21,6 +22,10 @@ class BlogRepository extends BaseRepository implements BlogRepositoryInterface
 
     public function query(array $payload = []): Builder|QueryBuilder
     {
-        return parent::query($payload)->with(['category', 'user', 'media','translations']);
+        return Blog::query()
+                   ->with(['category', 'user', 'media', 'translations'])
+                   ->when(!auth()->user()?->hasAnyRole([RoleEnum::ADMIN->value, RoleEnum::WRITER->value, RoleEnum::SUPPORT->value]), function (Builder $query) {
+                       $query->where('published', true);
+                   });
     }
 }

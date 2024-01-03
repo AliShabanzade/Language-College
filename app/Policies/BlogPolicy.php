@@ -47,9 +47,9 @@ class BlogPolicy
     public function update(User $user, Blog $blog): bool
     {
         return $user->hasAnyPermission(
-            PermissionEnum::ADMIN->value,
-            PermissionEnum::BLOG_ALL->value,
-            PermissionEnum::BLOG_UPDATE->value) || $blog->user_id==$user->id;
+                PermissionEnum::ADMIN->value,
+                PermissionEnum::BLOG_ALL->value,
+                PermissionEnum::BLOG_UPDATE->value) || $blog->user_id === $user->id;
     }
 
     /**

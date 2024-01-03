@@ -20,11 +20,12 @@ class  StoreBlogAction
     )
     {
     }
+
 // lode
     public function handle(array $payload): Blog|null
     {
         return DB::transaction(function () use ($payload) {
-            $category = $this->categoryRepository->find($payload['category_id']);
+            $category = $this->categoryRepository->find($payload['category_id'], firstOrFail: true);
             if ($category->type === Blog::class) {
                 $payload['user_id'] = auth()->id();
                 $blog = $this->repository->store($payload);
@@ -35,7 +36,7 @@ class  StoreBlogAction
                 }
                 return $blog;
             }
-            abort(ResponseAlias::HTTP_UNPROCESSABLE_ENTITY,"not found");
+            abort(ResponseAlias::HTTP_UNPROCESSABLE_ENTITY, "not found");
         });
     }
 }
