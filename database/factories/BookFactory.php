@@ -28,7 +28,7 @@ class BookFactory extends Factory
             'published' => fake()->boolean,
             'price' => rand(1000, 10000),
             'pages' => rand(20, 200),
-            'sales' => rand(5, 90),
+
 
             // 'slug'=>\Str::random(),
         ];

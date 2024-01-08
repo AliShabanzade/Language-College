@@ -29,7 +29,7 @@ class Book extends Model implements HasMedia
         HasView,HasLike,HasTranslationAuto, HasUser, HasCategory;
 
     private array $translatable = ['name',  'writer'];
-    protected     $fillable     = ['slug', 'user_id', 'category_id', 'inventory', 'published', 'price', 'pages', 'sales','publication_id','extra_attributes'];
+    protected     $fillable     = ['slug', 'user_id', 'category_id', 'inventory', 'published', 'price', 'pages','publication_id','extra_attributes'];
     protected     $casts        = [
         'extra_attributes' => 'array',
     ];
