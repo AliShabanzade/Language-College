@@ -38,7 +38,7 @@ class SendSmsCodeAction
      */
     public function handle(User $user): ActivationCode
     {
-        if (!$this->smsConfigRepository->getActive()) {
+        if (!$this->smsConfigRepository->getActive()){
             abort(ResponseAlias::HTTP_NOT_FOUND,trans('smsConfig.sms_panel_not_active'));
         }
         $code = $this->generateCode();
