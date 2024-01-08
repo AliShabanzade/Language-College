@@ -28,6 +28,7 @@ class UpdateBookRequest extends FormRequest
             'translations.*.fa.*.value' => 'string',
 
             'extra_attributes' => 'array',
+
         ];
     }
 }

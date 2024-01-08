@@ -2,8 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Actions\Translation\SetTranslationAction;
-use App\Models\Book;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,7 +19,7 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
-            // 'publication'=>fake()->name(),
+
             'user_id' => User::factory(),
             'category_id' => Category::factory(),
             'inventory' => rand(10, 100),
@@ -29,26 +27,41 @@ class BookFactory extends Factory
             'price' => rand(1000, 10000),
             'pages' => rand(20, 200),
             'sales' => rand(5, 90),
-            // 'writer'=>fake()->name,
+
+            // 'slug'=>\Str::random(),
         ];
     }
-
 
     public function configure(): static
     {
         return $this->afterCreating(function (Book $book) {
             SetTranslationAction::run($book, [
-                'fa' => [
+                'fa' =>
                     [
-                        'key' => 'name',
-                        'value' => fake()->word
+                        [
+                            'key' => 'name',
+                            'value' => fake()->name()
+                        ],
+                        [
+                            'key' => 'writer',
+                            'value' => fake()->name()
+                        ]
                     ],
+                'en' =>
                     [
-                        'key' => 'writer',
-                        'value' => fake()->userName
-                    ],
-                ]
+                        [
+                            'key' => 'name',
+                            'value' => fake()->name()
+                        ],
+                        [
+                            'key' => 'writer',
+                            'value' => fake()->name()
+                        ]
+
+                    ]
             ]);
+
         });
+
     }
 }

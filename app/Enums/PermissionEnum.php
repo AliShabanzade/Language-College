@@ -5,7 +5,7 @@ namespace App\Enums;
 
 enum PermissionEnum: string
 {
-
+    use EnumToArray;
     case ADMIN = "admin";
 
     case USER_ALL = "user.all";

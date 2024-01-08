@@ -9,7 +9,7 @@ interface BookRepositoryInterface extends BaseRepositoryInterface
 {
     public function getModel(): Book;
 
-    public function subtractBookInventory($bookId, $quantity);
+   // public function subtractBookInventory($bookId, $quantity);
 
 
 }

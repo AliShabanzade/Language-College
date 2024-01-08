@@ -3,7 +3,7 @@
 namespace App\Actions\Book;
 
 use App\Actions\Translation\SetTranslationAction;
-use App\Enums\CategoryEnum;
+use App\Enums\TableCategoryFieldTypeEnum;
 use App\Models\Book;
 use App\Repositories\Book\BookRepositoryInterface;
 use App\Repositories\Category\CategoryRepositoryInterface;
@@ -25,7 +25,7 @@ class StoreBookAction
 
         return DB::transaction(function () use ($payload) {
             $category = $this->categoryRepository->find($payload['category_id']);
-            if ($category->type == Book::class) {
+            if ($category->type === TableCategoryFieldTypeEnum::BOOK->value) {
                 $payload['user_id'] = auth()->user()->id;
                 /** @var Book $model */
                 $model = $this->repository->store($payload);
@@ -34,9 +34,11 @@ class StoreBookAction
                         ->toMediaCollection('book');
                 }
                 SetTranslationAction::run($model, $payload['translations']);
-                return $model;
+                return $model->load('translations');
             }
-            abort(Response::HTTP_UNPROCESSABLE_ENTITY,"نوع دسته بندی به بخش کتاب ها مربوط نمی باشد");
+            abort(Response::HTTP_UNPROCESSABLE_ENTITY,
+	            trans('general.The_category_is_not_related_to_this_model',
+		            ['model' => trans('book.model')]));
         });
     }
 }

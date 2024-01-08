@@ -75,4 +75,9 @@ class BookPolicy
         return $user->hasAnyPermission(PermissionEnum::BOOK_ALL->value, PermissionEnum::BOOK_STORE->value,PermissionEnum::ADMIN->value);
 
     }
+
+    public function addLike(User $user, Book $book)
+    {
+        return true;
+    }
 }

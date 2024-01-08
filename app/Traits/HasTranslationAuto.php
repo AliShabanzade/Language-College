@@ -9,7 +9,7 @@ trait HasTranslationAuto
 {
     public function translations(): MorphMany
     {
-        return $this->morphMany(Translation::class, 'translatable')
-                    ->where('locale', app()->getLocale());
+        return $this->morphMany(Translation::class, 'translatable');
+
     }
 }

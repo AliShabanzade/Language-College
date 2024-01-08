@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class BookRepository extends BaseRepository implements BookRepositoryInterface
@@ -24,11 +25,14 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
     public function query(array $payload=[]):Builder|QueryBuilder
     {
         return QueryBuilder::for($this->model)
-            ->with(['category','user','publication'])
-            ->allowedSorts('extra_attributes->view_count')
+            ->defaultSort('-id')
+            ->with(['category','user','publication','translations'])
+            ->allowedSorts([
+                AllowedSort::field('view_count','extra_attributes->view_count'),
+                AllowedSort::field('view_count','extra_attributes->like_count'),
+            ])
             ->allowedFilters([
                 'published',
-                AllowedFilter::scope('with_relations'),
                 AllowedFilter::custom('search', new FiltersSearch([
                     'key' => ['name']
                 ])),

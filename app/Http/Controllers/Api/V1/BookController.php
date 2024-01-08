@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Actions\Comment\StoreCommentAction;
+use App\Actions\Like\AddLike;
 use App\Actions\View\AddView;
 use App\Http\Requests\StoreCommentRequest;
 use App\Models\Book;
@@ -19,7 +20,6 @@ use App\Repositories\Book\BookRepositoryInterface;
 
 class BookController extends ApiBaseController
 {
-
     public function __construct()
     {
         $this->middleware('auth:api');
@@ -46,6 +46,7 @@ class BookController extends ApiBaseController
 
     public function store(StoreBookRequest $request): JsonResponse
     {
+
         $model = StoreBookAction::run($request->validated());
         return $this->successResponse(BookResource::make($model->load('user','category','publication','media')),
             trans('general.model_has_stored_successfully', ['model' => trans('book.model')]));
@@ -76,4 +77,15 @@ class BookController extends ApiBaseController
         return $this->successResponse($book, trans('general.model_has_toggled_successfully',
             ['model' => trans('book.model')]));
     }
+    public function addLike(Book $book): bool
+    {
+        AddLike::run($book);
+        return true;
+    }
+    public function comment(StoreCommentRequest $request, Book $book)
+    {
+        $data = StoreCommentAction::run($book, $request->validated());
+        return $this->successResponse($data,'sss');
+    }
+
 }

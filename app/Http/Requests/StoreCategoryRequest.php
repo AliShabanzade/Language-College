@@ -11,7 +11,7 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'parent_id'              => ['nullable', 'exists:categories'],
+            'parent_id'              => ['nullable', 'exists:categories,id'],
             'type'                   => ['required', 'string', 'max:255'],
             'published'              => ['required'],
             'slug'                   => 'sometimes|string',

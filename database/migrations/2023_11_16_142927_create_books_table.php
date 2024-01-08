@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('slug')->unique();
             $table->foreignId('user_id')->nullable()->comment('is creator')->constrained()->nullOnDelete();
-            $table->foreignId('category_id')->nullable()->constrained()->cacadeOndelete();
+            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('publication_id')->nullable()->constrained()->nullOnDelete();
             $table->unsignedBigInteger('inventory')->default(0)->comment('موجودی');
             $table->boolean('published')->default(false);

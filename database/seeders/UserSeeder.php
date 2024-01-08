@@ -16,6 +16,7 @@ use App\Models\Opinion;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Publication;
 use App\Models\User;
 use App\Models\View;
 use Illuminate\Database\Seeder;
@@ -31,10 +32,10 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $admin = User::create([
-            'name'             => 'admin',
-            'mobile'           => '09151111111',
+            'name' => 'admin',
+            'mobile' => '09151111111',
             'mobile_verify_at' => now(),
-            'password'         => 'password',
+            'password' => 'password',
         ]);
 
 
@@ -48,22 +49,36 @@ class UserSeeder extends Seeder
                 'user_id' => $user->id,
             ]);
 
-            Book::factory(5)->create([
+            Book::factory(2)->create([
                 'user_id' => $user->id,
-            ]);
+            ])
+                ->each(function (Book $book) use ($user) {
+                    Like::factory(1)->create([
+                        'user_id' => $user->id,
+                        'likeable_id' => $book->id,
+                        'likeable_type' => Book::class
+                    ]);
+                    Comment::factory(1)->create([
+                        'user_id' => $user->id,
+                        'commentable_id' => $book->id,
+                        'commentable_type' => Book::class
+                    ]);
 
+                });
+            Publication::factory(2)->create();
 
             Cart::factory(3)->create([
                 'user_id' => $user->id,
                 'book_id' => book::factory(),
             ]);
 
-            Order::factory(1)->afterCreating(function (Order $order){
+            Order::factory(1)->afterCreating(function (Order $order) {
                 $price = 0;
                 OrderItem::factory(2)->create([
-                   'order_id' => $order->id,
-                ])->each(function (OrderItem $orderItem) use (&$price){
-                    $price += $orderItem->price*$orderItem->quantity;
+                    'order_id' => $order->id,
+                ])
+                    ->each(function (OrderItem $orderItem) use (&$price) {
+                    $price += $orderItem->price * $orderItem->quantity;
                 });
                 $order->update(['total' => $price]);
             })->create([
@@ -72,63 +87,63 @@ class UserSeeder extends Seeder
 
             Blog::factory(2)->create([
                 'user_id' => $user->id,
-            ])->each(function (Blog $blog) use ($user) {
-                Like::factory(1)->create([
-                    'user_id'       => $user->id,
-                    'likeable_id'   => $blog->id,
-                    'likeable_type' => Blog::class
-                ]);
+            ])
+                ->each(function (Blog $blog) use ($user) {
+                    Like::factory(1)->create([
+                        'user_id' => $user->id,
+                        'likeable_id' => $blog->id,
+                        'likeable_type' => Blog::class
+                    ]);
 //                View::factory(1)->create([
 //                    'user_id' => $user->id,
 //                    'viewable_id' => $blog->id,
 //                    'viewable_type' => Blog::class
 //                ]);
-                Comment::factory(1)->create([
-                    'user_id'          => $user->id,
-                    'commentable_id'   => $blog->id,
-                    'commentable_type' => Blog::class
-                ])->each(function (Comment $comment) use ($user) {
-                    Like::factory(1)->create([
-                        'user_id'       => $user->id,
-                        'likeable_id'   => $comment->id,
-                        'likeable_type' => Comment::class
-                    ]);
-                });
-                Gallery::factory(1)->create([
-                    'user_id' => $user->id,
-                ])->each(function (Gallery $gallery) {
-                    Comment::factory(1)
-                           ->create([
-                               'commentable_type' => Gallery::class,
-                               'commentable_id'   => $gallery->id,
-                               'user_id' => User::factory(),
-                           ]);
-                })->each(function (Gallery $gallery) use ($user) {
-                    Like::factory(1)->create([
-                        'likeable_id'   => $gallery->id,
-                        'likeable_type' => Gallery::class,
-                        'user_id' => $user->id,
-                    ]);
-                });
-                Notice::factory(1)->create([
-                    'user_id' => $user->id,
-                ])->each(function (Notice $notice) {
                     Comment::factory(1)->create([
-                        'commentable_type' => Notice::class,
-                        'commentable_id'   => $notice->id,
-                        'user_id' => User::factory(),
-
-                    ]);
-                })->each(function (Notice $notice) use ($user) {
-                    Like::factory(1)->create([
-                        'likeable_id'   => $notice->id,
-                        'likeable_type' => Notice::class,
                         'user_id' => $user->id,
+                        'commentable_id' => $blog->id,
+                        'commentable_type' => Blog::class
+                    ])->each(function (Comment $comment) use ($user) {
+                        Like::factory(1)->create([
+                            'user_id' => $user->id,
+                            'likeable_id' => $comment->id,
+                            'likeable_type' => Comment::class
+                        ]);
+                    });
+                    Gallery::factory(1)->create([
+                        'user_id' => $user->id,
+                    ])->each(function (Gallery $gallery) {
+                        Comment::factory(1)
+                            ->create([
+                                'commentable_type' => Gallery::class,
+                                'commentable_id' => $gallery->id,
+                                'user_id' => User::factory(),
+                            ]);
+                    })->each(function (Gallery $gallery) use ($user) {
+                        Like::factory(1)->create([
+                            'likeable_id' => $gallery->id,
+                            'likeable_type' => Gallery::class,
+                            'user_id' => $user->id,
+                        ]);
+                    });
+                    Notice::factory(1)->create([
+                        'user_id' => $user->id,
+                    ])->each(function (Notice $notice) {
+                        Comment::factory(1)->create([
+                            'commentable_type' => Notice::class,
+                            'commentable_id' => $notice->id,
+                            'user_id' => User::factory(),
 
-                    ]);
+                        ]);
+                    })->each(function (Notice $notice) use ($user) {
+                        Like::factory(1)->create([
+                            'likeable_id' => $notice->id,
+                            'likeable_type' => Notice::class,
+                            'user_id' => $user->id,
+
+                        ]);
+                    });
                 });
-            });
-
 
 
         });

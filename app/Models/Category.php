@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TableCategoryFieldTypeEnum;
 use App\Traits\HasTranslationAuto;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,6 +20,9 @@ class Category extends Model
 
     protected $fillable = ['published', 'parent_id', 'slug', 'type'];
 
+    protected $casts =[
+        'type'=>TableCategoryFieldTypeEnum::class,
+    ];
     public function scopeWithRelations(Builder $query, ...$relations): Builder
     {
         return $query->with($relations);

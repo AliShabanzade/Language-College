@@ -35,7 +35,7 @@ class PublicationController extends ApiBaseController
      */
     public function show(Publication $publication): JsonResponse
     {
-        return $this->successResponse(PublicationResource::make($publication));
+        return $this->successResponse(PublicationResource::make($publication->load('translations')));
     }
 
 
@@ -43,7 +43,8 @@ class PublicationController extends ApiBaseController
     {
 
         $model = StorePublicationAction::run($request->validated());
-        return $this->successResponse($model, trans('general.model_has_stored_successfully',['model'=>trans('publication.model')]));
+        return $this->successResponse(PublicationResource::make($model->load('translations')),
+            trans('general.model_has_stored_successfully', ['model' => trans('publication.model')]));
     }
 
     /**
@@ -52,7 +53,9 @@ class PublicationController extends ApiBaseController
     public function update(UpdatePublicationRequest $request, Publication $publication): JsonResponse
     {
         $data = UpdatePublicationAction::run($publication, $request->validated());
-        return $this->successResponse(PublicationResource::make($data),trans('general.model_has_updated_successfully',['model'=>trans('publication.model')]));
+        return $this->successResponse(PublicationResource::make($data->load('translations')),
+            trans('general.model_has_updated_successfully',
+                ['model' => trans('publication.model')]));
     }
 
     /**
@@ -61,6 +64,7 @@ class PublicationController extends ApiBaseController
     public function destroy(Publication $publication): JsonResponse
     {
         DeletePublicationAction::run($publication);
-        return $this->successResponse('', trans('general.model_has_deleted_successfully',['model'=>trans('publication.model')]));
+        return $this->successResponse('', trans('general.model_has_deleted_successfully',
+            ['model' => trans('publication.model')]));
     }
 }
