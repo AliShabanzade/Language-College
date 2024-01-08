@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Actions\Translation\SetTranslationAction;
+use App\Models\Book;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;

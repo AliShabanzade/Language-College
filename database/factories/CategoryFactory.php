@@ -20,7 +20,7 @@ class CategoryFactory extends Factory
 
         return [
             'published' => fake()->boolean(),
-            'type'      => fake()->randomElement([TableCategoryFieldTypeEnum::BLOG->value, TableCategoryFieldTypeEnum::BOOK->value, TableCategoryFieldTypeEnum::FAQ->value]),
+            'type'      => fake()->randomElement(TableCategoryFieldTypeEnum::values()),
         ];
     }
 }

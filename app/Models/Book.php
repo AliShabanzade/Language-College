@@ -54,12 +54,14 @@ class Book extends Model implements HasMedia
     {
         return $this->belongsTo(Publication::class);
     }
-    public function orders(): BelongsToMany
-    {
-        return $this->belongsToMany(Order::class, 'order_items')
-                    ->using(OrderItem::class)
-                    ->withPivot(['quantity', 'price', 'uuid']);
-    }
+
+
+//    public function orders(): BelongsToMany
+//    {
+//        return $this->belongsToMany(Order::class, 'order_items')
+//                    ->using(OrderItem::class)
+//                    ->withPivot(['quantity', 'price', 'uuid']);
+//    }
 
     public function items():HasMany
     {
