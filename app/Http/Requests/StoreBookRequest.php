@@ -18,10 +18,8 @@ class StoreBookRequest extends FormRequest
             'published'   => ['required'],
             'price'       => ['required',],
             'pages'       => ['required', 'integer'],
-            'sales'       => ['required', 'integer'],
             'media'       => '',
             'publication_id'=>['nullable', 'integer','exists:publications,id'],
-
             'translations'            => 'array',
             'translations.*.fa.*.key'   => 'string',
             'translations.*.fa.*.value' => 'string',

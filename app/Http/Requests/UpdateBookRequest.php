@@ -20,7 +20,7 @@ class UpdateBookRequest extends FormRequest
             'published' => ['required'],
             'price' => ['required', 'numeric'],
             'pages' => ['required', 'integer'],
-            'sales' => ['required', 'integer'],
+
             'media' => '',
 
             'translations' => 'array',

@@ -20,7 +20,6 @@ return new class extends Migration {
             $table->boolean('published')->default(false);
             $table->decimal('price');
             $table->integer('pages')->comment('تعداد صفحات');
-            $table->integer('sales')->comment('تعداد خرید ');
             $table->schemalessAttributes('extra_attributes');
             $table->softDeletes();
             $table->timestamps();
