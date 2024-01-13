@@ -35,6 +35,8 @@ class Book extends Model implements HasMedia
     protected     $casts        = [
         'extra_attributes' => 'array',
     ];
+
+    
     public function registerMediaCollections(Media $media = null): void
     {
 

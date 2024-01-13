@@ -25,7 +25,7 @@ class StoreBookAction
 
         return DB::transaction(function () use ($payload) {
             $category = $this->categoryRepository->find($payload['category_id']);
-            if ($category->type === TableCategoryFieldTypeEnum::BOOK->value) {
+            if ($category->type->value === TableCategoryFieldTypeEnum::BOOK->value) {
                 $payload['user_id'] = auth()->user()->id;
                 /** @var Book $model */
                 $model = $this->repository->store($payload);

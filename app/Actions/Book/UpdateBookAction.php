@@ -34,7 +34,7 @@ class UpdateBookAction
 
         return DB::transaction(function () use ($book, $payload) {
             $category = $this->categoryRepository->find($payload['category_id']);
-            if ($category->type == TableCategoryFieldTypeEnum::BOOK->value) {
+            if ($category->type->value == TableCategoryFieldTypeEnum::BOOK->value) {
                 $payload['user_id'] = auth()->user()->id;
                 /** @var  $book */
                 $model=$this->repository->update($book,$payload);

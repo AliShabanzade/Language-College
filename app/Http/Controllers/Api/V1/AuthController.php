@@ -75,7 +75,7 @@ class AuthController extends ApiBaseController
 
         $credentials = $request->only('mobile', 'password');
         $user = $userRepository->find(value: $request->input('mobile'), field: 'mobile', firstOrFail: true);
-        if (!empty($user->password) && Auth::guard('web')->attempt($credentials)) {
+        if (!empty($user->password) && Hash::check($credentials['password'], $user->password)) {
             $token = $userRepository->generateToken($user);
             return $this->successResponse([
                 'token' => $token,

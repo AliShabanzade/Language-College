@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-use App\Traits\EnumToArray;
+use App\Enums;
 
 enum OrderStatusEnum: string
 {

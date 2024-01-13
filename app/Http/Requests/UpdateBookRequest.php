@@ -9,7 +9,6 @@ class UpdateBookRequest extends FormRequest
 
     public function rules(): array
     {
-
         return [
 
 
@@ -28,7 +27,6 @@ class UpdateBookRequest extends FormRequest
             'translations.*.fa.*.value' => 'string',
 
             'extra_attributes' => 'array',
-
         ];
     }
 }
