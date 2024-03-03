@@ -161,6 +161,23 @@ enum PermissionEnum: string
     case GALLERY_DELETE = "gallery.delete";
     case GALLERY_RESTORE = "gallery.restore";
 
+    case COLLEGE_ALL = "college.all";
+    case COLLEGE_INDEX = "college.index";
+    case COLLEGE_SHOW = "college.show";
+    case COLLEGE_STORE = "college.store";
+    case COLLEGE_UPDATE = "college.update";
+    case COLLEGE_TOGGLE = "college.toggle";
+    case COLLEGE_DELETE = "college.delete";
+    case COLLEGE_RESTORE = "college.restore";
+
+    case COURSE_ALL = "course.all";
+    case COURSE_INDEX = "course.index";
+    case COURSE_SHOW = "course.show";
+    case COURSE_STORE = "course.store";
+    case COURSE_UPDATE = "course.update";
+    case COURSE_TOGGLE = "course.toggle";
+    case COURSE_DELETE = "course.delete";
+    case COURSE_RESTORE = "course.restore";
     public function title()
     {
         return array_merge(

@@ -12,6 +12,9 @@ return [
     'model_has_Failed_to_store'               => ':model  ذخیره نشد',
 	'The_category_is_not_related_to_this_model'=>'دسته بندی مربوط به این model: نمی باشد',
     'The_parent_category_is_not_related_to_this_model'=>'نوع والد دسته بندی با خود model یکسان نیست',
+    'view_count'=>'تعدادبازدید ها',
+    'comment_count'=>'تعداد کامنت ها',
+    'like_count'=>'تعداد لایک ها',
 
 
 ];

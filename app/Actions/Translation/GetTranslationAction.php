@@ -14,8 +14,6 @@ class GetTranslationAction
     public static function handle($model, $key): ?string
     {
 
-        return $model->translations()
-            ->where('locale', app()->getLocale())
-            ->where('key', $key)->first()?->value ?? null;
+        return $model->translations()->where('locale', app()->getLocale())->where('key', $key)->first()?->value ?? null;
     }
 }

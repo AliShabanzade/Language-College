@@ -64,7 +64,8 @@ class RoleController extends ApiBaseController
     public function destroy(Role $role): JsonResponse
     {
         DeleteRoleAction::run($role);
-        return $this->successResponse('', trans('general.model_has_deleted_successfully', ['model' => trans('role.model')]));
+        return $this->successResponse('', trans('general.model_has_deleted_successfully',
+            ['model' => trans('role.model')]));
     }
 
     /**
@@ -79,7 +80,6 @@ class RoleController extends ApiBaseController
 
     public function removeRole(UserRepositoryInterface $repository, User $user, Role $role)
     {
-
         $this->authorize('removeRole', Role::class);
         $user = $repository->find($user->id);
         $model = $user->removeRole($role);

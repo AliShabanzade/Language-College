@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->string('status')->default('pending'); //OrderStatusEnum::class
-            $table->unsignedBigInteger('total')->default(0);
+            $table->unsignedBigInteger('total');
             $table->schemalessAttributes('extra_attributes');
             $table->softDeletes();
             $table->timestamps();

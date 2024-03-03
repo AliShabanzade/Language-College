@@ -12,6 +12,12 @@ use App\Repositories\Cart\CartRepository;
 use App\Repositories\Cart\CartRepositoryInterface;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Classroom\ClassroomRepository;
+use App\Repositories\Classroom\ClassroomRepositoryInterface;
+use App\Repositories\College\CollegeRepository;
+use App\Repositories\College\CollegeRepositoryInterface;
+use App\Repositories\Course\CourseRepository;
+use App\Repositories\Course\CourseRepositoryInterface;
 use App\Repositories\Faq\FaqRepository;
 use App\Repositories\Faq\FaqRepositoryInterface;
 use App\Repositories\Comment\CommentRepository;
@@ -26,6 +32,8 @@ use App\Repositories\Publication\PublicationRepository;
 use App\Repositories\Publication\PublicationRepositoryInterface;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\Role\RoleRepositoryInterface;
+use App\Repositories\Session\SessionRepository;
+use App\Repositories\Session\SessionRepositoryInterface;
 use App\Repositories\Setting\SettingRepositoryInterface;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\Order\OrderRepositoryInterface;
@@ -33,6 +41,8 @@ use App\Repositories\OrderItem\OrderItemRepository;
 use App\Repositories\OrderItem\OrderItemRepositoryInterface;
 use App\Repositories\SmsConfig\SmsConfigRepository;
 use App\Repositories\SmsConfig\SmsConfigRepositoryInterface;
+use App\Repositories\Term\TermRepository;
+use App\Repositories\Term\TermRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -65,6 +75,13 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(FavRepositoryInterface::class,FavRepository::class);
         $this->app->bind(SettingRepositoryInterface::class,FavRepository::class);
         $this->app->bind(RoleRepositoryInterface::class,RoleRepository::class);
+        $this->app->bind(CollegeRepositoryInterface::class,CollegeRepository::class);
+        $this->app->bind(CourseRepositoryInterface::class,CourseRepository::class);
+        $this->app->bind(TermRepositoryInterface::class,TermRepository::class);
+        $this->app->bind(ClassroomRepositoryInterface::class,ClassroomRepository::class);
+        $this->app->bind(SessionRepositoryInterface::class,SessionRepository::class);
+
+
 
 
 

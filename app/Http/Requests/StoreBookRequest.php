@@ -23,8 +23,8 @@ class StoreBookRequest extends FormRequest
             'translations'            => 'array',
             'translations.*.fa.*.key'   => 'string',
             'translations.*.fa.*.value' => 'string',
-
             'extra_attributes'        => 'array',
+
         ];
     }
 }

@@ -30,9 +30,18 @@ class BlogResource extends JsonResource
             'media'        => $this->resource->getMedia('blog'),
             'user_id'      => $this->whenLoaded('user', fn() => UserResource::make($this->resource->user)),
             'category_id'  => $this->whenLoaded('category', fn() => CategoryResource::make($this->resource->category)),
-            'like'         => $this->whenLoaded('likes', fn() => LikeResource::collection($this->resource->likes)),
-            'view'         => $this->whenLoaded('views', fn() => ViewResource::collection($this->resource->views)),
-            'comment'      => $this->whenLoaded('comments', fn() => CommentResource::collection($this->resource->comments)),
+            'view_count' => [
+                'title'=>__('general.view_count'),
+                'value'=> $this->extra_attributes->get('view_count'),
+            ],
+            'comment_count' => [
+                'title'=>__('general.comment_count'),
+                'value'=> $this->extra_attributes->get('comment_count'),
+            ],
+            'like_count' => [
+                'title'=>__('general.like_count'),
+                'value'=> $this->extra_attributes->get('like_count'),
+            ],
         ];
     }
 }

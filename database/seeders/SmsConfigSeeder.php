@@ -16,7 +16,7 @@ class SmsConfigSeeder extends Seeder
     public function run(): void
     {
         SmsConfig::firstOrCreate([
-            'status' => StatusEnum::ACTIVE,
+            'status' => StatusEnum::ACTIVE->value,
             'name' => 'ali',
             'password'=>'123456',
             'username' => '2586458'

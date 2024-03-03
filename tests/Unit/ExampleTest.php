@@ -17,7 +17,7 @@ class ExampleTest extends TestCase
         $this->assertTrue(true);
         $order = Order::query()
                       ->whereHas('user', function (Builder $query) {
-    dd($query);
+       dd($query);
 //                          $query->where('name', '!=', null);
                       })->get();
         dd($order);
@@ -29,6 +29,32 @@ class ExampleTest extends TestCase
         $users = User::all();
         dd($users->toArray());
 
+    }
+
+    public function test_12()
+    {
+        //Retrieve all orders with their associated user's name and email.
+       $t12= Order::with('user:id,name,email')->get();
+       dd($t12);
+    }
+
+    public function test_13()
+    {
+        //Get the total number of order items for each order.
+       $t13= Order::withCount('items')->get();
+        dd($t13);
+    }
+
+    public function test_3()
+    {
+        $arr=[12,14,16,18];
+        $arrI=[];
+        for($i=0;$i<=4;$i++ ){
+            for($j=4;$j>=1;$j++){
+                $arrI[]=$arr[$j];
+            }
+        };
+        dd($arrI);
     }
 
 }

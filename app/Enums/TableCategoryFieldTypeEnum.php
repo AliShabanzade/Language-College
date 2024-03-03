@@ -8,6 +8,7 @@ use Illuminate\Contracts\Translation\Translator;
 
 enum TableCategoryFieldTypeEnum: string
 {
+    use  EnumToArray;
     case BOOK = 'book';
     case BLOG = 'blog';
     case FAQ = 'faq';

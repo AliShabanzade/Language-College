@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('users', static function (Blueprint $table) {
             $table->id();
+            $table->string('slug')->unique();
             $table->string('name')->nullable();
             $table->boolean('block')->default(false);
             $table->string('mobile')->unique();

@@ -6,6 +6,8 @@ use App\Models\Order;
 use App\Repositories\BaseRepository;
 use App\Repositories\OrderItem\OrderItemRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+
 
 class OrderRepository extends BaseRepository implements OrderRepositoryInterface
 {
@@ -20,4 +22,8 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
    }
 
 
+    public function storeMany(Order $order, array $items): Collection
+    {
+        return $order->items()->createMany($items);
+    }
 }

@@ -57,6 +57,7 @@ class BookController extends ApiBaseController
      */
     public function update(UpdateBookRequest $request, Book $book): JsonResponse
     {
+
         $data = UpdateBookAction::run($book, $request->validated());
         return $this->successResponse(BookResource::make($data->load('user','category','publication','media')),
             trans('general.model_has_updated_successfully', ['model' => trans('book.model')]));

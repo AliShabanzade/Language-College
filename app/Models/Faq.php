@@ -12,9 +12,9 @@ use Illuminate\Support\Str;
 
 class Faq extends Model
 {
-    use HasFactory, SoftDeletes, HasCategory;
+    use HasFactory, SoftDeletes, HasCategory,HasSlug;
 
-    protected $fillable = ['category_id', 'question', 'answer', 'published'];
+    protected $fillable = ['category_id', 'question', 'answer', 'published','slug'];
 
 //    public function getRouteKeyName(): string
 //    {

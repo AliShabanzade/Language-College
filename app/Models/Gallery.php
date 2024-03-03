@@ -6,6 +6,7 @@ use App\Traits\HasCategory;
 use App\Traits\HasComment;
 use App\Traits\HasLike;
 use App\Traits\HasSchemalessAttributes;
+use App\Traits\HasSlug;
 use App\Traits\HasTranslationAuto;
 use App\Traits\HasUser;
 use App\Traits\HasView;
@@ -23,7 +24,7 @@ class Gallery extends Model implements HasMedia
     use HasView;
     use HasLike;
     use HasComment;
-    use HasUser;
+    use HasUser,HasSlug;
     use HasCategory;
     use HasTranslationAuto;
     use HasSchemalessAttributes;
@@ -32,14 +33,7 @@ class Gallery extends Model implements HasMedia
         'extra_attributes' => 'array',
     ];
 
-    protected $fillable = [
-//        'slug',
-'user_id',
-'category_id',
-'published',
-'extra_attributes',
-
-    ];
+    protected $fillable = ['slug', 'user_id', 'category_id', 'published', 'extra_attributes'];
 
     // extra_attributes : ExtraEnum::class
 
@@ -52,16 +46,16 @@ class Gallery extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumbnail')
-             ->performOnCollections('gallery')
-             ->width(100)
-             ->height(100);
+            ->performOnCollections('gallery')
+            ->width(100)
+            ->height(100);
 
         $this->addMediaConversion('480')
-             ->width(480)
-             ->height(480);
+            ->width(480)
+            ->height(480);
 
         $this->addMediaConversion('1080')
-             ->width(1080)
-             ->height(1080);
+            ->width(1080)
+            ->height(1080);
     }
 }

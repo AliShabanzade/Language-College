@@ -2,48 +2,33 @@
 
 namespace App\Actions\OrderItem;
 
-use App\Models\OrderItem;
-use App\Repositories\Book\BookRepositoryInterface;
-use App\Repositories\Cart\CartRepositoryInterface;
-use App\Repositories\OrderItem\OrderItemRepositoryInterface;
+use App\Models\Order;
+use App\Models\Publication;
+use App\Repositories\Order\OrderRepositoryInterface;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class StoreOrderItemAction
 {
     use AsAction;
 
-    public function __construct(private readonly OrderItemRepositoryInterface $orderItemRepository,
-        private readonly CartRepositoryInterface $cartRepository ,
-        private readonly BookRepositoryInterface $bookRepository)
+    public function __construct(private readonly OrderRepositoryInterface     $orderRepository)
     {
     }
 
 
-    public function handle(array $payload)
+    public function handle(Order $order,array $items)
     {
 
-        return DB::transaction(function () use ($payload) {
-            $cartItems = $this->cartRepository->getItemsForOrder($payload['user_id']);
-            foreach ($cartItems as $cartItem) {
-                $orderItemPayload = [
-                        'order_id' => $payload['id'],
-                        'book_id'  => $cartItem->book_id,
-                        'quantity' => $cartItem->quantity,
-                        'price'    => $cartItem->book->price,
-                    ];
-
-                    $this->orderItemRepository->store($orderItemPayload);
-
-                    $this->cartRepository->clearPaidUserCart($payload['user_id']);
-                    $bookId =$cartItem->book_id;
-                    $quantity =$cartItem->quantity;
-                    $this->bookRepository->subtractBookInventory($bookId , $quantity);
-
+        return DB::transaction(function () use ($order,$items) {
+            foreach ($items as $item){
+                try{
+                    Book::where('id',$item['book_id'])->decrement('inventory',$item['quantity']);
+                }catch (\Exception $exception){
+                    abort(400,'عدم موجودی');
+                }
             }
-            return true;
+             return $this->orderRepository->storeMany($order,$items);
         });
     }
 

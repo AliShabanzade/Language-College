@@ -16,28 +16,62 @@ class BookResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'          => $this->resource->id,
-            'name'        => $this->whenloaded('translations',
-                 GetTranslationAction::run($this->resource, 'name')),
-            'writer'      => $this->whenloaded('translations',
-                 GetTranslationAction::run($this->resource, 'writer')),
-            'slug'        => $this->resource->slug,
-            'inventory'   => $this->resource->inventory,
-            'price'       => $this->resource->price,
-            'pages'       => $this->resource->pages,
-            'sales'       => $this->resource->sales,
-            'user'        => $this->whenLoaded('user',
+            'id'   => $this->resource->id,
+            'name' =>[
+                'title'=>__('book.name'),
+                'value'=>   $this->whenloaded('translations',
+                    GetTranslationAction::run($this->resource, 'name')),
+            ],
+            'writer' => [
+                'title'=>__('book.writer'),
+                'value'=>   $this->whenloaded('translations',
+                    GetTranslationAction::run($this->resource, 'writer')),
+            ],
+            'slug' => $this->resource->slug,
+            'inventory' =>[
+                'title'=>__('book.inventory'),
+                'value'=>$this->inventory,
+            ],
+                $this->resource->inventory,
+            'price' =>[
+                'title'=>__('book.price'),
+                'value'=>$this->price
+            ],
+            'pages' => [
+                'title'=>__('book.pages'),
+                'value'=>$this->pages,
+            ],
+            'user'  => $this->whenLoaded('user',
                 fn() => UserResource::make($this->resource->user)),
-            'category'    => $this->whenloaded('category',
+            'category' => $this->whenloaded('category',
                 fn() => CategoryResource::make($this->resource->category)),
-            'publication' => $this->whenloaded('publication',
-                fn() => PublicationResource::make($this->resource->publication)),
-            'published'=>$this->published,
-            'color'      => $this->extra_attributes->get('color'),
-            'weight'     => $this->extra_attributes->get('weight'),
-            'view_count' => $this->extra_attributes->get('view_count', 0),
-            'like_count' => $this->extra_attributes->get('like_count',0),
-            'created_at' => $this->resource->created_at,
+            'publication' => [
+                'title'=>__('book.publication'),
+                'value'=>   $this->whenloaded('publication',
+                    fn() => PublicationResource::make($this->resource->publication)),
+            ],
+            'published'  => $this->published,
+            'color'      =>  [
+                'title'=>__('book.color'),
+                'value'=> $this->extra_attributes->get('color'),
+            ],
+            'view_count' => [
+                'title'=>__('general.view_count'),
+                'value'=> $this->extra_attributes->get('view_count'),
+            ],
+            'comment_count' => [
+                'title'=>__('general.comment_count'),
+                'value'=> $this->extra_attributes->get('comment_count'),
+            ],
+            'like_count' => [
+                'title'=>__('general.like_count'),
+                'value'=> $this->extra_attributes->get('like_count'),
+            ],
+            'created_at' => [
+                    'title'=>__('general.created_at'),
+                    'value'=>   $this->resource->created_at,
+                ],
+
             'updated_at' => $this->resource->updated_at,
         ];
     }

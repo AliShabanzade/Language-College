@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
+            $table->string('slug')->unique();
             $table->foreignId('category_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->longText('question')->nullable();
             $table->longText('answer')->nullable();

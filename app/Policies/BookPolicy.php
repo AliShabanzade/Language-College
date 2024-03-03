@@ -80,4 +80,5 @@ class BookPolicy
     {
         return true;
     }
+
 }

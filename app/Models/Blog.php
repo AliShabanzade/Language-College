@@ -6,6 +6,7 @@ use App\Traits\HasCategory;
 use App\Traits\HasComment;
 use App\Traits\HasLike;
 use App\Traits\HasSchemalessAttributes;
+use App\Traits\HasSlug;
 use App\Traits\HasTranslationAuto;
 use App\Traits\HasUser;
 use App\Traits\HasView;
@@ -27,7 +28,8 @@ class Blog extends Model implements HasMedia
         HasView,
         HasComment,
         HasTranslationAuto,
-        HasCategory;
+        HasCategory,
+        HasSlug;
 
     protected $fillable = [
         'user_id',
@@ -35,12 +37,13 @@ class Blog extends Model implements HasMedia
         'published',
         'reading_time',
         'extra_attributes',
+        'slug',
     ];
 
     private $translatable = [
         'title',
         'description',
-        'slug',
+
     ];
 
     protected $casts = [

@@ -29,10 +29,12 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
     public function query(array $payload = []): Builder|QueryBuilder
     {
         return Cart::with('book')
-                   ->when(auth()->user()->hasRole(RoleEnum::ADMIN->value), function (Builder $query) {
+                   ->when(auth()->user()->hasRole(RoleEnum::ADMIN->value),
+                       function (Builder $query) {
                        $query->with('user');
                    })
-                   ->when(!auth()->user()->hasRole(RoleEnum::ADMIN->value), function (Builder $query) {
+                   ->when(!auth()->user()->hasRole(RoleEnum::ADMIN->value),
+                       function (Builder $query) {
                        $query->where('user_id', auth()->user()->id);
                    });
     }
