@@ -2,7 +2,9 @@
 
 namespace App\Policies;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
+use App\Models\Department;
+use App\Models\Session;
 use App\Models\User;
 
 class UserPolicy
@@ -12,7 +14,7 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::USER_INDEX->value);
+        return $user->hasAnyPermission(PermissionsEnum::USER_ALL->value, PermissionsEnum::USER_INDEX->value);
     }
 
     /**
@@ -20,7 +22,7 @@ class UserPolicy
      */
     public function view(User $user, User $model): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::USER_SHOW->value);
+        return $user->hasAnyPermission(PermissionsEnum::USER_ALL->value, PermissionsEnum::USER_SHOW->value);
     }
 
     /**
@@ -28,7 +30,7 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::USER_STORE->value);
+        return $user->hasAnyPermission(PermissionsEnum::USER_ALL->value, PermissionsEnum::USER_STORE->value);
     }
 
     /**
@@ -36,7 +38,7 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::USER_UPDATE->value) ||
+        return $user->hasAnyPermission(PermissionsEnum::USER_ALL->value, PermissionsEnum::USER_UPDATE->value) ||
             $user->id === $model->id;
     }
 
@@ -45,7 +47,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::USER_DELETE->value);
+        return $user->hasAnyPermission(PermissionsEnum::USER_ALL->value, PermissionsEnum::USER_DELETE->value);
     }
 
     /**
@@ -53,7 +55,7 @@ class UserPolicy
      */
     public function restore(User $user, User $model): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::USER_RESTORE->value, PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::USER_RESTORE->value, PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -61,6 +63,11 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::USER_ALL->value, PermissionsEnum::ADMIN->value);
     }
+    public function toggle(User $user): bool
+    {
+        return $user->hasAnyPermission([PermissionsEnum::ADMIN->value,PermissionsEnum::USER_ALL->value,PermissionsEnum::USER_TOGGLE->value]);
+    }
+
 }

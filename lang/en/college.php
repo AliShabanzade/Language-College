@@ -1,6 +1,7 @@
 <?php
 
 return [
-    'model' => '',
-    'title'=>''
+    'model' => 'کالج',
+    'title'=>'',
+    'addCourse'=>'دوره ها به کالج زبان اضافه شدند '
 ];

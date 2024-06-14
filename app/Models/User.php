@@ -5,7 +5,9 @@ namespace App\Models;
 
 use App\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -26,7 +28,7 @@ class User extends Authenticatable implements HasMedia
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'block', 'mobile', 'password', 'email', 'mobile_verify_at', 'remember_token','slug'
+        'name','family', 'block', 'mobile', 'password', 'email', 'mobile_verify_at', 'remember_token','slug','gender'
     ];
 
     /**
@@ -141,6 +143,44 @@ class User extends Authenticatable implements HasMedia
     public function likes():HasMany
     {
         return $this->hasMany(Like::class);
+    }
+    public function courses(): MorphToMany
+    {
+        return $this->morphedByMany(Course::class, 'memberable', 'members');
+    }
+    public function terms(): MorphToMany
+    {
+        return $this->morphedByMany(Term::class, 'memberable', 'members');
+    }
+    public function classrooms(): MorphToMany
+    {
+        return $this->morphedByMany(Classroom::class, 'memberable', 'members');
+    }
+    public function colleges(): MorphToMany
+    {
+        return $this->morphedByMany(College::class, 'memberable', 'members');
+    }
+    public function courseLevel(): BelongsToMany
+    {
+        return $this->belongsToMany(Course::class,'level','user_id','course_id')
+            ->withPivot('ordering');
+    }
+
+    public function sessions(): MorphToMany
+    {
+        return $this->morphedByMany(Session::class,'memberable','members');
+    }
+    public function hasThesePermissions(...$permissions): bool
+    {
+        if ($this->hasAnyPermission($permissions)) {
+            return true;
+        }
+        foreach ($this->departments as $department) {
+            if ($department->hasThesePermissions($permissions)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

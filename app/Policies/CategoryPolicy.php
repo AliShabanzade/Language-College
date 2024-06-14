@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Category;
 use App\Models\User;
 
@@ -15,7 +15,7 @@ class CategoryPolicy
     public function create(User $user): bool
     {
 
-       return $user->hasAnyPermission(PermissionEnum::CATEGORY_ALL->value, PermissionEnum::CATEGORY_STORE->value,PermissionEnum::ADMIN->value);
+       return $user->hasAnyPermission(PermissionsEnum::CATEGORY_ALL->value, PermissionsEnum::CATEGORY_STORE->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -23,8 +23,8 @@ class CategoryPolicy
      */
     public function update(User $user, Category $category): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::CATEGORY_ALL->value, PermissionEnum::CATEGORY_UPDATE->value,
-                PermissionEnum::ADMIN->value)
+        return $user->hasAnyPermission(PermissionsEnum::CATEGORY_ALL->value, PermissionsEnum::CATEGORY_UPDATE->value,
+                PermissionsEnum::ADMIN->value)
             ||$user->id === $category->user_id;
     }
 
@@ -33,7 +33,7 @@ class CategoryPolicy
      */
     public function delete(User $user, Category $category): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::CATEGORY_ALL->value, PermissionEnum:: CATEGORY_DELETE->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::CATEGORY_ALL->value, PermissionsEnum:: CATEGORY_DELETE->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -41,7 +41,7 @@ class CategoryPolicy
      */
     public function restore(User $user, Category $category): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::CATEGORY_ALL->value, PermissionEnum::CATEGORY_RESTORE->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::CATEGORY_ALL->value, PermissionsEnum::CATEGORY_RESTORE->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -49,6 +49,6 @@ class CategoryPolicy
      */
     public function forceDelete(User $user, Category $category): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::CATEGORY_ALL->value, PermissionEnum::CATEGORY_INDEX->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::CATEGORY_ALL->value, PermissionsEnum::CATEGORY_INDEX->value,PermissionsEnum::ADMIN->value);
     }
 }

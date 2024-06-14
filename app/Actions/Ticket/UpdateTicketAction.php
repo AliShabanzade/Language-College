@@ -2,7 +2,7 @@
 
 namespace App\Actions\Ticket;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Ticket;
 use App\Repositories\Ticket\TicketRepositoryInterface;
 use Illuminate\Support\Facades\DB;

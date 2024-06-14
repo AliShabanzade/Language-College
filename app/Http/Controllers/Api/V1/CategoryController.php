@@ -58,7 +58,6 @@ class CategoryController extends ApiBaseController
      */
     public function destroy(Category $category): JsonResponse
     {
-
         $this->authorize('delete', $category);
         DeleteCategoryAction::run($category);
         return $this->successResponse('',

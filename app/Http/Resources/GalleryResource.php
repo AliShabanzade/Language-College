@@ -19,14 +19,14 @@ class GalleryResource extends JsonResource
     {
         return [
             'title'       => GetTranslationAction::run($this->resource, 'title'),
-            //            'slug'        => $this->resource->slug,
+            'slug'        => $this->resource->slug,
             'description' => GetTranslationAction::run($this->resource, 'description'),
             'user'        => $this->whenLoaded('user', fn() => UserResource::make($this->resource->user)),
             'category'    => $this->whenLoaded('category', fn() => CategoryResource::make($this->resource->category)),
             'comment'     => $this->resource->extra_attributes->get(GalleryExtraEnum::COMMENT_COUNT->value, 0),
             'like'        => $this->resource->extra_attributes->get(GalleryExtraEnum::LIKE_COUNT->value, 0),
             'view'        => $this->resource->extra_attributes->get(GalleryExtraEnum::VIEW_COUNT->value, 0),
-            'published'   => $this->resource->published,
+            'published'   => $this->resource->published->title(),
             'media'       => $this->when(Str::contains($request->route()->getName(), 'show'), function () {
                 return $this->resource->getFirstMediaUrl('gallery', '1080');
             }, $this->resource->getFirstMediaUrl('gallery', 'thumbnail')),

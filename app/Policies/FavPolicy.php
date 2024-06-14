@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Fav;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -14,8 +14,8 @@ class FavPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::FAV_ALL->value,
-            PermissionEnum::FAV_INDEX->value);
+        return $user->hasAnyPermission(PermissionsEnum::ADMIN->value,PermissionsEnum::FAV_ALL->value,
+            PermissionsEnum::FAV_INDEX->value);
     }
 
     /**
@@ -23,8 +23,8 @@ class FavPolicy
      */
     public function view(User $user, Fav $fav): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::FAV_ALL->value,
-            PermissionEnum::FAV_INDEX->value);
+        return $user->hasAnyPermission(PermissionsEnum::ADMIN->value,PermissionsEnum::FAV_ALL->value,
+            PermissionsEnum::FAV_INDEX->value);
     }
 
     /**
@@ -32,8 +32,8 @@ class FavPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::FAV_ALL->value,
-            PermissionEnum::FAV_INDEX->value);
+        return $user->hasAnyPermission(PermissionsEnum::ADMIN->value,PermissionsEnum::FAV_ALL->value,
+            PermissionsEnum::FAV_INDEX->value);
     }
 
     /**
@@ -41,8 +41,8 @@ class FavPolicy
      */
     public function update(User $user, Fav $fav): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::FAV_ALL->value,
-            PermissionEnum::FAV_INDEX->value);
+        return $user->hasAnyPermission(PermissionsEnum::ADMIN->value,PermissionsEnum::FAV_ALL->value,
+            PermissionsEnum::FAV_INDEX->value);
     }
 
     /**
@@ -50,8 +50,8 @@ class FavPolicy
      */
     public function delete(User $user, Fav $fav): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::FAV_ALL->value,
-            PermissionEnum::FAV_INDEX->value);
+        return $user->hasAnyPermission(PermissionsEnum::ADMIN->value,PermissionsEnum::FAV_ALL->value,
+            PermissionsEnum::FAV_INDEX->value);
     }
 
 

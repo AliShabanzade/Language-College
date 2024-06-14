@@ -13,9 +13,12 @@ return new class extends Migration{
         Schema::create('terms', static function (Blueprint $table) {
             $table->id();
             $table->string('slug')->unique();
-            $table->foreignId('course_id')->constrained()->cascadeOnDelete();
-            $table->integer('ordering');
+            $table->foreignId('course_id')->constrained('courses')->cascadeOnDelete();
+            //TableTermsFieldOrderingEnum::class
+            $table->string('ordering');//ترم چندم
             $table->boolean('assessment');
+            $table->string('prerequisite_id')->nullable();
+            $table->schemalessAttributes('extra_attributes');
             $table->timestamps();
         });
     }

@@ -2,10 +2,10 @@
 
 namespace App\Policies;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\College;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+
 
 class CollegePolicy
 {
@@ -14,8 +14,8 @@ class CollegePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::COLLEGE_ALL->value,
-            PermissionEnum::COLLEGE_INDEX->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::COLLEGE_ALL->value,
+            PermissionsEnum::COLLEGE_INDEX->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -23,8 +23,8 @@ class CollegePolicy
      */
     public function view(User $user, College $college): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::COLLEGE_ALL->value,
-            PermissionEnum::COLLEGE_SHOW->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::COLLEGE_ALL->value,
+            PermissionsEnum::COLLEGE_SHOW->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -32,8 +32,8 @@ class CollegePolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::COLLEGE_ALL->value,
-            PermissionEnum::COLLEGE_STORE->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::COLLEGE_ALL->value,
+            PermissionsEnum::COLLEGE_STORE->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -41,8 +41,8 @@ class CollegePolicy
      */
     public function update(User $user, College $college): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::COLLEGE_ALL->value,
-                PermissionEnum::COLLEGE_UPDATE->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::COLLEGE_ALL->value,
+                PermissionsEnum::COLLEGE_UPDATE->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -50,7 +50,7 @@ class CollegePolicy
      */
     public function delete(User $user, College $college): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::COLLEGE_ALL->value, PermissionEnum::COLLEGE_DELETE->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::COLLEGE_ALL->value, PermissionsEnum::COLLEGE_DELETE->value,PermissionsEnum::ADMIN->value);
 
     }
 
@@ -59,7 +59,7 @@ class CollegePolicy
      */
     public function restore(User $user, College $college): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::COLLEGE_ALL->value, PermissionEnum::COLLEGE_RESTORE->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::COLLEGE_ALL->value, PermissionsEnum::COLLEGE_RESTORE->value,PermissionsEnum::ADMIN->value);
 
     }
 
@@ -68,7 +68,18 @@ class CollegePolicy
      */
     public function forceDelete(User $user, College $college): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::COLLEGE_ALL->value, PermissionEnum::COLLEGE_STORE->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::COLLEGE_ALL->value, PermissionsEnum::COLLEGE_STORE->value,PermissionsEnum::ADMIN->value);
+
+    }
+
+    public function addCourse(User $user): bool
+    {
+        return $user->hasAnyPermission(PermissionsEnum::COLLEGE_ALL->value, PermissionsEnum::ADMIN->value);
+    }
+
+    public function toggle(User $user): bool
+    {
+        return $user->hasAnyPermission(PermissionsEnum::COLLEGE_ALL->value, PermissionsEnum::ADMIN->value);
 
     }
 }

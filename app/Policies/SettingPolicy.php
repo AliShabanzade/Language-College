@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -14,8 +14,8 @@ class SettingPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::SETTING_ALL->value,
-            PermissionEnum::SETTING_INDEX->value);
+        return $user->hasAnyPermission(PermissionsEnum::ADMIN->value,PermissionsEnum::SETTING_ALL->value,
+            PermissionsEnum::SETTING_INDEX->value);
     }
 
     /**
@@ -23,8 +23,8 @@ class SettingPolicy
      */
     public function view(User $user, Setting $setting): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::SETTING_ALL->value,
-            PermissionEnum::SETTING_SHOW->value);
+        return $user->hasAnyPermission(PermissionsEnum::ADMIN->value,PermissionsEnum::SETTING_ALL->value,
+            PermissionsEnum::SETTING_SHOW->value);
     }
 
     /**
@@ -32,8 +32,8 @@ class SettingPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::SETTING_ALL->value,
-            PermissionEnum::SETTING_STORE->value);
+        return $user->hasAnyPermission(PermissionsEnum::ADMIN->value,PermissionsEnum::SETTING_ALL->value,
+            PermissionsEnum::SETTING_STORE->value);
     }
 
     /**
@@ -41,8 +41,8 @@ class SettingPolicy
      */
     public function update(User $user, Setting $setting): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::SETTING_ALL->value,
-            PermissionEnum::SETTING_UPDATE->value);
+        return $user->hasAnyPermission(PermissionsEnum::ADMIN->value,PermissionsEnum::SETTING_ALL->value,
+            PermissionsEnum::SETTING_UPDATE->value);
     }
 
     /**
@@ -50,8 +50,8 @@ class SettingPolicy
      */
     public function delete(User $user, Setting $setting): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value,PermissionEnum::SETTING_ALL->value,
-            PermissionEnum::SETTING_DELETE->value);
+        return $user->hasAnyPermission(PermissionsEnum::ADMIN->value,PermissionsEnum::SETTING_ALL->value,
+            PermissionsEnum::SETTING_DELETE->value);
     }
 
 

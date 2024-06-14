@@ -3,7 +3,7 @@
 namespace App\Actions\Course;
 
 use App\Actions\Translation\SetTranslationAction;
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Course;
 use App\Repositories\Course\CourseRepositoryInterface;
 use Illuminate\Support\Facades\DB;

@@ -2,7 +2,7 @@
 
 namespace App\Actions\Session;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Session;
 use App\Repositories\Session\SessionRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -25,8 +25,8 @@ class UpdateSessionAction
     public function handle(Session $session, array $payload): Session
     {
         return DB::transaction(function () use ($session, $payload) {
-            $session->update($payload);
-            return $session;
+            $model=$this->repository->update($session,$payload);
+            return $model->load('classroom','term');
         });
     }
 }

@@ -8,4 +8,7 @@ use App\Models\Classroom;
 interface ClassroomRepositoryInterface extends BaseRepositoryInterface
 {
     public function getModel(): Classroom;
+
+    public function checkSort(Classroom $classroom);
+
 }

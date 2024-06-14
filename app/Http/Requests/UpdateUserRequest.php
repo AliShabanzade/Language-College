@@ -16,6 +16,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name'       => 'string|max:255',
+            'family'     => 'string|max:255',
             'mobile'     => 'required|size:11|string|unique:users,mobile,' . $this->user->id,
             'email'      => 'string|email|unique:users,email,' . $this->user->id,
             'avatar'     => 'file',

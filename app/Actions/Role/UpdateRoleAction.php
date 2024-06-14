@@ -2,7 +2,7 @@
 
 namespace App\Actions\Role;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Role;
 use App\Repositories\Role\RoleRepositoryInterface;
 use Illuminate\Support\Facades\DB;

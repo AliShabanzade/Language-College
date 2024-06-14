@@ -14,10 +14,12 @@ return new class extends Migration {
             $table->id();
             $table->string('slug')->unique();
             $table->string('name')->nullable();
+            $table->string('family')->nullable();
             $table->boolean('block')->default(false);
             $table->string('mobile')->unique();
             $table->string('password')->nullable();
             $table->string('email')->unique()->nullable();
+            $table->string('gender');//TableUserFieldGenderEnum
             $table->timestamp('mobile_verify_at')->nullable();
             $table->softDeletes();
             $table->rememberToken();

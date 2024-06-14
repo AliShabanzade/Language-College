@@ -36,6 +36,7 @@ class UserSeeder extends Seeder
             'mobile' => '09151111111',
             'mobile_verify_at' => now(),
             'password' => 'password',
+            'gender' => 'men',
         ]);
 
 
@@ -78,8 +79,8 @@ class UserSeeder extends Seeder
                     'order_id' => $order->id,
                 ])
                     ->each(function (OrderItem $orderItem) use (&$price) {
-                    $price += $orderItem->price * $orderItem->quantity;
-                });
+                        $price += $orderItem->price * $orderItem->quantity;
+                    });
                 $order->update(['total' => $price]);
             })->create([
                 'user_id' => $user->id,

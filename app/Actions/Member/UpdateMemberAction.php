@@ -2,7 +2,7 @@
 
 namespace App\Actions\Member;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Member;
 use App\Repositories\Member\MemberRepositoryInterface;
 use Illuminate\Support\Facades\DB;

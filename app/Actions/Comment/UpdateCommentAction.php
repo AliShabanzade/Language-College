@@ -2,7 +2,7 @@
 
 namespace App\Actions\Comment;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Comment;
 use App\Repositories\Comment\CommentRepositoryInterface;
 use Illuminate\Support\Facades\DB;

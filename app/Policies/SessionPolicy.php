@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\PermissionsEnum;
 use App\Models\Session;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -13,7 +14,8 @@ class SessionPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::SESSION_ALL->value,
+            PermissionsEnum::SESSION_INDEX->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -21,7 +23,8 @@ class SessionPolicy
      */
     public function view(User $user, Session $session): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::SESSION_ALL->value,
+            PermissionsEnum::SESSION_SHOW->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -29,7 +32,8 @@ class SessionPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::SESSION_ALL->value,
+            PermissionsEnum::SESSION_STORE->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -37,7 +41,9 @@ class SessionPolicy
      */
     public function update(User $user, Session $session): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::SESSION_ALL->value,
+                PermissionsEnum::SESSION_UPDATE->value,PermissionsEnum::ADMIN->value)
+            || $user->id === $session->user_id;
     }
 
     /**
@@ -45,7 +51,8 @@ class SessionPolicy
      */
     public function delete(User $user, Session $session): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::SESSION_ALL->value,
+            PermissionsEnum::SESSION_DELETE->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -62,5 +69,9 @@ class SessionPolicy
     public function forceDelete(User $user, Session $session): bool
     {
         //
+    }
+    public function toggle(User $user,Session $session): bool
+    {
+        return $user->hasAnyPermission([PermissionsEnum::ADMIN->value,PermissionsEnum::USER_ALL->value,PermissionsEnum::USER_TOGGLE->value]);
     }
 }

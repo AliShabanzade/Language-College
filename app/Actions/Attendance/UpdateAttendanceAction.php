@@ -2,7 +2,7 @@
 
 namespace App\Actions\Attendance;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Attendance;
 use App\Repositories\Attendance\AttendanceRepositoryInterface;
 use Illuminate\Support\Facades\DB;

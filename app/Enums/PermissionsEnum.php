@@ -3,9 +3,10 @@
 namespace App\Enums;
 
 
-enum PermissionEnum: string
+enum PermissionsEnum: string
 {
     use EnumToArray;
+
     case ADMIN = "admin";
 
     case USER_ALL = "user.all";
@@ -121,7 +122,6 @@ enum PermissionEnum: string
     case CART_RESTORE = "cart.restore";
 
 
-
     case ORDER_ALL = "order.all";
     case ORDER_INDEX = "order.index";
     case ORDER_SHOW = "order.show";
@@ -130,7 +130,6 @@ enum PermissionEnum: string
     case  ORDER_TOGGLE = "order.toggle";
     case ORDER_DELETE = "order.delete";
     case ORDER_RESTORE = "order.restore";
-
 
 
     case ORDER_ITEM_ALL = "order-item.all";
@@ -178,17 +177,46 @@ enum PermissionEnum: string
     case COURSE_TOGGLE = "course.toggle";
     case COURSE_DELETE = "course.delete";
     case COURSE_RESTORE = "course.restore";
+
+    case CLASSROOM_ALL = "classroom.all";
+    case CLASSROOM_INDEX = "classroom.index";
+    case CLASSROOM_SHOW = "classroom.show";
+    case CLASSROOM_STORE = "classroom.store";
+    case CLASSROOM_UPDATE = "classroom.update";
+    case CLASSROOM_TOGGLE = "classroom.toggle";
+    case CLASSROOM_DELETE = "classroom.delete";
+    case CLASSROOM_RESTORE = "classroom.restore";
+
+    case LEVEL_ALL = "level.all";
+    case LEVEL_INDEX = "level.index";
+    case LEVEL_SHOW = "level.show";
+    case LEVEL_STORE = "level.store";
+    case LEVEL_UPDATE = "level.update";
+    case LEVEL_TOGGLE = "level.toggle";
+    case LEVEL_DELETE = "level.delete";
+    case LEVEL_RESTORE = "level.restore";
+
+
+    case SESSION_ALL = "session.all";
+    case SESSION_INDEX = "session.index";
+    case SESSION_SHOW = "session.show";
+    case SESSION_STORE = "session.store";
+    case SESSION_UPDATE = "session.update";
+    case SESSION_TOGGLE = "session.toggle";
+    case SESSION_DELETE = "session.delete";
+    case SESSION_RESTORE = "session.restore";
+
     public function title()
     {
         return array_merge(
-            $this->generateDefaultGroupTitle("user"),
+                   $this->generateDefaultGroupTitle("user"),
 
 
-            $this->generateDefaultGroupTitle("setting"),
-            [
-                "ADMIN"                           => trans('permissions.admin'),
-            ]
-        )[$this->value] ?? $this->name;
+                   $this->generateDefaultGroupTitle("setting"),
+                   [
+                       "ADMIN" => trans('permissions.admin'),
+                   ]
+               )[$this->value] ?? $this->name;
     }
 
     private function generateDefaultGroupTitle($TYPE): array

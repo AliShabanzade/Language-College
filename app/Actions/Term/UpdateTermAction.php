@@ -2,7 +2,8 @@
 
 namespace App\Actions\Term;
 
-use App\Enums\PermissionEnum;
+use App\Actions\Translation\SetTranslationAction;
+use App\Enums\PermissionsEnum;
 use App\Models\Term;
 use App\Repositories\Term\TermRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -25,8 +26,9 @@ class UpdateTermAction
     public function handle(Term $term, array $payload): Term
     {
         return DB::transaction(function () use ($term, $payload) {
-            $term->update($payload);
-            return $term;
+            $model=$this->repository->update($term,$payload);
+            SetTranslationAction::run($model,$payload['translations']);
+            return $model->load('translations','course');
         });
     }
 }

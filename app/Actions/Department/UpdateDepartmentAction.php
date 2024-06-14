@@ -2,7 +2,7 @@
 
 namespace App\Actions\Department;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Department;
 use App\Repositories\Department\DepartmentRepositoryInterface;
 use Illuminate\Support\Facades\DB;

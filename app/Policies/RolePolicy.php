@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -17,7 +17,7 @@ class RolePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyPermission([PermissionEnum::ROLE_ALL->value, PermissionEnum::ROLE_INDEX->value,PermissionEnum::ADMIN->value]);
+        return $user->hasAnyPermission([PermissionsEnum::ROLE_ALL->value, PermissionsEnum::ROLE_INDEX->value, PermissionsEnum::ADMIN->value]);
     }
 
     /**
@@ -25,7 +25,7 @@ class RolePolicy
      */
     public function view(User $user, Role $role): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ROLE_ALL->value, PermissionEnum::ROLE_SHOW->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::ROLE_ALL->value, PermissionsEnum::ROLE_SHOW->value,PermissionsEnum::ADMIN->value);
 
 
     }
@@ -35,7 +35,7 @@ class RolePolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ROLE_ALL->value, PermissionEnum::ROLE_STORE->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::ROLE_ALL->value, PermissionsEnum::ROLE_STORE->value,PermissionsEnum::ADMIN->value);
 
     }
 
@@ -45,8 +45,8 @@ class RolePolicy
     public function update(User $user, Role $role): bool
     {
 
-        return $user->hasAnyPermission(PermissionEnum::ROLE_ALL->value,
-            PermissionEnum::ROLE_UPDATE->value,PermissionEnum::ADMIN->value)
+        return $user->hasAnyPermission(PermissionsEnum::ROLE_ALL->value,
+            PermissionsEnum::ROLE_UPDATE->value,PermissionsEnum::ADMIN->value)
             ||$user->id === $role->user_id
             ;
 
@@ -57,7 +57,7 @@ class RolePolicy
      */
     public function delete(User $user, Role $role): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ROLE_ALL->value, PermissionEnum::ROLE_DELETE->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::ROLE_ALL->value, PermissionsEnum::ROLE_DELETE->value,PermissionsEnum::ADMIN->value);
 
     }
 
@@ -66,7 +66,7 @@ class RolePolicy
      */
     public function restore(User $user, Role $role): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ROLE_ALL->value, PermissionEnum::ROLE_RESTORE->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::ROLE_ALL->value, PermissionsEnum::ROLE_RESTORE->value,PermissionsEnum::ADMIN->value);
 
     }
 
@@ -75,20 +75,18 @@ class RolePolicy
      */
     public function forceDelete(User $user, Role $role): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ROLE_ALL->value, PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::ROLE_ALL->value, PermissionsEnum::ADMIN->value);
 
     }
 
-    public function addRole(User $user)
+    public function addRole(User $user): bool
     {
-
-        return $user->hasAnyPermission(PermissionEnum::ROLE_ALL->value, PermissionEnum::ADMIN->value);
-
+        return $user->hasAnyPermission(PermissionsEnum::ROLE_ALL->value, PermissionsEnum::ADMIN->value);
     }
 
     public function removeRole($user)
     {
-        return $user->hasAnyPermission(PermissionEnum::ROLE_ALL->value, PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::ROLE_ALL->value, PermissionsEnum::ADMIN->value);
 
     }
 

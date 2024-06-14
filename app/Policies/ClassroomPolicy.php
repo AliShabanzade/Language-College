@@ -2,9 +2,9 @@
 
 namespace App\Policies;
 
+use App\Enums\PermissionsEnum;
 use App\Models\Classroom;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class ClassroomPolicy
 {
@@ -13,7 +13,8 @@ class ClassroomPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::CLASSROOM_ALL->value,
+            PermissionsEnum::CLASSROOM_DELETE->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -21,7 +22,8 @@ class ClassroomPolicy
      */
     public function view(User $user, Classroom $classroom): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::CLASSROOM_ALL->value,
+            PermissionsEnum::CLASSROOM_SHOW->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -29,7 +31,8 @@ class ClassroomPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::CLASSROOM_ALL->value,
+            PermissionsEnum::CLASSROOM_STORE->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -37,7 +40,9 @@ class ClassroomPolicy
      */
     public function update(User $user, Classroom $classroom): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::CLASSROOM_ALL->value,
+                PermissionsEnum::CLASSROOM_UPDATE->value,PermissionsEnum::ADMIN->value)
+            || $user->id === $classroom->user_id;
     }
 
     /**
@@ -45,7 +50,8 @@ class ClassroomPolicy
      */
     public function delete(User $user, Classroom $classroom): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::CLASSROOM_ALL->value,
+            PermissionsEnum::CLASSROOM_DELETE->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -53,14 +59,21 @@ class ClassroomPolicy
      */
     public function restore(User $user, Classroom $classroom): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::CLASSROOM_ALL->value,
+            PermissionsEnum::CLASSROOM_STORE->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Classroom $classroom): bool
+//    public function forceDelete(User $user, Classroom $classroom): bool
+//    {
+//        //
+//    }
+
+    public function addMember(User $user)
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::CLASSROOM_ALL->value,
+            PermissionsEnum::ADMIN->value);
     }
 }

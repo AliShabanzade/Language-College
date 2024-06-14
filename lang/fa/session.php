@@ -1,5 +1,6 @@
 <?php
 
 return [
- 'model'=>'',
+    'model'       => 'جلسه',
+    'description' => 'توضیحات این جلسات'
 ];

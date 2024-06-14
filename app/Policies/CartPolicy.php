@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -14,8 +14,8 @@ class CartPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::CART_ALL->value, PermissionEnum::CART_INDEX->value,
-            PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::CART_ALL->value, PermissionsEnum::CART_INDEX->value,
+            PermissionsEnum::ADMIN->value);
     }
 
 
@@ -24,7 +24,7 @@ class CartPolicy
      */
     public function view(User $user, Cart $cart): bool
     {
-        return $user->id == $cart->user_id || $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::USER_SHOW->value);
+        return $user->id == $cart->user_id || $user->hasAnyPermission(PermissionsEnum::USER_ALL->value, PermissionsEnum::USER_SHOW->value);
     }
 
     /**
@@ -32,8 +32,8 @@ class CartPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::CART_STORE->value, PermissionEnum::CART_ALL->value,
-            PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::CART_STORE->value, PermissionsEnum::CART_ALL->value,
+            PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -41,8 +41,8 @@ class CartPolicy
      */
     public function update(User $user, Cart $cart): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::CART_UPDATE->value, PermissionEnum::CART_UPDATE->value,
-            PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::CART_UPDATE->value, PermissionsEnum::CART_UPDATE->value,
+            PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -50,8 +50,8 @@ class CartPolicy
      */
     public function delete(User $user, Cart $cart): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::CART_DELETE->value, PermissionEnum::CART_ALL->value,
-            PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::CART_DELETE->value, PermissionsEnum::CART_ALL->value,
+            PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -59,7 +59,7 @@ class CartPolicy
      */
     public function restore(User $user, Cart $cart): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::USER_RESTORE->value, PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::USER_RESTORE->value, PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -67,6 +67,6 @@ class CartPolicy
      */
     public function forceDelete(User $user, Cart $cart): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::USER_ALL->value, PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::USER_ALL->value, PermissionsEnum::ADMIN->value);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Actions\Invoice;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Invoice;
 use App\Repositories\Invoice\InvoiceRepositoryInterface;
 use Illuminate\Support\Facades\DB;

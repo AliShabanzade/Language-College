@@ -2,7 +2,7 @@
 
 namespace App\Actions\Faq;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Faq;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Faq\FaqRepositoryInterface;

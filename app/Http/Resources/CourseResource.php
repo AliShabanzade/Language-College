@@ -23,11 +23,11 @@ class CourseResource extends JsonResource
                 'value' => $this->whenloaded('translations',
                     GetTranslationAction::run($this->resource, 'title')),
             ],
-            'name' => [
-                'title' => __('course.name'),
-                'value' => $this->whenloaded('translations',
-                    GetTranslationAction::run($this->resource, 'name')),
-            ],
+//            'name' => [
+//                'title' => __('course.name'),
+//                'value' => $this->whenloaded('translations',
+//                    GetTranslationAction::run($this->resource, 'name')),
+//            ],
             'description' => [
                 'title' => __('course.description'),
                 'value' => $this->whenloaded('translations',

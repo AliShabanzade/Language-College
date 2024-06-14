@@ -2,6 +2,7 @@
 
 namespace App\Actions\Term;
 
+use App\Actions\Translation\SetTranslationAction;
 use App\Models\Term;
 use App\Repositories\Term\TermRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,9 @@ class StoreTermAction
     public function handle(array $payload): Term
     {
         return DB::transaction(function () use ($payload) {
-            return $this->repository->store($payload);
+            $model = $this->repository->store($payload);
+            SetTranslationAction::run($model, $payload['translations']);
+            return $model->load('translations','course');
         });
     }
 }

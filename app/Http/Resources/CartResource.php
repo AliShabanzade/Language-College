@@ -17,11 +17,11 @@ class CartResource extends JsonResource
         return [
             'id'       => $this->id,
             'quantity' => $this->quantity,
-            'price' => $this->price,
-            'user' => $this->whenLoaded('user', function () {
+            'price'    => $this->price,
+            'user'     => $this->whenLoaded('user', function () {
                 return UserCartResource::make($this->user);
             }),
-            'book' => $this->whenLoaded('book', fn() => BookResource::make($this->book)),
+            'book'     => $this->whenLoaded('book', fn() => BookResource::make($this->book)),
         ];
     }
 }

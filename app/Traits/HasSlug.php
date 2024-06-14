@@ -11,18 +11,22 @@ trait HasSlug
         static::creating(function ($model) {
             if (request()->input('translations')) {
                 $keyVals = request()->input('translations')[app()->getLocale()];
-                $filter = array_filter($keyVals, fn($item) => $item['key'] == 'title');
-                $titleTranslation = array_pop($filter)['value'];
-                if ($titleTranslation !== null) {
-                    $model->slug = $titleTranslation;
-                } else {
-                    $model->slug = Str::slug("default-slug");
+                foreach ($keyVals as $item) {
+                    $filter = array_filter($keyVals, fn($item) => $item['key'] == 'title');
+
+                    if ($filter) {
+                        $titleTranslation = array_pop($filter)['value'];
+                        $model->slug = $titleTranslation;
+                        $model->slug = self::makeUniqueSlug($model->slug);
+                    }elseif(!$filter){
+                        $model->slug = Str::slug(Str::uuid());
+                    }
                 }
 
-                $model->slug = self::makeUniqueSlug($model->slug);
-            }
-            else
+            } else{
                 $model->slug = fake()->unique()->slug();
+            }
+
         });
     }
 

@@ -25,8 +25,10 @@ class Update{{model}}Action
     public function handle({{model}} ${{cmodel}}, array $payload): {{model}}
     {
         return DB::transaction(function () use (${{cmodel}}, $payload) {
-            ${{cmodel}}->update($payload);
-            return ${{cmodel}};
+            $model= $this->repository->update(${{cmodel}},$payload);
+                    SetTranslationAction::run($model,$payload['translations']);
+                    return $model->load('translations');
+
         });
     }
 }

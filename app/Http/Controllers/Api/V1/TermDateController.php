@@ -35,14 +35,16 @@ class TermDateController extends ApiBaseController
      */
     public function show(TermDate $termDate): JsonResponse
     {
-        return $this->successResponse(TermDateResource::make($termDate));
+        return $this->successResponse(TermDateResource::make($termDate->load('translations')));
     }
 
 
     public function store(StoreTermDateRequest $request): JsonResponse
     {
         $model = StoreTermDateAction::run($request->validated());
-        return $this->successResponse($model, trans('general.model_has_stored_successfully',['model'=>trans('termDate.model')]));
+        return $this->successResponse($model,
+            trans('general.model_has_stored_successfully',
+                ['model'=>trans('termDate.model')]));
     }
 
     /**
@@ -51,7 +53,9 @@ class TermDateController extends ApiBaseController
     public function update(UpdateTermDateRequest $request, TermDate $termDate): JsonResponse
     {
         $data = UpdateTermDateAction::run($termDate, $request->all());
-        return $this->successResponse(TermDateResource::make($data),trans('general.model_has_updated_successfully',['model'=>trans('termDate.model')]));
+        return $this->successResponse(TermDateResource::make($data),
+            trans('general.model_has_updated_successfully',
+                ['model'=>trans('termDate.model')]));
     }
 
     /**
@@ -60,6 +64,8 @@ class TermDateController extends ApiBaseController
     public function destroy(TermDate $termDate): JsonResponse
     {
         DeleteTermDateAction::run($termDate);
-        return $this->successResponse('', trans('general.model_has_deleted_successfully',['model'=>trans('termDate.model')]));
+        return $this->successResponse('',
+            trans('general.model_has_deleted_successfully',
+                ['model'=>trans('termDate.model')]));
     }
 }

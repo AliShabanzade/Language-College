@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Faq;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -31,8 +31,8 @@ class FaqPolicy
     public function create(User $user): bool
     {
 
-        return $user->hasAnyPermission(PermissionEnum::FAQ_ALL->value,
-            PermissionEnum::FAQ_STORE->value, PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::FAQ_ALL->value,
+            PermissionsEnum::FAQ_STORE->value, PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -40,8 +40,8 @@ class FaqPolicy
      */
     public function update(User $user, Faq $faq): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::FAQ_ALL->value, PermissionEnum::FAQ_UPDATE->value,
-            PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::FAQ_ALL->value, PermissionsEnum::FAQ_UPDATE->value,
+            PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -49,8 +49,8 @@ class FaqPolicy
      */
     public function delete(User $user, Faq $faq): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::FAQ_ALL->value, PermissionEnum::FAQ_DELETE->value,
-            PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::FAQ_ALL->value, PermissionsEnum::FAQ_DELETE->value,
+            PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -58,7 +58,7 @@ class FaqPolicy
      */
     public function restore(User $user, Faq $faq): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::FAQ_RESTORE->value, PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::FAQ_RESTORE->value, PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -66,6 +66,6 @@ class FaqPolicy
      */
     public function forceDelete(User $user, Faq $faq): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::FAQ_ALL->value, PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::FAQ_ALL->value, PermissionsEnum::ADMIN->value);
     }
 }

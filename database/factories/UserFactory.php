@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\TableUserFieldGenderEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -26,6 +27,7 @@ class UserFactory extends Factory
             'mobile_verify_at' => fake()->boolean ? now() : null,
             'password'         => 'password',
             'remember_token'   => Str::random(10),
+            'gender'            =>  fake()->randomElement(TableUserFieldGenderEnum::values()),
         ];
     }
 

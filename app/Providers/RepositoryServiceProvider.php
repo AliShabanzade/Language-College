@@ -22,6 +22,8 @@ use App\Repositories\Faq\FaqRepository;
 use App\Repositories\Faq\FaqRepositoryInterface;
 use App\Repositories\Comment\CommentRepository;
 use App\Repositories\Comment\CommentRepositoryInterface;
+use App\Repositories\Level\LevelRepository;
+use App\Repositories\Level\LevelRepositoryInterface;
 use App\Repositories\Notice\NoticeRepository;
 use App\Repositories\Notice\NoticeRepositoryInterface;
 use App\Repositories\Opinion\OpinionRepository;
@@ -43,6 +45,8 @@ use App\Repositories\SmsConfig\SmsConfigRepository;
 use App\Repositories\SmsConfig\SmsConfigRepositoryInterface;
 use App\Repositories\Term\TermRepository;
 use App\Repositories\Term\TermRepositoryInterface;
+use App\Repositories\TermDate\TermDateRepository;
+use App\Repositories\TermDate\TermDateRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -78,8 +82,12 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(CollegeRepositoryInterface::class,CollegeRepository::class);
         $this->app->bind(CourseRepositoryInterface::class,CourseRepository::class);
         $this->app->bind(TermRepositoryInterface::class,TermRepository::class);
+        $this->app->bind(TermDateRepositoryInterface::class,TermDateRepository::class);
+        $this->app->bind(SessionRepositoryInterface::class,SessionRepository::class);
         $this->app->bind(ClassroomRepositoryInterface::class,ClassroomRepository::class);
         $this->app->bind(SessionRepositoryInterface::class,SessionRepository::class);
+        $this->app->bind(LevelRepositoryInterface::class,LevelRepository::class);
+
 
 
 

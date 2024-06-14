@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Notice;
 use App\Models\User;
 
@@ -15,9 +15,9 @@ class NoticePolicy
     public function create(User $user): bool
     {
         return $user->hasAnyPermission(
-            PermissionEnum::ADMIN->value,
-            PermissionEnum::NOTICE_ALL->value,
-            PermissionEnum::NOTICE_STORE->value);
+            PermissionsEnum::ADMIN->value,
+            PermissionsEnum::NOTICE_ALL->value,
+            PermissionsEnum::NOTICE_STORE->value);
     }
 
     /**
@@ -26,9 +26,9 @@ class NoticePolicy
     public function update(User $user, Notice $notice): bool
     {
         return $user->hasAnyPermission(
-                PermissionEnum::ADMIN->value,
-                PermissionEnum::NOTICE_ALL->value,
-                PermissionEnum::NOTICE_UPDATE->value) ||
+                PermissionsEnum::ADMIN->value,
+                PermissionsEnum::NOTICE_ALL->value,
+                PermissionsEnum::NOTICE_UPDATE->value) ||
             $user->id === $notice->user_id;
     }
 
@@ -39,9 +39,9 @@ class NoticePolicy
     {
 
         return $user->hasAnyPermission(
-            PermissionEnum::ADMIN->value,
-            PermissionEnum::NOTICE_ALL->value,
-            PermissionEnum::NOTICE_DELETE->value);
+            PermissionsEnum::ADMIN->value,
+            PermissionsEnum::NOTICE_ALL->value,
+            PermissionsEnum::NOTICE_DELETE->value);
     }
 
     /**
@@ -50,9 +50,9 @@ class NoticePolicy
     public function restore(User $user, Notice $notice): bool
     {
         return $user->hasAnyPermission(
-            PermissionEnum::ADMIN->value,
-            PermissionEnum::NOTICE_ALL->value,
-            PermissionEnum::NOTICE_RESTORE->value);
+            PermissionsEnum::ADMIN->value,
+            PermissionsEnum::NOTICE_ALL->value,
+            PermissionsEnum::NOTICE_RESTORE->value);
     }
 
     /**
@@ -61,6 +61,6 @@ class NoticePolicy
     public function forceDelete(User $user, Notice $notice): bool
     {
         return $user->hasAnyPermission(
-            PermissionEnum::ADMIN->value);
+            PermissionsEnum::ADMIN->value);
     }
 }

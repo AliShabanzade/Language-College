@@ -16,8 +16,11 @@ return new class extends Migration{
             $table->foreignId('classroom_id')->constrained()->cascadeOnDelete();
             $table->unsignedBigInteger('duration');
             $table->unsignedBigInteger('ordering');
-            $table->boolean('status');
+            $table->boolean('status')->default(0);
             $table->string('type');
+            $table->time('start')->default('00:00');
+            $table->time('end')->default('00:00');
+            $table->date('date');
             $table->schemalessAttributes('extra_attributes');
             $table->timestamps();
         });

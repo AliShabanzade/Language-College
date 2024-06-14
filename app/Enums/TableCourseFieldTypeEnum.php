@@ -12,8 +12,8 @@ enum   TableCourseFieldTypeEnum: string
     public function title(): string
     {
         return match ($this) {
-            self::NOT_IN_PERSON     => __("course.not_in_person"),
-            self::IN_PERSON => __("course.in_person"),
+            self::NOT_IN_PERSON => __("course.not_in_person"),
+            self::IN_PERSON     => __("course.in_person"),
         };
     }
 }

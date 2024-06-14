@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -14,8 +14,8 @@ class CoursePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::COURSE_ALL->value,
-            PermissionEnum::COURSE_INDEX->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::COURSE_ALL->value,
+            PermissionsEnum::COURSE_INDEX->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -23,8 +23,8 @@ class CoursePolicy
      */
     public function view(User $user, Course $course): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::COURSE_ALL->value,
-            PermissionEnum::COURSE_SHOW->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::COURSE_ALL->value,
+            PermissionsEnum::COURSE_SHOW->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -32,8 +32,8 @@ class CoursePolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::COURSE_ALL->value,
-            PermissionEnum::COURSE_STORE->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::COURSE_ALL->value,
+            PermissionsEnum::COURSE_STORE->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -41,8 +41,8 @@ class CoursePolicy
      */
     public function update(User $user, Course $course): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::COURSE_ALL->value,
-                PermissionEnum::COURSE_UPDATE->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::COURSE_ALL->value,
+                PermissionsEnum::COURSE_UPDATE->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -50,7 +50,7 @@ class CoursePolicy
      */
     public function delete(User $user, Course $course): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::COURSE_ALL->value, PermissionEnum::COURSE_DELETE->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::COURSE_ALL->value, PermissionsEnum::COURSE_DELETE->value,PermissionsEnum::ADMIN->value);
 
     }
 
@@ -59,7 +59,7 @@ class CoursePolicy
      */
     public function restore(User $user, Course $course): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::COURSE_ALL->value, PermissionEnum::COURSE_RESTORE->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::COURSE_ALL->value, PermissionsEnum::COURSE_RESTORE->value,PermissionsEnum::ADMIN->value);
 
     }
 
@@ -68,7 +68,9 @@ class CoursePolicy
      */
     public function forceDelete(User $user, Course $course): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::COURSE_ALL->value, PermissionEnum::COURSE_STORE->value,PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::COURSE_ALL->value, PermissionsEnum::COURSE_STORE->value,PermissionsEnum::ADMIN->value);
 
     }
+
+
 }

@@ -10,9 +10,10 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'   => 'string|max:255',
+            'name' => 'string|max:255',
+            'family' => 'string|max:255',
             'mobile' => 'required|size:11|string|unique:users,mobile',
-            'email'  => 'nullable|string|email|unique:users,email',
+            'email' => 'nullable|string|email|unique:users,email',
         ];
     }
 }

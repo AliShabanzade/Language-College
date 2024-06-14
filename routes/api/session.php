@@ -7,4 +7,5 @@ Route::group(['prefix' => 'session', 'as' => 'api.session.'], function () {
 
 });
 Route::apiResource('session', SessionController::class);
+Route::get('session/toggle/{session}', [SessionController::class, 'toggle']);
 

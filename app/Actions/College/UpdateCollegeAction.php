@@ -3,7 +3,7 @@
 namespace App\Actions\College;
 
 use App\Actions\Translation\SetTranslationAction;
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\College;
 use App\Repositories\College\CollegeRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -26,7 +26,6 @@ class UpdateCollegeAction
     public function handle(College $college, array $payload): College
     {
         return DB::transaction(function () use ($college, $payload) {
-
             $model=$this->repository->update($college,$payload);
             SetTranslationAction::run($model,$payload['translations']);
             return $model->load('translations');

@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\PermissionsEnum;
 use App\Models\Term;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -13,7 +14,8 @@ class TermPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::BOOK_ALL->value,
+            PermissionsEnum::BOOK_INDEX->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -21,7 +23,8 @@ class TermPolicy
      */
     public function view(User $user, Term $term): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::BOOK_ALL->value,
+            PermissionsEnum::BOOK_SHOW->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -29,7 +32,8 @@ class TermPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::BOOK_ALL->value,
+            PermissionsEnum::BOOK_STORE->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -37,7 +41,9 @@ class TermPolicy
      */
     public function update(User $user, Term $term): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::BOOK_ALL->value,
+                PermissionsEnum::BOOK_UPDATE->value,PermissionsEnum::ADMIN->value)
+            || $user->id === $term->user_id;
     }
 
     /**
@@ -45,7 +51,8 @@ class TermPolicy
      */
     public function delete(User $user, Term $term): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::BOOK_ALL->value,
+            PermissionsEnum::BOOK_DELETE->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -53,7 +60,9 @@ class TermPolicy
      */
     public function restore(User $user, Term $term): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::BOOK_ALL->value,
+            PermissionsEnum::BOOK_STORE->value,PermissionsEnum::ADMIN->value);
+
     }
 
     /**

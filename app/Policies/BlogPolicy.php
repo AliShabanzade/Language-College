@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Blog;
 use App\Models\User;
 
@@ -14,9 +14,9 @@ class BlogPolicy
     public function viewAny(User $user): bool
     {
         return $user->hasAnyPermission(
-            PermissionEnum::ADMIN->value,
-            PermissionEnum::BLOG_ALL->value,
-            PermissionEnum::BLOG_INDEX->value);
+            PermissionsEnum::ADMIN->value,
+            PermissionsEnum::BLOG_ALL->value,
+            PermissionsEnum::BLOG_INDEX->value);
     }
 
     /**
@@ -25,9 +25,9 @@ class BlogPolicy
     public function view(User $user, Blog $blog): bool
     {
         return $user->hasAnyPermission(
-            PermissionEnum::ADMIN->value,
-            PermissionEnum::BLOG_ALL->value,
-            PermissionEnum::BLOG_SHOW->value);
+            PermissionsEnum::ADMIN->value,
+            PermissionsEnum::BLOG_ALL->value,
+            PermissionsEnum::BLOG_SHOW->value);
     }
 
     /**
@@ -36,9 +36,9 @@ class BlogPolicy
     public function create(User $user): bool
     {
         return $user->hasAnyPermission(
-            PermissionEnum::ADMIN->value,
-            PermissionEnum::BLOG_ALL->value,
-            PermissionEnum::BLOG_STORE->value);
+            PermissionsEnum::ADMIN->value,
+            PermissionsEnum::BLOG_ALL->value,
+            PermissionsEnum::BLOG_STORE->value);
     }
 
     /**
@@ -47,9 +47,9 @@ class BlogPolicy
     public function update(User $user, Blog $blog): bool
     {
         return $user->hasAnyPermission(
-            PermissionEnum::ADMIN->value,
-            PermissionEnum::BLOG_ALL->value,
-            PermissionEnum::BLOG_UPDATE->value) || $blog->user_id==$user->id;
+            PermissionsEnum::ADMIN->value,
+            PermissionsEnum::BLOG_ALL->value,
+            PermissionsEnum::BLOG_UPDATE->value) || $blog->user_id==$user->id;
     }
 
     /**
@@ -58,9 +58,9 @@ class BlogPolicy
     public function delete(User $user, Blog $blog): bool
     {
         return $user->hasAnyPermission(
-            PermissionEnum::ADMIN->value,
-            PermissionEnum::BLOG_ALL->value,
-            PermissionEnum::BLOG_DELETE->value);
+            PermissionsEnum::ADMIN->value,
+            PermissionsEnum::BLOG_ALL->value,
+            PermissionsEnum::BLOG_DELETE->value);
     }
 
     /**

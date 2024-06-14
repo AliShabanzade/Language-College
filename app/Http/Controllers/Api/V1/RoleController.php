@@ -78,13 +78,4 @@ class RoleController extends ApiBaseController
         return $this->successResponse('', trans('role.addRole'));
     }
 
-    public function removeRole(UserRepositoryInterface $repository, User $user, Role $role)
-    {
-        $this->authorize('removeRole', Role::class);
-        $user = $repository->find($user->id);
-        $model = $user->removeRole($role);
-        return $this->successResponse('', trans('role.removeRole'));
-    }
-
-
 }

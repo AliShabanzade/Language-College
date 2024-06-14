@@ -14,6 +14,7 @@ return new class extends Migration{
             $table->id();
             $table->string('slug')->unique();
             $table->string('type');
+            $table->schemalessAttributes('extra_attributes');
             $table->softDeletes();
             $table->timestamps();
         });

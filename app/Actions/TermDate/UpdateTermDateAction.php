@@ -2,7 +2,7 @@
 
 namespace App\Actions\TermDate;
 
-use App\Enums\PermissionEnum;
+use App\Actions\Translation\SetTranslationAction;
 use App\Models\TermDate;
 use App\Repositories\TermDate\TermDateRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -25,8 +25,9 @@ class UpdateTermDateAction
     public function handle(TermDate $termDate, array $payload): TermDate
     {
         return DB::transaction(function () use ($termDate, $payload) {
-            $termDate->update($payload);
-            return $termDate;
+            $model = $this->repository->store($payload);
+            SetTranslationAction::run($model, $payload['translations']);
+            return $model->load('translations');
         });
     }
 }

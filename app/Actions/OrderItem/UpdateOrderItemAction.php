@@ -2,7 +2,7 @@
 
 namespace App\Actions\OrderItem;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\OrderItem;
 use App\Repositories\OrderItem\OrderItemRepositoryInterface;
 use Illuminate\Support\Facades\DB;

@@ -11,7 +11,7 @@ return new class extends Migration{
     public function up(): void
     {
         Schema::create('college_course', static function (Blueprint $table) {
-            $table->id();
+
             $table->foreignId('course_id')->constrained()->cascadeOnDelete();
             $table->foreignId('college_id')->constrained()->cascadeOnDelete();
             $table->boolean('published')->default(0);
@@ -19,7 +19,7 @@ return new class extends Migration{
                 'course_id',
                 'college_id'
             ]);
-            $table->timestamps();
+
         });
     }
 

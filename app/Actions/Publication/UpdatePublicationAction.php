@@ -3,7 +3,7 @@
 namespace App\Actions\Publication;
 
 use App\Actions\Translation\SetTranslationAction;
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Publication;
 use App\Repositories\Publication\PublicationRepositoryInterface;
 use Illuminate\Support\Facades\DB;

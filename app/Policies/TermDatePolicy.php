@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\PermissionsEnum;
 use App\Models\TermDate;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -13,7 +14,8 @@ class TermDatePolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::COLLEGE_ALL->value,
+            PermissionsEnum::COLLEGE_INDEX->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -21,7 +23,8 @@ class TermDatePolicy
      */
     public function view(User $user, TermDate $termDate): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::COLLEGE_ALL->value,
+            PermissionsEnum::COLLEGE_SHOW->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -29,7 +32,8 @@ class TermDatePolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::COLLEGE_ALL->value,
+            PermissionsEnum::COLLEGE_STORE->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -37,7 +41,8 @@ class TermDatePolicy
      */
     public function update(User $user, TermDate $termDate): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::COLLEGE_ALL->value,
+            PermissionsEnum::COLLEGE_UPDATE->value,PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -45,7 +50,8 @@ class TermDatePolicy
      */
     public function delete(User $user, TermDate $termDate): bool
     {
-        //
+        return $user->hasAnyPermission(PermissionsEnum::COLLEGE_ALL->value, PermissionsEnum::COLLEGE_DELETE->value,PermissionsEnum::ADMIN->value);
+
     }
 
     /**

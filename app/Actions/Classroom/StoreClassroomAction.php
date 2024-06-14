@@ -2,6 +2,7 @@
 
 namespace App\Actions\Classroom;
 
+use App\Actions\Translation\SetTranslationAction;
 use App\Models\Classroom;
 use App\Repositories\Classroom\ClassroomRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,9 @@ class StoreClassroomAction
     public function handle(array $payload): Classroom
     {
         return DB::transaction(function () use ($payload) {
-            return $this->repository->store($payload);
+            $model = $this->repository->store($payload);
+            SetTranslationAction::run($model, $payload['translations']);
+            return $model->load('translations','course','term','term_date','college');
         });
     }
 }

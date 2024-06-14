@@ -2,6 +2,7 @@
 
 namespace App\Actions\TermDate;
 
+use App\Actions\Translation\SetTranslationAction;
 use App\Models\TermDate;
 use App\Repositories\TermDate\TermDateRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,9 @@ class StoreTermDateAction
     public function handle(array $payload): TermDate
     {
         return DB::transaction(function () use ($payload) {
-            return $this->repository->store($payload);
+            $model = $this->repository->store($payload);
+            SetTranslationAction::run($model, $payload['translations']);
+            return $model->load('translations');
         });
     }
 }

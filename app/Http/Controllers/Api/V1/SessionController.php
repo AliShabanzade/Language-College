@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Actions\Session\ToggleSessionAction;
 use App\Models\Session;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UpdateSessionRequest;
@@ -27,7 +28,7 @@ class SessionController extends ApiBaseController
      */
     public function index(SessionRepositoryInterface $repository): JsonResponse
     {
-        return $this->successResponse(SessionResource::collection($repository->paginate()));
+        return $this->successResponse(SessionResource::collection($repository->paginate(payload: ['with'=>['term','classroom']])));
     }
 
     /**
@@ -42,7 +43,7 @@ class SessionController extends ApiBaseController
     public function store(StoreSessionRequest $request): JsonResponse
     {
         $model = StoreSessionAction::run($request->validated());
-        return $this->successResponse($model, trans('general.model_has_stored_successfully',['model'=>trans('session.model')]));
+        return $this->successResponse(SessionResource::make($model->load('term','classroom')), trans('general.model_has_stored_successfully',['model'=>trans('session.model')]));
     }
 
     /**
@@ -51,7 +52,7 @@ class SessionController extends ApiBaseController
     public function update(UpdateSessionRequest $request, Session $session): JsonResponse
     {
         $data = UpdateSessionAction::run($session, $request->all());
-        return $this->successResponse(SessionResource::make($data),trans('general.model_has_updated_successfully',['model'=>trans('session.model')]));
+        return $this->successResponse(SessionResource::make($data->load('term','classroom')),trans('general.model_has_updated_successfully',['model'=>trans('session.model')]));
     }
 
     /**
@@ -61,5 +62,15 @@ class SessionController extends ApiBaseController
     {
         DeleteSessionAction::run($session);
         return $this->successResponse('', trans('general.model_has_deleted_successfully',['model'=>trans('session.model')]));
+    }
+
+    public function toggle(Session $session)
+    {
+        $this->authorize('toggle', $session);
+       $model= ToggleSessionAction::run($session);
+
+        return $this->successResponse([
+            'status' => statusLocalisation($session->enabled)
+        ], trans('general.model_has_toggled_successfully',['model'=>trans('session.model')]));
     }
 }

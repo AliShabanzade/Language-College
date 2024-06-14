@@ -2,7 +2,7 @@
 
 namespace App\Actions\Opinion;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Opinion;
 use App\Repositories\Opinion\OpinionRepositoryInterface;
 use Illuminate\Support\Facades\DB;

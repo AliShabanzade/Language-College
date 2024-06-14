@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -14,7 +14,7 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (PermissionEnum::cases() as $case){
+        foreach (PermissionsEnum::cases() as $case){
             Permission::firstOrCreate([
                 'name' => $case->value
             ]);

@@ -27,7 +27,7 @@ class TermController extends ApiBaseController
      */
     public function index(TermRepositoryInterface $repository): JsonResponse
     {
-        return $this->successResponse(TermResource::collection($repository->paginate()));
+        return $this->successResponse(TermResource::collection($repository->paginate(payload: ['with'=>['course','prerequisite','children','classrooms','translations']])));
     }
 
     /**
@@ -35,14 +35,15 @@ class TermController extends ApiBaseController
      */
     public function show(Term $term): JsonResponse
     {
-        return $this->successResponse(TermResource::make($term));
+        return $this->successResponse(TermResource::make($term->load('course','translations')));
     }
 
 
     public function store(StoreTermRequest $request): JsonResponse
     {
         $model = StoreTermAction::run($request->validated());
-        return $this->successResponse($model, trans('general.model_has_stored_successfully',['model'=>trans('term.model')]));
+        return $this->successResponse(TermResource::make($model),
+            trans('general.model_has_stored_successfully', ['model' => trans('term.model')]));
     }
 
     /**
@@ -50,8 +51,10 @@ class TermController extends ApiBaseController
      */
     public function update(UpdateTermRequest $request, Term $term): JsonResponse
     {
-        $data = UpdateTermAction::run($term, $request->all());
-        return $this->successResponse(TermResource::make($data),trans('general.model_has_updated_successfully',['model'=>trans('term.model')]));
+        $data = UpdateTermAction::run($term, $request->validated());
+        return $this->successResponse(TermResource::make($data),
+            trans('general.model_has_updated_successfully',
+                ['model' => trans('term.model')]));
     }
 
     /**
@@ -60,6 +63,7 @@ class TermController extends ApiBaseController
     public function destroy(Term $term): JsonResponse
     {
         DeleteTermAction::run($term);
-        return $this->successResponse('', trans('general.model_has_deleted_successfully',['model'=>trans('term.model')]));
+        return $this->successResponse('', trans('general.model_has_deleted_successfully',
+            ['model' => trans('term.model')]));
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Gallery;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -14,7 +14,7 @@ class GalleryPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value, PermissionEnum::GALLERY_ALL->value, PermissionEnum::GALLERY_INDEX->value);
+        return $user->hasAnyPermission(PermissionsEnum::ADMIN->value, PermissionsEnum::GALLERY_ALL->value, PermissionsEnum::GALLERY_INDEX->value);
 
     }
 
@@ -23,7 +23,7 @@ class GalleryPolicy
      */
     public function view(User $user, Gallery $gallery): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value, PermissionEnum::GALLERY_ALL->value, PermissionEnum::GALLERY_SHOW->value);
+        return $user->hasAnyPermission(PermissionsEnum::ADMIN->value, PermissionsEnum::GALLERY_ALL->value, PermissionsEnum::GALLERY_SHOW->value);
 
     }
 
@@ -32,7 +32,7 @@ class GalleryPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value, PermissionEnum::GALLERY_ALL->value, PermissionEnum::GALLERY_STORE->value);
+        return $user->hasAnyPermission(PermissionsEnum::ADMIN->value, PermissionsEnum::GALLERY_ALL->value, PermissionsEnum::GALLERY_STORE->value);
 
     }
 
@@ -41,7 +41,7 @@ class GalleryPolicy
      */
     public function update(User $user, Gallery $gallery): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value, PermissionEnum::GALLERY_ALL->value, PermissionEnum::GALLERY_UPDATE->value) || $notice->id === $notice->user_id;
+        return $user->hasAnyPermission(PermissionsEnum::ADMIN->value, PermissionsEnum::GALLERY_ALL->value, PermissionsEnum::GALLERY_UPDATE->value) || $notice->id === $notice->user_id;
 
     }
 
@@ -50,7 +50,7 @@ class GalleryPolicy
      */
     public function delete(User $user, Gallery $gallery): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value, PermissionEnum::GALLERY_ALL->value, PermissionEnum::GALLERY_DELETE->value);
+        return $user->hasAnyPermission(PermissionsEnum::ADMIN->value, PermissionsEnum::GALLERY_ALL->value, PermissionsEnum::GALLERY_DELETE->value);
 
     }
 
@@ -59,7 +59,7 @@ class GalleryPolicy
      */
     public function restore(User $user, Gallery $gallery): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value, PermissionEnum::GALLERY_ALL->value, PermissionEnum::GALLERY_RESTORE->value);
+        return $user->hasAnyPermission(PermissionsEnum::ADMIN->value, PermissionsEnum::GALLERY_ALL->value, PermissionsEnum::GALLERY_RESTORE->value);
 
     }
 
@@ -68,7 +68,7 @@ class GalleryPolicy
      */
     public function forceDelete(User $user, Gallery $gallery): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::ADMIN->value);
 
     }
 }

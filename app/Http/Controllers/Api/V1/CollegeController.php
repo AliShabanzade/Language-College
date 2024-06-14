@@ -22,8 +22,8 @@ class CollegeController extends ApiBaseController
 
     public function __construct()
     {
-       // $this->middleware('auth:api');
-       // $this->authorizeResource(College::class);
+        $this->middleware('auth:api');
+        $this->authorizeResource(College::class,'college');
     }
 
     /**
@@ -54,7 +54,7 @@ class CollegeController extends ApiBaseController
      */
     public function update(UpdateCollegeRequest $request, College $college): JsonResponse
     {
-        $data = UpdateCollegeAction::run($college, $request->all());
+        $data = UpdateCollegeAction::run($college, $request->validated());
         return $this->successResponse(CollegeResource::make($data),
             trans('general.model_has_updated_successfully',['model'=>trans('college.model')]));
     }
@@ -70,9 +70,11 @@ class CollegeController extends ApiBaseController
 
     public function addCourse(CollegeRepositoryInterface $repository,College $college, Request $request)
     {
+        $this->authorize('addCourse', College::class);
         $college = $repository->find($college->id,firstOrFail: true);
         $college->courses()->sync($request->input('courses'));
-        return $college->courses;
+        return $this->successResponse('', trans('college.addCourse'));
+
     }
 
 
@@ -81,7 +83,7 @@ class CollegeController extends ApiBaseController
                            CollegeCourse $collegeCourse,
                            College $college,Course $course)
     {
-
+        $this->authorize('toggle', College::class);
         $college = $repository->find($college->id,firstOrFail: true);
         $course = $courseRepository->find($course->id,firstOrFail: true);
         $collegeCourse->togglePublished($college, $course);

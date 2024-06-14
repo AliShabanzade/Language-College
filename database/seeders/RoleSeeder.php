@@ -23,5 +23,6 @@ class RoleSeeder extends Seeder
 
         $role = Role::where('name',RoleEnum::ADMIN->value)->first();
         $role->syncPermissions(Permission::all());
+
     }
 }

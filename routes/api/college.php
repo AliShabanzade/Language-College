@@ -7,7 +7,7 @@ Route::group(['prefix' => 'college', 'as' => 'api.college.'], function () {
 
 });
 Route::apiResource('college', CollegeController::class);
-Route::post('college/{college}/add/course',[CollegeController::class, 'addCourse']);
-Route::post('college/{college}/toggle/{course}',[CollegeController::class, 'toggle']);
+Route::post('college/{college}/addCourse',[CollegeController::class, 'addCourse']);
+Route::post('college/{college}/toggle/course/{course}',[CollegeController::class, 'toggle']);
 
 

@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -15,8 +15,8 @@ class OrderPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ORDER_INDEX->value, PermissionEnum::ORDER_ALL->value,
-            PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::ORDER_INDEX->value, PermissionsEnum::ORDER_ALL->value,
+            PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -24,8 +24,8 @@ class OrderPolicy
      */
     public function view(User $user, Order $order): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ORDER_SHOW->value, PermissionEnum::ORDER_ALL->value,
-            PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::ORDER_SHOW->value, PermissionsEnum::ORDER_ALL->value,
+            PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -33,8 +33,8 @@ class OrderPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ORDER_STORE->value, PermissionEnum::ORDER_ALL->value,
-            PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::ORDER_STORE->value, PermissionsEnum::ORDER_ALL->value,
+            PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -42,8 +42,8 @@ class OrderPolicy
      */
     public function update(User $user, Order $order): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ORDER_UPDATE->value, PermissionEnum::ORDER_ALL->value,
-            PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::ORDER_UPDATE->value, PermissionsEnum::ORDER_ALL->value,
+            PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -52,8 +52,8 @@ class OrderPolicy
     public function delete(User $user, Order $order): bool
     {
 
-        return $user->hasAnyPermission(PermissionEnum::ORDER_DELETE->value, PermissionEnum::ORDER_ALL->value,
-            PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::ORDER_DELETE->value, PermissionsEnum::ORDER_ALL->value,
+            PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -62,7 +62,7 @@ class OrderPolicy
     public function restore(User $user, Order $order): bool
     {
 
-        return $user->hasAnyPermission(PermissionEnum::ORDER_RESTORE->value, PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::ORDER_RESTORE->value, PermissionsEnum::ADMIN->value);
     }
 
     /**
@@ -70,6 +70,6 @@ class OrderPolicy
      */
     public function forceDelete(User $user, Order $order): bool
     {
-        return $user->hasAnyPermission(PermissionEnum::ORDER_ALL->value, PermissionEnum::ADMIN->value);
+        return $user->hasAnyPermission(PermissionsEnum::ORDER_ALL->value, PermissionsEnum::ADMIN->value);
     }
 }

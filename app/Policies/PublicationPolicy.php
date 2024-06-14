@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Publication;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -14,7 +14,7 @@ class PublicationPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyPermission([PermissionEnum::ADMIN->value,PermissionEnum::PUBLICATION_ALL->value, PermissionEnum::PUBLICATION_INDEX->value]);
+        return $user->hasAnyPermission([PermissionsEnum::ADMIN->value, PermissionsEnum::PUBLICATION_ALL->value, PermissionsEnum::PUBLICATION_INDEX->value]);
 
     }
 
@@ -23,7 +23,7 @@ class PublicationPolicy
      */
     public function view(User $user, Publication $publication): bool
     {
-        return $user->hasAnyPermission([PermissionEnum::ADMIN->value,PermissionEnum::PUBLICATION_ALL->value, PermissionEnum::PUBLICATION_SHOW->value]);
+        return $user->hasAnyPermission([PermissionsEnum::ADMIN->value, PermissionsEnum::PUBLICATION_ALL->value, PermissionsEnum::PUBLICATION_SHOW->value]);
 
     }
 
@@ -32,7 +32,7 @@ class PublicationPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyPermission([PermissionEnum::ADMIN->value,PermissionEnum::PUBLICATION_ALL->value, PermissionEnum::PUBLICATION_SHOW->value])
+        return $user->hasAnyPermission([PermissionsEnum::ADMIN->value, PermissionsEnum::PUBLICATION_ALL->value, PermissionsEnum::PUBLICATION_SHOW->value])
             ;
 
     }
@@ -42,7 +42,7 @@ class PublicationPolicy
      */
     public function update(User $user, Publication $publication): bool
     {
-        return $user->hasAnyPermission([PermissionEnum::ADMIN->value,PermissionEnum::PUBLICATION_ALL->value, PermissionEnum::PUBLICATION_SHOW->value]);
+        return $user->hasAnyPermission([PermissionsEnum::ADMIN->value, PermissionsEnum::PUBLICATION_ALL->value, PermissionsEnum::PUBLICATION_SHOW->value]);
 
     }
 
@@ -51,7 +51,7 @@ class PublicationPolicy
      */
     public function delete(User $user, Publication $publication): bool
     {
-        return $user->hasAnyPermission([PermissionEnum::ADMIN->value,PermissionEnum::PUBLICATION_ALL->value, PermissionEnum::PUBLICATION_SHOW->value]);
+        return $user->hasAnyPermission([PermissionsEnum::ADMIN->value, PermissionsEnum::PUBLICATION_ALL->value, PermissionsEnum::PUBLICATION_SHOW->value]);
 
     }
 
@@ -60,7 +60,7 @@ class PublicationPolicy
      */
     public function restore(User $user, Publication $publication): bool
     {
-        return $user->hasAnyPermission([PermissionEnum::ADMIN->value]);
+        return $user->hasAnyPermission([PermissionsEnum::ADMIN->value]);
 
     }
 
@@ -69,7 +69,7 @@ class PublicationPolicy
      */
     public function forceDelete(User $user, Publication $publication): bool
     {
-        return $user->hasAnyPermission([PermissionEnum::ADMIN->value]);
+        return $user->hasAnyPermission([PermissionsEnum::ADMIN->value]);
 
     }
 }

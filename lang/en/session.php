@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'model' => '',
+    'model' => 'session ',
+    'description'=>'description for this session',
 ];

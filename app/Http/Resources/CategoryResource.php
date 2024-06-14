@@ -20,7 +20,12 @@ class CategoryResource extends JsonResource
         return [
             'id'        => $this->id,
             'title'     => GetTranslationAction::run($this->resource, 'title'),
-            'published' => $this->published,
+            'published' =>  [
+                'value' => $this->published,
+                'label' => $this->published ? __('general.suspended') : __('general.active'),
+                'badge' => $this->published ? '#ef305e' : '#66d398',
+            ],
+
             'type'      => $this->type,
             'children'  => $this->whenLoaded('children', function () {
                 return CategoryResource::collection($this->children);

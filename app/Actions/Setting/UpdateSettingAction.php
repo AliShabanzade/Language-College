@@ -2,7 +2,7 @@
 
 namespace App\Actions\Setting;
 
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Setting;
 use App\Repositories\Setting\SettingRepositoryInterface;
 use Illuminate\Support\Facades\DB;

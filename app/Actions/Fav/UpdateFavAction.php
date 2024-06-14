@@ -3,7 +3,7 @@
 namespace App\Actions\Fav;
 
 use App\Actions\Translation\SetTranslationAction;
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Fav;
 use App\Repositories\Fav\FavRepositoryInterface;
 use Illuminate\Support\Facades\DB;

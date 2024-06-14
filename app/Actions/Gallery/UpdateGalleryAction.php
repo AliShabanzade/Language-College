@@ -3,7 +3,7 @@
 namespace App\Actions\Gallery;
 
 use App\Actions\Translation\SetTranslationAction;
-use App\Enums\PermissionEnum;
+use App\Enums\PermissionsEnum;
 use App\Models\Gallery;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Gallery\GalleryRepositoryInterface;
