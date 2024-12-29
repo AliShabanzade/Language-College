@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Actions\View\AddView;
 use App\Enums\RoleEnum;
 use App\Models\ActivationCode;
+use App\Models\Attendance;
 use App\Models\Blog;
 use App\Models\Book;
 use App\Models\Cart;
@@ -43,6 +44,9 @@ class UserSeeder extends Seeder
         $admin->syncRoles(RoleEnum::ADMIN->value);
         User::factory(1)->create()->each(function (User $user) {
             ActivationCode::factory(3)->create([
+                'user_id' => $user->id,
+            ]);
+            Attendance::factory(5)->create([
                 'user_id' => $user->id,
             ]);
 

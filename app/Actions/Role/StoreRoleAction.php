@@ -22,7 +22,6 @@ class StoreRoleAction
             $model = $this->repository->store($payload);
             $model->syncPermissions($payload['permissions']);
             return $model;
-
         });
     }
 }

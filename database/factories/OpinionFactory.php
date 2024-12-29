@@ -18,9 +18,9 @@ class OpinionFactory extends Factory
     public function definition(): array
     {
         return [
-            'title'=>fake()->title(),
-            'user_id' => User::factory(),
-            'body'=> fake()->text(),
+            'user_id'   => User::factory(),
+            'title'     => fake()->title(),
+            'body'      => fake()->text(),
             'published' => fake()->boolean(),
         ];
     }
